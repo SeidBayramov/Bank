@@ -1,0 +1,101 @@
+$flaticon-font: "flaticon";
+
+@font-face {
+    font-family: $flaticon-font;
+    src: url("./flaticon.ttf?687def34fdccd1c3d432461d14dff291") format("truetype"),
+url("./flaticon.woff?687def34fdccd1c3d432461d14dff291") format("woff"),
+url("./flaticon.woff2?687def34fdccd1c3d432461d14dff291") format("woff2"),
+url("./flaticon.eot?687def34fdccd1c3d432461d14dff291#iefix") format("embedded-opentype"),
+url("./flaticon.svg?687def34fdccd1c3d432461d14dff291#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+$flaticon-map: (
+    "down-chevron": "\f101",
+    "headphones": "\f102",
+    "headphone": "\f103",
+    "headset": "\f104",
+    "check-mark": "\f105",
+    "account": "\f106",
+    "chat": "\f107",
+    "chat-1": "\f108",
+    "comment": "\f109",
+    "right-arrow": "\f10a",
+    "right-arrow-1": "\f10b",
+    "facebook": "\f10c",
+    "facebook-1": "\f10d",
+    "instagram": "\f10e",
+    "twitter": "\f10f",
+    "twitter-1": "\f110",
+    "instagram-1": "\f111",
+    "linkedin": "\f112",
+    "headphones-1": "\f113",
+);
+
+.flaticon-down-chevron:before {
+    content: map-get($flaticon-map, "down-chevron");
+}
+.flaticon-headphones:before {
+    content: map-get($flaticon-map, "headphones");
+}
+.flaticon-headphone:before {
+    content: map-get($flaticon-map, "headphone");
+}
+.flaticon-headset:before {
+    content: map-get($flaticon-map, "headset");
+}
+.flaticon-check-mark:before {
+    content: map-get($flaticon-map, "check-mark");
+}
+.flaticon-account:before {
+    content: map-get($flaticon-map, "account");
+}
+.flaticon-chat:before {
+    content: map-get($flaticon-map, "chat");
+}
+.flaticon-chat-1:before {
+    content: map-get($flaticon-map, "chat-1");
+}
+.flaticon-comment:before {
+    content: map-get($flaticon-map, "comment");
+}
+.flaticon-right-arrow:before {
+    content: map-get($flaticon-map, "right-arrow");
+}
+.flaticon-right-arrow-1:before {
+    content: map-get($flaticon-map, "right-arrow-1");
+}
+.flaticon-facebook:before {
+    content: map-get($flaticon-map, "facebook");
+}
+.flaticon-facebook-1:before {
+    content: map-get($flaticon-map, "facebook-1");
+}
+.flaticon-instagram:before {
+    content: map-get($flaticon-map, "instagram");
+}
+.flaticon-twitter:before {
+    content: map-get($flaticon-map, "twitter");
+}
+.flaticon-twitter-1:before {
+    content: map-get($flaticon-map, "twitter-1");
+}
+.flaticon-instagram-1:before {
+    content: map-get($flaticon-map, "instagram-1");
+}
+.flaticon-linkedin:before {
+    content: map-get($flaticon-map, "linkedin");
+}
+.flaticon-headphones-1:before {
+    content: map-get($flaticon-map, "headphones-1");
+}

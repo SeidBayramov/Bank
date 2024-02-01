@@ -1,0 +1,77 @@
+@font-face {
+    font-family: "flaticon";
+    src: url("../fonts/flaticon/flaticon.ttf?687def34fdccd1c3d432461d14dff291") format("truetype"),
+url("../fonts/flaticon/flaticon.woff?687def34fdccd1c3d432461d14dff291") format("woff"),
+url("../fonts/flaticon/flaticon.woff2?687def34fdccd1c3d432461d14dff291") format("woff2"),
+url("../fonts/flaticon/flaticon.eot?687def34fdccd1c3d432461d14dff291#iefix") format("embedded-opentype"),
+url("../fonts/flaticon/flaticon.svg?687def34fdccd1c3d432461d14dff291#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-down-chevron:before {
+    content: "\f101";
+}
+.flaticon-headphones:before {
+    content: "\f102";
+}
+.flaticon-headphone:before {
+    content: "\f103";
+}
+.flaticon-headset:before {
+    content: "\f104";
+}
+.flaticon-check-mark:before {
+    content: "\f105";
+}
+.flaticon-account:before {
+    content: "\f106";
+}
+.flaticon-chat:before {
+    content: "\f107";
+}
+.flaticon-chat-1:before {
+    content: "\f108";
+}
+.flaticon-comment:before {
+    content: "\f109";
+}
+.flaticon-right-arrow:before {
+    content: "\f10a";
+}
+.flaticon-right-arrow-1:before {
+    content: "\f10b";
+}
+.flaticon-facebook:before {
+    content: "\f10c";
+}
+.flaticon-facebook-1:before {
+    content: "\f10d";
+}
+.flaticon-instagram:before {
+    content: "\f10e";
+}
+.flaticon-twitter:before {
+    content: "\f10f";
+}
+.flaticon-twitter-1:before {
+    content: "\f110";
+}
+.flaticon-instagram-1:before {
+    content: "\f111";
+}
+.flaticon-linkedin:before {
+    content: "\f112";
+}
+.flaticon-headphones-1:before {
+    content: "\f113";
+}

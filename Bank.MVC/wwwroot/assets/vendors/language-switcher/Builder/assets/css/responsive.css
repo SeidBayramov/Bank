@@ -1,0 +1,214 @@
+/* Responsive Css */
+
+
+@media only screen and (max-width: 1749px){
+  .main-header .outer-box .menu-area{
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 1599px){
+  .main-header .outer-box .contact-box{
+    display: none;
+  }
+  .main-header .outer-box .menu-area{
+    width: 61%;
+  }
+  .project-block-01 .content-box{
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+  }
+  .project-block-01 .overly-text h5{
+    padding: 15px;
+    font-size: 16px;
+  }
+  .project-block-01 .overly-text span{
+    padding: 5px 15px;
+  }
+}
+
+@media only screen and (max-width: 1338px){
+  .project-block-01 .overly-text{
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 100%;
+  }
+  .project-block-01 .content-box{
+    bottom: 30px;
+    left: 30px;
+    right: 30px;
+  }
+}
+
+@media only screen and (max-width: 1349px){
+
+}
+
+@media only screen and (max-width: 1200px){
+  .main-menu,
+  .sticky-header{
+    display: none !important;
+  }
+  .menu-area .mobile-nav-toggler {
+    display: block;
+    padding: 10px;
+    margin-right: 20px;
+  }
+}
+
+@media only screen and (max-width: 1199px){
+  .main-header .outer-box .menu-area{
+    width: 40%;
+  }
+  .project-block-01 .overly-text h5{
+    font-size: 20px;
+    padding: 15px 30px;
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 768px){
+  .main-menu .navigation > li > ul,
+  .main-menu .navigation > li > ul > li > ul,
+  .main-menu .navigation > li > .megamenu{
+    display:block !important;
+    visibility:hidden;
+    opacity:0;
+  }
+}
+
+@media only screen and (max-width: 991px){ 
+  .banner-section .slide-item{
+    padding: 120px 0px;
+  }
+  .features-section{
+    padding-top: 100px;
+    margin-bottom: 60px;
+  }
+  .features-container{
+    margin: 0px;
+    padding: 0px;
+    filter: none;
+  }
+  .features-item-01{
+    padding-left: 0px;
+    margin-bottom: 30px;
+  }
+  .features-item-01:before{
+    display: none;
+  }
+  .about-section{
+    margin-bottom: 100px;
+  }
+  .about-content{
+    margin-bottom: 40px;
+  }
+  .about-section .about-image{
+    margin-bottom: 0px;
+    float: none;
+  }
+  .services-section{
+    padding: 100px 0px;
+  }
+  .counterup-section{
+    padding: 50px 0px;
+  }
+  .counterup-section .count-box{
+    padding: 40px 0px;
+    margin-bottom: 0px;
+  }
+  .left-side-content{
+    margin-bottom: 50px;
+  }
+  .footer-middle{
+    padding-top: 0px;
+  }
+  .footer-left-side{
+    margin-left: 0px;
+  }
+  .contact-widget{
+    margin-left: 0px;
+  }
+}
+
+@media only screen and (max-width: 767px){
+  .main-header .outer-box{
+    padding: 20px 50px;
+  }
+  .main-header .outer-box .menu-area{
+    width: 50px;
+  }
+  .banner-section .content-box h2{
+    font-size: 65px;
+  }
+  .banner-section .content-box h2 br{
+    display: none;
+  }
+  .banner-section .owl-dots-one .owl-dots{
+    display: none;
+  }
+  .sec-title .title{
+    font-size: 40px;
+  }
+  .sec-title .title br{
+    display: none;
+  }
+  .testimonials-block-one .image {
+    position: relative;
+    right: inherit;
+    top: inherit;
+    left: 0px;
+    bottom: -51px;
+  }
+}
+@media only screen and (max-width: 650px){
+  .footer-top .footer-logo{
+    float: none;
+    margin-bottom: 40px;
+  }
+  .footer-top .info-button{
+    float: none;
+  }
+  .footer-bottom .outer-box{
+    display: block;
+    text-align: center;
+  }
+  .footer-bottom .outer-box .copyright-text{
+    line-height: 32px;
+    margin-bottom: 15px;
+  }
+}
+@media only screen and (max-width: 599px){
+  .main-header .outer-box .menu-area{
+    width: 50px;
+  }
+  .main-header .outer-box .btn-box{
+    display: none;
+  }
+  .menu-area .mobile-nav-toggler{
+    margin-right: 0px;
+  }
+}
+@media only screen and (max-width: 499px){
+  .footer-top .info-button .btn-two{
+    margin-bottom: 20px;
+  }
+  .banner-section .content-box h2{
+    font-size: 40px;
+    line-height: 55px;
+  }
+}
+@media only screen and (max-width: 399px){
+  .project-block-01 .overly-text h5{
+    padding: 15px;
+    font-size: 16px;
+  }
+  .scroll-to-top{
+    right: -40px;
+    bottom: 60px;
+  }
+}

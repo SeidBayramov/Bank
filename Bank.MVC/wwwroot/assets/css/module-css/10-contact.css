@@ -1,0 +1,653 @@
+/*** 
+=============================================
+    Main Contact Form Area Css
+=============================================
+***/
+.main-contact-form-area {
+    position: relative;
+    display: block;
+    background: #ffffff;
+    padding: 100px 0px 140px;
+    z-index: 10;
+}
+
+.main-contact-form-area.pdb100 {
+    padding-bottom: 100px;
+}
+
+
+.contact-info-box-style1 {
+    position: relative;
+    display: block;
+    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.12);
+    padding: 41px 50px 1px;
+    margin-right: -30px;
+}
+
+.contact-info-box-style1 .box1 {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 330px;
+    height: 310px;
+    background-color: var(--thm-base);
+    clip-path: polygon(0 0, 0% 100%, 100% 100%);
+    z-index: -1;
+}
+
+
+.contact-info-box-style1 .title {
+    position: relative;
+    display: block;
+    margin-bottom: 43px;
+}
+
+.contact-info-box-style1 .title h2 {
+    font-size: 36px;
+    line-height: 46px;
+}
+
+.contact-info-box-style1 .title p {
+    font-size: 18px;
+    line-height: 28px;
+    margin: 11px 0 0;
+}
+
+
+.contact-info-1 {
+    position: relative;
+    display: block;
+    border: 1px solid #f2ece7;
+    padding: 50px 40px 43px;
+    margin-right: -100px;
+    background: #fff;
+    z-index: 2;
+}
+
+.contact-info-1 li {
+    position: relative;
+    display: block;
+    padding-left: 90px;
+}
+
+.contact-info-1 li+li {
+    margin-top: 32px;
+}
+
+.contact-info-1 li .icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background-color: #f7f1eb;
+    border: 1px solid #f7f1eb;
+    border-radius: 50%;
+    color: var(--thm-black);
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 200ms linear;
+    transition-delay: 0.1s;
+}
+
+.contact-info-1 li:hover .icon {
+    color: var(--thm-base);
+    background-color: #ffffff;
+}
+
+.contact-info-1 li .text {
+    position: relative;
+    display: block;
+}
+
+.contact-info-1 li .text p {
+    font-size: 16px;
+    line-height: 16px;
+    margin: 0 0 7px;
+}
+
+.contact-info-1 li .text h3 {
+    font-size: 22px;
+    line-height: 30px;
+}
+
+.contact-info-1 li .text h3 a {
+    color: var(--thm-black);
+    transition: all 200ms linear;
+    transition-delay: 0.1s;
+}
+
+.contact-info-1 li .text h3 a:hover {
+    color: var(--thm-base);
+}
+
+
+
+.contact-info-box-style1 .bottom-box {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 0 40px;
+}
+
+.contact-info-box-style1 .bottom-box .btn-box {
+    position: relative;
+    display: block;
+}
+
+.contact-info-box-style1 .bottom-box .btn-box a {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: var(--thm-font-2);
+}
+
+.contact-info-box-style1 .bottom-box .btn-box a i {
+    position: relative;
+    display: inline-block;
+    padding-right: 5px;
+    top: 1px;
+}
+
+
+.contact-info-box-style1__single .social-link {
+    position: relative;
+    display: block;
+}
+
+.contact-info-box-style1__single .social-link li {
+    position: relative;
+    display: inline-block;
+    margin-right: 16px;
+}
+
+.contact-info-box-style1__single .social-link li:last-child {
+    margin-right: 0px;
+}
+
+.contact-info-box-style1__single .social-link li a {
+    position: relative;
+    display: block;
+    color: var(--thm-gray);
+    font-size: 15px;
+    transition: all 200ms linear;
+    transition-delay: 0.1s;
+}
+
+.contact-info-box-style1__single .social-link li a:hover {
+    color: var(--thm-base);
+}
+
+
+
+
+.contact-form {
+    position: relative;
+    display: block;
+    background: #f7f1eb;
+    padding-top: 43px;
+    padding-left: 100px;
+    padding-bottom: 50px;
+    padding-right: 50px;
+}
+
+.contact-form form {
+    position: relative;
+    display: block;
+}
+
+.contact-form form .form-group {
+    position: relative;
+    display: block;
+    padding-bottom: 19px;
+}
+
+.contact-form form .form-group label {
+    position: relative;
+    top: 0px;
+    color: var(--thm-black);
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: 400;
+    font-family: var(--thm-font-2);
+    margin: 0 0 12px;
+}
+
+.contact-form form .input-box {
+    position: relative;
+    display: block;
+}
+
+.contact-form form input[type="text"],
+.contact-form form input[type="email"],
+.contact-form form textarea {
+    position: relative;
+    display: block;
+    background: #ffffff;
+    border: 1px solid #e2deda;
+    width: 100%;
+    height: 52px;
+    color: #7f7873;
+    font-size: 16px;
+    font-weight: 400;
+    font-style: normal;
+    padding-left: 21px;
+    padding-right: 20px;
+    border-radius: 0px;
+    transition: all 500ms ease;
+    font-family: var(--thm-font);
+}
+
+.contact-form form input[type="text"]:focus,
+.contact-form form input[type="email"]:focus,
+.contact-form form textarea:focus {
+    border: 1px solid var(--thm-base);
+    outline: none;
+}
+
+.contact-form form textarea {
+    height: 108px;
+    padding-top: 12px;
+    padding-left: 21px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+}
+
+.contact-form form input[type="text"]::-webkit-input-placeholder {
+    color: #7f7873;
+}
+
+.contact-form form input[type="text"]:-moz-placeholder {
+    color: #7f7873;
+}
+
+.contact-form form input[type="text"]::-moz-placeholder {
+    color: #7f7873;
+}
+
+.contact-form form input[type="text"]:-ms-input-placeholder {
+    color: #7f7873;
+}
+
+
+.contact-form form input[type="email"]::-webkit-input-placeholder {
+    color: #7f7873;
+}
+
+.contact-form form input[type="email"]:-moz-placeholder {
+    color: #7f7873;
+}
+
+.contact-form form input[type="email"]::-moz-placeholder {
+    color: #7f7873;
+}
+
+.contact-form form input[type="email"]:-ms-input-placeholder {
+    color: #7f7873;
+}
+
+
+.contact-form form textarea::-webkit-input-placeholder {
+    color: #7f7873;
+}
+
+.contact-form form textarea:-moz-placeholder {
+    color: #7f7873;
+}
+
+.contact-form form textarea::-moz-placeholder {
+    color: #7f7873;
+}
+
+.contact-form form textarea:-ms-input-placeholder {
+    color: #7f7873;
+}
+
+.contact-form form .button-box {
+    position: relative;
+    display: block;
+    padding-top: 6px;
+}
+
+.contact-form form .button-box button {
+    color: #ffffff;
+}
+
+.contact-form form .button-box button:after {
+    background-color: var(--thm-base);
+}
+
+.contact-form form .button-box button:before {
+    background-color: var(--thm-black);
+}
+
+
+
+/*--------------------------------------------------------------
+# Google Map
+--------------------------------------------------------------*/
+.google-map {
+    position: relative;
+    display: block;
+    background: #ffffff;
+}
+
+.google-map__one {
+    position: relative;
+    display: block;
+    border: none;
+    height: 680px;
+    width: 100%;
+    mix-blend-mode: luminosity;
+}
+
+
+.google-map-content-box {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    right: 0;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
+    z-index: 100;
+}
+
+.branch-atm-tab {
+    position: relative;
+    display: block;
+}
+
+.branch-atm-tab__button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #1a1c23;
+    padding: 20px 40px 20px;
+    margin-bottom: 100px;
+}
+
+.branch-atm-tab__button .tabs-button-box {
+    position: relative;
+    display: block;
+    width: 200px;
+}
+
+.branch-atm-tab__button .tabs-button-box .tab-btn-item {
+    position: relative;
+    display: block;
+    float: left;
+    margin-right: 25px;
+}
+
+.branch-atm-tab__button .tabs-button-box .tab-btn-item:last-child {
+    margin-right: 0;
+}
+
+.branch-atm-tab__button .tabs-button-box .tab-btn-item h5 {
+    position: relative;
+    display: inline-block;
+    padding-left: 25px;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.branch-atm-tab__button .tabs-button-box .tab-btn-item h5:before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    border: 2px solid #b8b4b1;
+    border-radius: 50%;
+    transition: all 200ms linear;
+    transition-delay: 0.1s;
+}
+
+.branch-atm-tab__button .tabs-button-box .tab-btn-item:hover h5:before,
+.branch-atm-tab__button .tabs-button-box .tab-btn-item.active-btn-item h5:before {
+    border-color: var(--thm-base);
+}
+
+.branch-atm-tab__button .tabs-button-box .tab-btn-item h5:after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 5px;
+    width: 5px;
+    height: 5px;
+    background: var(--thm-base);
+    border-radius: 50%;
+    transform: scale(0);
+    transition: all 200ms linear;
+    transition-delay: 0.1s;
+}
+
+.branch-atm-tab__button .tabs-button-box .tab-btn-item:hover h5:after,
+.branch-atm-tab__button .tabs-button-box .tab-btn-item.active-btn-item h5:after {
+    transform: scale(1.0);
+}
+
+
+
+.branch-atm-tab__button .location-search-box {
+    position: relative;
+    flex: 1;
+}
+
+.location-search-box {
+    position: relative;
+    display: block;
+}
+
+.location-search-box form.search-form {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.location-search-box form.search-form .input-box {
+    position: relative;
+    display: block;
+}
+
+.location-search-box .search-form input[type="text"] {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 45px;
+    background-color: #1a1c23;
+    border: 1px solid #1a1c23;
+    border-left: 1px solid #3c3d43;
+    color: #b8b4b1;
+    font-size: 16px;
+    font-weight: 400;
+    padding-left: 45px;
+    padding-right: 130px;
+    border-radius: 0px;
+    font-family: var(--thm-font);
+    transition: all 500ms ease 0s;
+}
+
+.location-search-box form.search-form .input-box .icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 20px;
+    color: #b8b4b1;
+    font-size: 18px;
+}
+
+.location-search-box .search-form button {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 120px;
+    height: 45px;
+    color: var(--thm-black);
+    font-size: 18px;
+    line-height: 45px;
+    font-weight: 500;
+    font-family: var(--thm-font-2);
+    background: #ffffff;
+    text-align: center;
+    border: 0px solid #e7e7e8;
+    transition: all 500ms ease 0s;
+}
+
+.location-search-box .search-form input[type="text"]:focus {
+    color: #ffffff;
+}
+
+.location-search-box .search-form input[type="text"]:focus+button,
+.location-search-box .search-form button:hover {
+    color: var(--thm-base);
+}
+
+.location-search-box .search-form input::-webkit-input-placeholder {
+    color: #b8b4b1;
+}
+
+.location-search-box .search-form input:-moz-placeholder {
+    color: #b8b4b1;
+}
+
+.location-search-box .search-form input::-moz-placeholder {
+    color: #b8b4b1;
+}
+
+.location-search-box .search-form input:-ms-input-placeholder {
+    color: #b8b4b1;
+}
+
+
+
+.branch-atm-tab .tabs-content-box {
+    position: relative;
+    display: block;
+}
+
+.branch-atm-tab .tab-content-box-item {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: auto;
+    visibility: hidden;
+}
+
+.branch-atm-tab .tab-content-box-item.tab-content-box-item-active {
+    position: relative;
+    visibility: visible;
+    z-index: 5;
+}
+
+.branch-atm-tab .tab-content-box-item .branch-atm-tab-content-box-item {
+    opacity: 0;
+    transform: scaleY(1.0) translateY(-10px);
+    transition: all 500ms linear;
+    transition-delay: 0.1s;
+}
+
+.branch-atm-tab .tab-content-box-item.tab-content-box-item-active .branch-atm-tab-content-box-item {
+    opacity: 1.0;
+    transform: scaleY(1) translateY(0px);
+}
+
+
+
+.branch-atm-tab-content-box-item {
+    position: relative;
+    display: block;
+    max-width: 370px;
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.12);
+    padding: 38px 40px 33px;
+    z-index: 1;
+}
+
+.branch-atm-tab-content-box-item:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-image: -moz-linear-gradient(0deg, rgb(138, 15, 61) 0%, rgb(207, 23, 60) 100%);
+    background-image: -webkit-linear-gradient(0deg, rgb(138, 15, 61) 0%, rgb(207, 23, 60) 100%);
+    background-image: -ms-linear-gradient(0deg, rgb(138, 15, 61) 0%, rgb(207, 23, 60) 100%);
+    z-index: -1;
+}
+
+.branch-atm-tab-content-box-item .inner-title {
+    position: relative;
+    display: block;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #f2ece7;
+}
+
+.branch-atm-tab-content-box-item .inner-title h3 {
+    font-size: 22px;
+    line-height: 30px;
+}
+
+.branch-atm-tab-content-box-item ul {
+    position: relative;
+    display: block;
+    padding-top: 26px;
+}
+
+.branch-atm-tab-content-box-item ul li {
+    position: relative;
+    display: block;
+    margin-bottom: 19px;
+}
+
+.branch-atm-tab-content-box-item ul li:last-child {
+    margin-bottom: 0;
+}
+
+.branch-atm-tab-content-box-item ul li h3 {
+    font-size: 18px;
+    line-height: 20px;
+    text-transform: uppercase;
+    margin: 0 0 9px;
+}
+
+.branch-atm-tab-content-box-item ul li p {
+    color: #7f7873;
+}
+
+.branch-atm-tab-content-box-item ul li p a {
+    color: #7f7873;
+    transition: all 200ms linear;
+    transition-delay: 0.1s;
+}
+
+.branch-atm-tab-content-box-item ul li p a:hover {
+    color: var(--thm-base);
+}
+
+
+
+
+
+
+
+
+/*** 
+=============================================
+    End Css
+=============================================
+***/

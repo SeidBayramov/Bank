@@ -1,0 +1,103 @@
+/*** 
+=============================================
+    Partner Area Css
+=============================================
+***/
+.partner-area {
+    position: relative;
+    display: block;
+    background: #f5f8f7;
+    padding: 93px 0 100px;
+    border-top: 1px solid #ffffff;
+    z-index: 10;
+}
+
+.partner-area__sec-title {
+    position: relative;
+    display: block;
+    text-align: center;
+    padding-bottom: 42px;
+}
+
+.partner-area__sec-title h3 {
+    font-size: 22px;
+    line-height: 30px;
+}
+
+.brand-content {
+    position: relative;
+    display: block;
+}
+
+.single-partner-logo-box {
+    position: relative;
+    display: block;
+    text-align: center;
+    border: 1px solid #ffffff;
+    z-index: 1;
+}
+
+.single-partner-logo-box:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: #ffffff;
+    transform: perspective(400px) scaleX(0);
+    transform-origin: center;
+    transition: all 300ms linear;
+    transition-delay: 0.2s;
+    z-index: -1;
+}
+
+.single-partner-logo-box:hover:before {
+    transform: perspective(400px) scaleX(1.0);
+}
+
+.single-partner-logo-box a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 15px 0;
+}
+
+.single-partner-logo-box a img {
+    position: relative;
+    display: inline-block !important;
+    opacity: 1.0;
+    width: auto !important;
+    transition: all 0.2s ease-in-out 0.1s;
+}
+
+.single-partner-logo-box:hover a img {
+    opacity: 1.0;
+    transition: all 0.8s ease-in-out 0.1s;
+}
+
+
+
+/*** 
+=============================================
+    Partner Style2 Area Css
+=============================================
+***/
+.partner-style2-area {
+    position: relative;
+    display: block;
+    background: #ffffff;
+    padding: 100px 0 100px;
+    border-top: 1px solid #e6eced;
+    z-index: 10;
+}
+
+.partner-style2-area .single-partner-logo-box {
+    border: 1px solid rgba(var(--thm-black-rgb), .05);
+}
+
+.partner-style2-area .single-partner-logo-box:before {
+    background: var(--thm-black);
+}

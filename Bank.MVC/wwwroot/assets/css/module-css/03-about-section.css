@@ -1,0 +1,350 @@
+/*** 
+=============================================
+    About Style1 Area Css   
+=============================================
+***/
+.about-style1-area {
+    position: relative;
+    display: block;
+    background: #ffffff;
+    padding: 120px 0 120px;
+    z-index: 10;
+}
+
+.about-style1-img-box {
+    position: relative;
+    display: block;
+    max-width: 570px;
+    width: 100%;
+}
+
+.about-style1-img-box .round-box {
+    position: absolute;
+    left: 0px;
+    bottom: -70px;
+    width: 220px;
+    height: 220px;
+    border: 2px dashed #e7e7e7;
+    border-radius: 50%;
+}
+
+
+.about-style1-img-box .shape1 {
+    position: absolute;
+    top: -80px;
+    left: -50px;
+}
+
+.about-style1-img-box .shape2 {
+    position: absolute;
+    right: -100px;
+    bottom: 80px;
+}
+
+
+.about-style1-img-box .experience-box {
+    position: absolute;
+    top: 80px;
+    right: -30px;
+    width: 245px;
+    height: 245px;
+    background-color: var(--thm-base);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 900ms linear;
+    transition-delay: 0.1s;
+    z-index: 3;
+}
+
+.about-style1-img-box:hover .experience-box {
+    background-color: var(--thm-black);
+}
+
+.about-style1-img-box .experience-box:before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    bottom: 10px;
+    right: 10px;
+    border: 2px dashed rgba(255, 255, 255, 0.20);
+    border-radius: 50%;
+}
+
+.about-style1-img-box .experience-box .counting {
+    position: relative;
+    display: block;
+    top: -4px;
+    z-index: 2;
+}
+
+.about-style1-img-box .experience-box .counting h2 {
+    color: #ffffff;
+    font-size: 60px;
+    line-height: 44px;
+    font-weight: 300;
+}
+
+.about-style1-img-box .experience-box .counting .plus {
+    position: relative;
+    display: inline-block;
+    color: #ffffff;
+    font-size: 35px;
+    line-height: 35px;
+    top: 9px;
+}
+
+.about-style1-img-box .experience-box h4 {
+    position: relative;
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin: 6px 0 0;
+    z-index: 2;
+}
+
+
+.about-style1-img-box__top {
+    position: relative;
+    display: block;
+    max-width: 470px;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.about-style1-img-box__top img {
+    width: 100%;
+}
+
+.about-style1-img-box__top:hover img {
+    transform: scale(1.05) rotate(-1deg);
+}
+
+
+.about-style1-img-box__bottom {
+    position: relative;
+    display: block;
+    padding-left: 100px;
+    margin-top: -80px;
+}
+
+.about-style1-img-box__bottom--inner {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 7px;
+}
+
+.about-style1-img-box__bottom--inner img {
+    width: 100%;
+}
+
+.about-style1-img-box__bottom--inner:hover img {
+    transform: scale(1.05) rotate(1deg);
+}
+
+
+.about-style1-text-box {
+    position: relative;
+    display: block;
+    padding-top: 60px;
+}
+
+.about-style1-text-box .title-box {
+    position: relative;
+    display: block;
+    padding-bottom: 22px;
+}
+
+.about-style1-text-box .title-box .sub-title {
+    position: relative;
+    display: inline-flex;
+    background-color: rgba(var(--thm-base-rgb), .07);
+    border-radius: 4px;
+    padding: 7px 15px;
+}
+
+.about-style1-text-box .title-box .sub-title h6 {
+    color: var(--thm-base);
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.about-style1-text-box .title-box h2 {
+    font-size: 48px;
+    line-height: 72px;
+    font-weight: 400;
+    margin: 15px 0 0;
+}
+
+.about-style1-text-box .inner-text {
+    position: relative;
+    display: block;
+}
+
+
+
+/*** 
+=============================================
+    About Style2 Area Css   
+=============================================
+***/
+.about-style2-area {
+    position: relative;
+    display: block;
+    background: #ffffff;
+    padding: 120px 0 120px;
+    z-index: 10;
+}
+
+.about-style2-area-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center top;
+    z-index: -1;
+}
+
+.about-style2-area-bg:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
+    background-color: #ffffff;
+    opacity: 0.80;
+    z-index: -1;
+}
+
+.about-style2-area .video-gallery-style1 {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.about-style2-content-box {
+    position: relative;
+    display: block;
+}
+
+.about-style2-content-box .title-box {
+    position: relative;
+    display: block;
+    padding-bottom: 40px;
+}
+
+.about-style2-content-box .title-box .sub-title {
+    position: relative;
+    display: inline-flex;
+    background-color: rgba(var(--thm-base-rgb), .07);
+    border-radius: 4px;
+    padding: 7px 15px;
+}
+
+.about-style2-content-box .title-box .sub-title h6 {
+    color: var(--thm-base);
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.about-style2-content-box .title-box h2 {
+    font-size: 48px;
+    line-height: 72px;
+    font-weight: 600;
+    margin: 15px 0 0;
+}
+
+.about-style2-content-box__bottom {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.about-style2-content-box ul {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 15px;
+}
+
+.about-style2-content-box ul li {
+    position: relative;
+    display: block;
+    width: 100px;
+    height: 100px;
+    background-color: #ffffff;
+    padding: 2px;
+    border-radius: 50%;
+    margin: 0 -15px;
+}
+
+.about-style2-content-box ul li .img-box {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.about-style2-content-box ul li .img-box img {
+    width: 100%;
+}
+
+.about-style2-content-box__bottom .signature {
+    position: relative;
+    display: block;
+    padding-left: 40px;
+}
+
+
+
+/*** 
+=============================================
+    About Style3 Area Css   
+=============================================
+***/
+.about-style3-area {
+    position: relative;
+    display: block;
+    background: #ffffff;
+    padding: 120px 0 240px;
+    z-index: 10;
+}
+
+.video-gallery-style1--style2 {
+    position: relative;
+    height: 100%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    max-width: 500px;
+}
+
+.video-gallery-style1--style2-bg {
+    position: absolute;
+    top: -120px;
+    left: 0;
+    bottom: -120px;
+    right: 0;
+    background-attachment: scroll;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
