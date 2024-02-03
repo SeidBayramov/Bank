@@ -1,3 +1,9 @@
+using Bank.Business.Services.Implementations;
+using Bank.Core.Entities.Account;
+using Bank.DAL.Context;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 namespace Bank.MVC
 {
     public class Program
@@ -6,7 +12,42 @@ namespace Bank.MVC
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<LayoutService>();
+
+
+            builder.Services.AddDbContext<AppDbContext>(opt =>
+            {
+                opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+            });
+            builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
+
+            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
+            //builder.Services.ConfigureApplicationCookie(opt =>
+            //{
+            //    opt.AccessDeniedPath = "/Home/AccessDeniedCustom";
+            //});
+
+            builder.Services.AddAuthentication().AddCookie();
 
             var app = builder.Build();
 

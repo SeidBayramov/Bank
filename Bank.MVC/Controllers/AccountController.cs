@@ -1,4 +1,7 @@
-﻿using Bank.Business.ViewModels.Account;
+﻿using Bank.Business.Exceptions.Account;
+using Bank.Business.Exceptions.Common;
+using Bank.Business.Services.Interface;
+using Bank.Business.ViewModels.Account;
 using Bank.Core.Entities.Account;
 using Bank.DAL.Context;
 using Microsoft.AspNetCore.Identity;
@@ -8,46 +11,113 @@ namespace Bank.MVC.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly SignInManager<AppUser> _signInManager;
-        private readonly AppDbContext _appDb;
+        private readonly IAccountService _service;
 
-        public AccountController(UserManager<AppUser> userManager,
-            RoleManager<IdentityRole> roleManager, 
-            SignInManager<AppUser> signInManager, AppDbContext appDb)
+        public AccountController(IAccountService service)
         {
-            _userManager = userManager;
-            _roleManager = roleManager;
-            _signInManager = signInManager;
-            _appDb = appDb;
+            _service = service;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Register()
         {
-            return View();
-        }
-        public IActionResult Register()
-        {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterVm registerVm)
-        {
-            return View();
-        }
-        public IActionResult Login()
-        {
-            return View();
+            if (!User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         [HttpPost]
-        public async Task<IActionResult> Login(LoginVm loginVm)
+        public async Task<IActionResult> Register(RegisterVm  vm)
         {
-            return View();
+            try
+            {
+                await _service.Register(vm);
+
+                return RedirectToAction(nameof(Login));
+            }
+            catch (UsedEmailException ex)
+            {
+                ModelState.AddModelError(ex.ParamName, ex.Message);
+
+                return View();
+            }
+            catch (UserRegistrationException ex)
+            {
+                ModelState.AddModelError(ex.ParamName, ex.Message);
+
+                return View();
+            }
+            catch (ObjectParamsNullException ex)
+            {
+                ModelState.AddModelError(ex.ParamName, ex.Message);
+
+                return View();
+            }
         }
-        public async Task<IActionResult> CreateRole()
+
+        [HttpGet]
+        public async Task<IActionResult> Login(string? returnUrl)
         {
-            return View();
+            if (!User.Identity.IsAuthenticated)
+            {
+                if (returnUrl is not null) return Redirect(returnUrl);
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginVm vm, string? returnUrl)
+        {
+            try
+            {
+                await _service.Login(vm);
+
+                if (returnUrl is not null) return Redirect(returnUrl);
+
+                return RedirectToAction("Index", "Home");
+            }
+            catch (UserNotFoundException ex)
+            {
+                ModelState.AddModelError(ex.ParamName, ex.Message);
+
+                return View();
+            }
+            catch (ObjectParamsNullException ex)
+            {
+                ModelState.AddModelError(ex.ParamName, ex.Message);
+
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                await _service.Logout();
+                return RedirectToAction(nameof(Login));
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateRoles()
+        {
+            await _service.CreateRoles();
+
+            return RedirectToAction("Index", "Home");
         }
 
     }

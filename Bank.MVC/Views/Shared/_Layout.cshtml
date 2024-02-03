@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿
+@using Bank.Business.Services.Implementations
+@inject LayoutService layoutService
+@{
+    var settings = await layoutService.GetSettingsAsync();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -98,25 +105,19 @@
                         <!--Start Main Header Style1 Top Left-->
                         <div class="main-header-style1-top__left">
                             <div class="looking-banking-box ">
-                                <div class="inner-title">
-                                    <span class="icon-binoculars"></span>
-                                    <p>Looking</p>
-                                </div>
+                                
                                 <div class="select-box clearfix">
                                     <select class="wide">
                                         <option data-display="Personal Banking">
                                             Personal Banking
                                         </option>
                                         <option value="1">Business Banking</option>
-                                        <option value="2">Personal Banking 01</option>
-                                        <option value="3">Personal Banking 02</option>
-                                        <option value="4">Personal Banking 03</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="nearest-branch">
                                 <span class="icon-map"></span>
-                                <a href="#">Find Nearest Branch</a>
+                                <a href="#"> @settings["Address"] </a>
                             </div>
                         </div>
                         <!--End Main Header Style1 Top Left-->
@@ -124,8 +125,6 @@
                         <div class="main-header-style1-top__right">
                             <div class="header-menu-style1">
                                 <ul>
-                                    <li><a href="#">Careers</a></li>
-                                    <li><a href="#">Faq’s</a></li>
                                     <li><a href="#">Offers</a></li>
                                     <li><a href="#">Calendar</a></li>
                                 </ul>
@@ -136,19 +135,6 @@
                                     Search
                                 </a>
                             </div>
-                            <div class="language-switcher">
-                                <div id="polyglotLanguageSwitcher">
-                                    <form action="#">
-                                        <select id="polyglot-language-options">
-                                            <option id="en" value="en" selected>English</option>
-                                            <option id="fr" value="fr">French</option>
-                                            <option id="de" value="de">German</option>
-                                            <option id="it" value="it">Italian</option>
-                                            <option id="es" value="es">Spanish</option>
-                                        </select>
-                                    </form>
-                                </div>
-                            </div>
                         </div>
                         <!--End Main Header Style1 Top Right-->
 
@@ -156,6 +142,7 @@
                 </div>
             </div>
             <!--End Main Header Style1 Top-->
+
 
             <nav class="main-menu main-menu-style1">
                 <div class="main-menu__wrapper clearfix">
@@ -177,130 +164,7 @@
                                     <ul class="main-menu__list">
                                         <li class="dropdown megamenu">
                                             <a href="index.html">Home</a>
-                                            <ul>
-                                                <li>
-                                                    <div class="megamenu-content-box">
-                                                        <div class="container">
-                                                            <div class="megamenu-content-box__inner">
-                                                                <div class="row">
-
-                                                                    <!--Start Home Showcase Item-->
-                                                                    <div class="col-lg-3">
-                                                                        <div class="home-showcase__item">
-                                                                            <div class="home-showcase__image">
-                                                                                <img src="~/assets/images/home-showcase/home-showcase-1-1.jpg"
-                                                                                     alt="">
-                                                                                <div class="home-showcase__buttons">
-                                                                                    <a href="index.html"
-                                                                                       class="btn-one home-showcase__buttons__item top">
-                                                                                        <span class="txt">
-                                                                                            Multi
-                                                                                            Page
-                                                                                        </span>
-                                                                                    </a>
-                                                                                    <a href="index-one-page.html"
-                                                                                       class="btn-one home-showcase__buttons__item">
-                                                                                        <span class="txt">
-                                                                                            One
-                                                                                            Page
-                                                                                        </span>
-                                                                                    </a>
-                                                                                </div>
-                                                                            </div>
-                                                                            <h3 class="home-showcase__title">
-                                                                                Home Page One
-                                                                            </h3>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!--End Home Showcase Item-->
-                                                                    <!--Start Home Showcase Item-->
-                                                                    <div class="col-lg-3">
-                                                                        <div class="home-showcase__item">
-                                                                            <div class="home-showcase__image">
-                                                                                <img src="~/assets/images/home-showcase/home-showcase-1-2.jpg"
-                                                                                     alt="">
-                                                                                <div class="home-showcase__buttons">
-                                                                                    <a href="index-2.html"
-                                                                                       class="btn-one home-showcase__buttons__item top">
-                                                                                        <span class="txt">
-                                                                                            Multi
-                                                                                            Page
-                                                                                        </span>
-                                                                                    </a>
-                                                                                    <a href="index-2-one-page.html"
-                                                                                       class="btn-one home-showcase__buttons__item">
-                                                                                        <span class="txt">
-                                                                                            One
-                                                                                            Page
-                                                                                        </span>
-                                                                                    </a>
-                                                                                </div>
-                                                                            </div>
-                                                                            <h3 class="home-showcase__title">
-                                                                                Home Page Two
-                                                                            </h3>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!--End Home Showcase Item-->
-                                                                    <!--Start Home Showcase Item-->
-                                                                    <div class="col-lg-3">
-                                                                        <div class="home-showcase__item">
-                                                                            <div class="home-showcase__image">
-                                                                                <img src="~/assets/images/home-showcase/home-showcase-1-3.jpg"
-                                                                                     alt="">
-                                                                                <div class="home-showcase__buttons">
-                                                                                    <a href="index-3.html"
-                                                                                       class="btn-one home-showcase__buttons__item top">
-                                                                                        <span class="txt">
-                                                                                            Multi
-                                                                                            Page
-                                                                                        </span>
-                                                                                    </a>
-                                                                                    <a href="index-3-one-page.html"
-                                                                                       class="btn-one home-showcase__buttons__item">
-                                                                                        <span class="txt">
-                                                                                            One
-                                                                                            Page
-                                                                                        </span>
-                                                                                    </a>
-                                                                                </div>
-                                                                            </div>
-                                                                            <h3 class="home-showcase__title">
-                                                                                Home Page Three
-                                                                            </h3>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!--End Home Showcase Item-->
-                                                                    <!--Start Home Showcase Item-->
-                                                                    <div class="col-lg-3">
-                                                                        <div class="home-showcase__item">
-                                                                            <div class="home-showcase__image">
-                                                                                <img src="~/assets/images/home-showcase/home-showcase-1-4.jpg"
-                                                                                     alt="">
-                                                                                <div class="home-showcase__buttons">
-                                                                                    <a href="index-dark.html"
-                                                                                       class="btn-one home-showcase__buttons__item top">
-                                                                                        <span class="txt">
-                                                                                            View
-                                                                                            Page
-                                                                                        </span>
-                                                                                    </a>
-                                                                                </div>
-                                                                            </div>
-                                                                            <h3 class="home-showcase__title">
-                                                                                Home Dark
-                                                                            </h3>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!--End Home Showcase Item-->
-
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                            
                                         </li>
 
                                         <li class="dropdown">
@@ -309,17 +173,8 @@
                                                 <li class="dropdown">
                                                     <a href="#">Accounts</a>
                                                     <ul>
-                                                        <li><a href="accounts.html">All Accounts</a></li>
+                                                       @* <li><a href="accounts.html">All Accounts</a></li>*@
                                                         <li><a href="account-savings.html">Savings Account</a></li>
-                                                        <li><a href="account-current.html">Current Account</a></li>
-                                                        <li>
-                                                            <a href="account-fixed-dep.html">Fixed Deposit Account</a>
-                                                        </li>
-                                                        <li><a href="account-salary.html">Salary Account</a></li>
-                                                        <li>
-                                                            <a href="account-recuring-dep.html">Recuring Deposit a/c</a>
-                                                        </li>
-                                                        <li><a href="account-nri.html">NRI Account</a></li>
                                                     </ul>
                                                 </li>
                                                 <li class="dropdown">
@@ -328,20 +183,12 @@
                                                         <li><a href="cards.html">Our All Cards</a></li>
                                                         <li><a href="cards-business.html">Business</a></li>
                                                         <li><a href="cards-cashback.html">Cashback</a></li>
-                                                        <li><a href="cards-law-interest.html">Low Interest</a></li>
-                                                        <li><a href="cards-rewards.html">Rewards</a></li>
-                                                        <li><a href="cards-secured.html">Secured</a></li>
-                                                        <li><a href="cards-travel-hotel.html">Travel & Hotel</a></li>
                                                     </ul>
                                                 </li>
                                                 <li class="dropdown">
                                                     <a href="#">Loans</a>
                                                     <ul>
-                                                        <li><a href="loan-home.html">Home Loan</a></li>
                                                         <li><a href="loan-personal.html">Personal Loan</a></li>
-                                                        <li><a href="loan-vehicle.html">Vehicle Loan</a></li>
-                                                        <li><a href="loan-education.html">Education Loan</a></li>
-                                                        <li><a href="loan-gold.html">Gold Loan</a></li>
                                                     </ul>
                                                 </li>
                                             </ul>
@@ -352,30 +199,19 @@
                                             <ul>
                                                 <li><a href="about.html">About Us</a></li>
                                                 <li><a href="team.html">Board of Directors</a></li>
-                                                <li><a href="careers.html">Careers</a></li>
-                                                <li><a href="careers-details.html">Career Detail</a></li>
-                                                <li><a href="faq.html">Faq’s</a></li>
-                                                <li><a href="testimonials.html">Testimonials</a></li>
-                                                <li><a href="404.html">404 Error</a></li>
+                                           @*     <li><a href="404.html">404 Error</a></li>*@
                                             </ul>
                                         </li>
                                         <li class="dropdown">
                                             <a href="#">News</a>
                                             <ul>
-                                                <li><a href="blog.html">Grid View</a></li>
-                                                <li><a href="blog-2.html">List View</a></li>
-                                                <li><a href="blog-3.html">Large Image</a></li>
                                                 <li><a href="blog-single.html">Single Post</a></li>
                                             </ul>
                                         </li>
                                         <li class="dropdown">
                                             <a href="#">Apply Now</a>
                                             <ul>
-                                                <li><a href="loan-home.html">Home Loan</a></li>
                                                 <li><a href="loan-personal.html">Personal Loan</a></li>
-                                                <li><a href="loan-vehicle.html">Vehicle Loan</a></li>
-                                                <li><a href="loan-education.html">Education Loan</a></li>
-                                                <li><a href="loan-gold.html">Gold Loan</a></li>
                                             </ul>
                                         </li>
                                         <li>
@@ -387,14 +223,22 @@
 
                             <div class="main-menu-style1-right">
                                 <div class="header-btn-one">
-                                    <a href="#">
-                                        <span class="icon-home-button"></span>Login
-                                    </a>
-                                    <a class="style2" href="#">
-                                        <span class="icon-payment"></span>Open an Account
-                                    </a>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <li><a asp-action="Logout" asp-controller="Account">Logout</a></li>
+                                        if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                                        {
+                                            <li><a asp-area="Manage" asp-action="Index" asp-controller="Service">Admin Panel</a></li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <li><a asp-action="Login" asp-controller="Account">Login</a></li>
+                                        <li><a asp-action="Register" asp-controller="Account">Register</a></li>
+                                    }
                                 </div>
                             </div>
+
 
                         </div>
                     </div>
@@ -424,13 +268,7 @@
                                 </div>
                                 <div class="footer-widget-links">
                                     <ul>
-                                        <li><a href="#">Home Loan</a></li>
-                                        <li><a href="#">Car Loan</a></li>
-                                        <li><a href="#">Two Wheeler Loan</a></li>
-                                        <li><a href="#">Commercial Vehicle Loan</a></li>
                                         <li><a href="#">Personal Loan</a></li>
-                                        <li><a href="#">Tractor Loan</a></li>
-                                        <li><a href="#">Construction Loan</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -438,19 +276,8 @@
                         <!--End single footer widget-->
                         <!--Start single footer widget-->
                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 single-widget">
-                            <div class="single-footer-widget single-footer-widget--link-box">
-                                <div class="title">
-                                    <h3>Rates & Charges</h3>
-                                </div>
-                                <div class="footer-widget-links">
-                                    <ul>
-                                        <li><a href="#">Interest Rates</a></li>
-                                        <li><a href="#">Gold Rate Today</a></li>
-                                        <li><a href="#">Service Charges & Fees</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="single-footer-widget single-footer-widget--link-box-style2">
+                       
+                                <div class="single-footer-widget single-footer-widget--link-box">
                                 <div class="title">
                                     <h3>Online</h3>
                                 </div>
@@ -472,13 +299,7 @@
                                 </div>
                                 <div class="footer-widget-links">
                                     <ul>
-                                        <li><a href="#">Our Story</a></li>
                                         <li><a href="#">Board of Directors</a></li>
-                                        <li><a href="#">Management Committee</a></li>
-                                        <li><a href="#">Media</a></li>
-                                        <li><a href="#">Investor Relations</a></li>
-                                        <li><a href="#">Awards & Recognition</a></li>
-                                        <li><a href="#">Careers</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -494,12 +315,7 @@
                                 <div class="footer-widget-links">
                                     <ul>
                                         <li><a href="#">Savings Account</a></li>
-                                        <li><a href="#">Current Account</a></li>
-                                        <li><a href="#">Deposits</a></li>
                                         <li><a href="#">Cards</a></li>
-                                        <li><a href="#">Payments</a></li>
-                                        <li><a href="#">Insurance</a></li>
-                                        <li><a href="#">Locker Facility</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -543,7 +359,14 @@
                                     <ul>
                                         <li>
                                             <h3>
-                                                <a href="tel:2512353256">(800) 123 456 78</a>
+                                                   @settings["Phone"]</a> 
+                                                   <br />
+                                                   <br />
+                                                    Or
+                                                   <br />
+                                                   <br />
+                                                   @settings["Phone2"]</a>
+
                                             </h3>
                                             <p>Customer Care</p>
                                         </li>
@@ -557,29 +380,7 @@
                         </div>
                         <!--End single footer widget-->
 
-                        <!--Start single footer widget-->
-                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                            <div class="single-footer-widget">
-                                <div class="single-footer-widget-right-colum">
-                                    <ul>
-                                        <li>
-                                            <a href="#">
-                                                Download Forms
-                                                <span class="icon-download"></span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                Register Your Complaint
-                                                <span class="icon-feedback"></span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!--End single footer widget-->
-
+                      
                     </div>
                 </div>
             </div>
@@ -590,32 +391,20 @@
                     <div class="bottom-inner">
                         <div class="footer-menu">
                             <ul>
-                                <li><a href="#">Disclaimer</a></li>
                                 <li><a href="#">Privacy Policy</a></li>
                                 <li><a href="#">Terms & Conditions</a></li>
-                                <li><a href="#">Online Security Tips</a></li>
                             </ul>
                         </div>
                         <div class="footer-social-link">
                             <ul class="clearfix">
                                 <li>
-                                    <a href="#">
-                                        <i class="fab fa-youtube"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
+                                    <a href=" @settings["Instagram"] ">
                                         <i class="fab fa-instagram"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
-                                        <i class="fab fa-twitter"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fab fa-facebook-f"></i>
+                                        <a href=" @settings["FaceBook"] ">
+                                            <i class="fab fa-facebook-f"> </i>
                                     </a>
                                 </li>
                             </ul>

@@ -1,4 +1,5 @@
 ﻿using Bank.Core.Entities.Account;
+using Bank.Core.Entities.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,5 +15,12 @@ namespace Bank.DAL.Context
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
+
+        public DbSet<Setting> Settings { get; set; } 
     }
 }

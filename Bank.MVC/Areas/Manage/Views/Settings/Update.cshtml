@@ -1,0 +1,29 @@
+﻿@model Dictionary<string, string>
+
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+        @foreach (var item in Model.Where(k => k.Key != "Logo").ToList())
+        {
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">@item.Key</label>
+                <input asp-for="@Model[item.Key]"
+                   value="@item.Value" class="form-control">
+            </div>
+        }
+        <input name="__RequestVerificationToken" type="hidden" value="...">
+        <div class="container mt-3 mb-3">
+            <img src="~/Upload/Settings/@Model["Logo"]" />
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Service Icon</label>
+            <input type="file" class="form-control" name="logo" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <input type="hidden" class="form-control" asp-for="@Model["Logo"]">
+        </div>
+
+        <div asp-validation-summary=All class="mt-4 mb-4"></div>
+
+        <button type="submit" class="btn btn-primary mb-5">Submit</button>
+        <a asp-action="Detail" asp-controller="Settings" class="btn btn-warning mb-5">Go Back</a>
+    </form>
+</div>

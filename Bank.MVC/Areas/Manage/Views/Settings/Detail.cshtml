@@ -1,0 +1,16 @@
+﻿@model Dictionary<string, string>
+
+<div class="container">
+    @foreach (var item in Model.Where(k => k.Key != "Logo").ToList())
+    {
+        <h3>@item.Key</h3>
+        <h4>@item.Value</h4>
+    }
+
+    <h3>Logo Image</h3>
+    <div class="container mt-3 mb-3">
+        <img src="~/Upload/Settings/@Model["Logo"]" />
+    </div>
+
+    <a asp-action="Update" asp-controller="Settings" class="btn btn-warning">Update Settings</a>
+</div>

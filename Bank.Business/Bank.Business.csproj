@@ -10,10 +10,4 @@
     <ProjectReference Include="..\Bank.DAL\Bank.DAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
