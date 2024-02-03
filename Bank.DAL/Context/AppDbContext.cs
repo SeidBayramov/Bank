@@ -1,10 +1,12 @@
 ﻿using Bank.Core.Entities.Account;
 using Bank.Core.Entities.Models;
+using Bank.DAL.Configurations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,9 +20,11 @@ namespace Bank.DAL.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.ApplyConfigurationsFromAssembly(typeof(SliderCongiguration).Assembly);
             base.OnModelCreating(builder);
         }
 
         public DbSet<Setting> Settings { get; set; } 
+        public DbSet<Slider> Sliders { get; set; }
     }
 }

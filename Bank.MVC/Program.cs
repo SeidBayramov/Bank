@@ -1,6 +1,10 @@
+using Bank.Business.Services;
 using Bank.Business.Services.Implementations;
+using Bank.Business.Services.Interface;
 using Bank.Core.Entities.Account;
 using Bank.DAL.Context;
+using Bank.DAL.Repositories.Absrtactions;
+using Bank.DAL.Repositories.Interface;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,8 +16,11 @@ namespace Bank.MVC
         {
             var builder = WebApplication.CreateBuilder(args);
 
-
+        
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<ISliderRepository, SliderRepository>();
+            builder.Services.AddScoped<ISliderService, SliderService>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<LayoutService>();
 
 

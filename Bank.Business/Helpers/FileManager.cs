@@ -32,5 +32,12 @@ namespace Bank.Business.Helpers
 
             return fileName;
         }
+        public static void Delete(string fileName, string webPath, string folderName)
+        {
+            if (File.Exists(folderName + webPath + fileName))
+            {
+                File.Delete(folderName + webPath);
+            }
+        }
     }
 }

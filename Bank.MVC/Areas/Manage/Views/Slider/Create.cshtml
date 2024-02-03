@@ -1,0 +1,24 @@
+﻿@using Bank.Business.ViewModels.Slider
+@model CreateSliderVm
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <label asp-for="Title">Title</label>
+            <input class="form-control" asp-for="Title" type="text">
+            <span asp-validation-for="Title" style="color:red"></span>
+        </div>
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <label asp-for="Descriptions">SubTitle</label>
+            <input class="form-control" asp-for="Descriptions" type="text">
+            <span asp-validation-for="Descriptions" style="color:red"></span>
+        </div>
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <label asp-for="Image">Image</label>
+            <input class="form-control" asp-for="Image" />
+            <span asp-validation-for="Image" style="color:red"></span>
+        </div>
+        <div asp-validation-summary="All">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>

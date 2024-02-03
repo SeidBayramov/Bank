@@ -1,6 +1,5 @@
-﻿ 
- 
-
+﻿@using Bank.Core.Entities.Models
+@model List<Slider> 
 
 <!--Start Main Header Style1 Bottom-->
             <div class="main-header-style1-bottom">
@@ -33,7 +32,7 @@
             <div class="sticky-header__content"></div><!-- /.sticky-header__content -->
         </div><!-- /.stricky-header -->
 
-
+        
         <!--Main Slider Start-->
         <section class="main-slider main-slider-style1">
             <div class="swiper-container thm-swiper__slider" data-swiper-options='{"slidesPerView": 1, "loop": true,
@@ -51,120 +50,38 @@
                 "delay": 5000
                 }}'>
                 <div class="swiper-wrapper">
-                  @*  <div class="slider-buttom-box">
-                        <a class="style2" href="#">Make Payment <span class="icon-play-button"></span></a>
-                        <a href="#">Make an Enquiry <span class="icon-play-button"></span></a>
-                    </div>*@
-
+                 
+                    
                     <!--Start Single Swiper Slide-->
-                    <div class="swiper-slide">
-                        <div class="image-layer" style="background-image: url(assets/images/slides/slide-v1-1.jpg);">
-                        </div>
-                        <div class="main-slider-style1__shape1"
-                            style="background-image: url(assets/images/shapes/slider-1-shape-1.png);">
-                        </div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="main-slider-content">
-                                        <div class="main-slider-content__inner">
-                                            <div class="big-title">
-                                                <h2>Bank with the<br> Happiest Customers<br> in the World</h2>
-                                            </div>
-                                            <div class="text">
-                                                <p>
-                                                    On the other hand, we denounce with righteous indignation<br>
-                                                    and dislike men who are so beguiled.
-                                                </p>
-                                            </div>
-                                            <div class="btns-box">
-                                             @*   <a class="btn-one" href="add-property.html">
-                                                    <span class="txt">
-                                                        Make an Appointment
-                                                    </span>
-                                                </a>*@
-                                            </div>
+            @foreach (var item in Model)
+            {
+                <div class="swiper-slide">
+                    <div class="image-layer" style="background-image: url('/Upload/SliderImages/@item.ImageUrl');">
+                    </div>
+                    <div class="main-slider-style1__shape1" style="background-image: url(assets/images/shapes/slider-1-shape-1.png);">
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="main-slider-content">
+                                    <div class="main-slider-content__inner">
+                                        <div class="big-title">
+                                            <h2>@item.Title</h2>
+                                        </div>
+                                        <div class="text">
+                                            <p>@item.Descriptions</p>
+                                        </div>
+                                        <div class="btns-box">
+                                            <!-- Add your buttons or additional content here -->
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--End Single Swiper Slide-->
+                </div>
+            }
 
-            @*        <!--Start Single Swiper Slide-->
-                    <div class="swiper-slide">
-                        <div class="image-layer" style="background-image: url(assets/images/slides/slide-v1-2.jpg);">
-                        </div>
-                        <div class="main-slider-style1__shape1"
-                            style="background-image: url(assets/images/shapes/slider-1-shape-1.png);">
-                        </div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="main-slider-content">
-                                        <div class="main-slider-content__inner">
-                                            <div class="big-title">
-                                                <h2>Banking Made<br> Easy, More Secure &<br> More Personal</h2>
-                                            </div>
-                                            <div class="text">
-                                                <p>
-                                                    Their duty through weakness of will, which is the same as<br> saying
-                                                    through shrinking from toil.
-                                                </p>
-                                            </div>
-                                            <div class="btns-box">
-                                                <a class="btn-one" href="add-property.html">
-                                                    <span class="txt">
-                                                        Make an Appointment
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Swiper Slide-->
-
-                    <!--Start Single Swiper Slide-->
-                    <div class="swiper-slide">
-                        <div class="image-layer" style="background-image: url(assets/images/slides/slide-v1-3.jpg);">
-                        </div>
-                        <div class="main-slider-style1__shape1"
-                            style="background-image: url(assets/images/shapes/slider-1-shape-1.png);">
-                        </div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="main-slider-content">
-                                        <div class="main-slider-content__inner">
-                                            <div class="big-title">
-                                                <h2>An Innovative<br> Framework for Your<br> Financial solutions</h2>
-                                            </div>
-                                            <div class="text">
-                                                <p>
-                                                    Their duty through weakness of will, which is the same as<br> saying
-                                                    through shrinking from toil.
-                                                </p>
-                                            </div>
-                                            <div class="btns-box">
-                                                <a class="btn-one" href="add-property.html">
-                                                    <span class="txt">
-                                                        Make an Appointment
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Swiper Slide-->
-
-*@
                 </div>
 
                 <!-- If we need navigation buttons -->
@@ -1361,36 +1278,20 @@
                     <div class="col-xl-12">
                         <div class="emi-calculator-tab">
 
-                            <div class="emi-calculator-tab__button">
-                                <div class="emi-calculator-tab__button--bg"
-                                    style="background-image: url(assets/images/resources/emi-calculator.jpg);"></div>
-                                <ul class="tabs-button-box">
-                                    <li data-tab="#home-loan" class="tab-btn-item active-btn-item">
-                                        <div class="icon-box">
-                                            <span class="icon-loan-1"></span>
-                                            <div class="overlay-text">
-                                                <p>Home Loan</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li data-tab="#personal-loan" class="tab-btn-item">
-                                        <div class="icon-box">
-                                            <span class="icon-loan-2"></span>
-                                            <div class="overlay-text">
-                                                <p>Personal Loan</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li data-tab="#vehicle-loan" class="tab-btn-item">
-                                        <div class="icon-box">
-                                            <span class="icon-car-loan"></span>
-                                            <div class="overlay-text">
-                                                <p>Vehicle Loan</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                    <div class="emi-calculator-tab__button">
+                        <div class="emi-calculator-tab__button--bg" style="background-image: url('assets/images/resources/emi-calculator.jpg');"></div>
+                        <ul class="tabs-button-box">
+                            <li data-tab="#home-loan" class="tab-btn-item active-btn-item">
+                                <div class="icon-box">
+                                    <span class="icon-loan-1"></span>
+                                    <div class="overlay-text">
+                                        <p>Personal Loan</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
 
                             <div class="emi-calculator-tab-content-box-outer">
                                 <!--Start Tabs Content Box-->
@@ -1504,228 +1405,6 @@
 
                                         </div>
                                     </div>
-
-                                    <!--Tab-->
-                                    <div class="tab-content-box-item" id="personal-loan">
-                                        <div class="emi-calculator-tab-content-box-item">
-
-                                            <div class="range-box">
-                                                <div class="row">
-                                                    <div class="col-lg-12 column">
-                                                        <div class="price-range-box">
-                                                            <div class="inner">
-                                                                <h4>Loan Amount</h4>
-                                                                <div class="price-range-slider"></div>
-                                                                <div class="range-input">
-                                                                    <div class="input">
-                                                                        <input type="text" class="property-amount"
-                                                                            name="field-name" readonly="">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="right-box">
-                                                                <h5>$1,000,000</h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-12 column">
-                                                        <div class="loan-term-range-box">
-                                                            <div class="inner">
-                                                                <h4>Loan Term <span>(Years)</span></h4>
-                                                                <div class="loan-term-range-slider"></div>
-                                                                <div class="range-input">
-                                                                    <div class="input">
-                                                                        <input type="text" class="loan-term-range"
-                                                                            name="field-name" readonly="">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="right-box">
-                                                                <h5>20Yrs</h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-12 column">
-                                                        <div class="interest-rate-range-box">
-                                                            <div class="inner">
-                                                                <h4>Interest Rate</h4>
-                                                                <div class="interest-rate-range-slider"></div>
-                                                                <div class="range-input">
-                                                                    <div class="input">
-                                                                        <input type="text" class="interest-rate-range"
-                                                                            name="field-name" readonly="">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="right-box">
-                                                                <h5>8%</h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="emi-calculator-output-box clearfix">
-                                                <div class="left-box">
-                                                    <div class="top">
-                                                        <div class="icon">
-                                                            <span class="icon-loan-3"></span>
-                                                        </div>
-                                                        <div class="inner-title">
-                                                            <h3>Your Monthly EMI</h3>
-                                                            <h2><span>$</span>10,250</h2>
-                                                        </div>
-                                                    </div>
-                                                    <div class="btns-box">
-                                                        <a class="btn-one" href="#">
-                                                            <span class="txt">Apply Online</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="right-box">
-                                                    <ul>
-                                                        <li>
-                                                            <div class="inner">
-                                                                <div class="icon">
-                                                                    <span class="icon-right-arrow"></span>
-                                                                </div>
-                                                                <div class="text">
-                                                                    <a href="#">Interest Amount</a>
-                                                                    <p>$720,260</p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="inner">
-                                                                <div class="icon">
-                                                                    <span class="icon-right-arrow"></span>
-                                                                </div>
-                                                                <div class="text">
-                                                                    <a href="#">Total Amount Payble</a>
-                                                                    <p>$720,260</p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                    <!--Tab-->
-                                    <div class="tab-content-box-item" id="vehicle-loan">
-                                        <div class="emi-calculator-tab-content-box-item">
-
-                                            <div class="range-box">
-                                                <div class="row">
-                                                    <div class="col-lg-12 column">
-                                                        <div class="price-range-box">
-                                                            <div class="inner">
-                                                                <h4>Loan Amount</h4>
-                                                                <div class="price-range-slider"></div>
-                                                                <div class="range-input">
-                                                                    <div class="input">
-                                                                        <input type="text" class="property-amount"
-                                                                            name="field-name" readonly="">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="right-box">
-                                                                <h5>$1,000,000</h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-12 column">
-                                                        <div class="loan-term-range-box">
-                                                            <div class="inner">
-                                                                <h4>Loan Term <span>(Years)</span></h4>
-                                                                <div class="loan-term-range-slider"></div>
-                                                                <div class="range-input">
-                                                                    <div class="input">
-                                                                        <input type="text" class="loan-term-range"
-                                                                            name="field-name" readonly="">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="right-box">
-                                                                <h5>20Yrs</h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-12 column">
-                                                        <div class="interest-rate-range-box">
-                                                            <div class="inner">
-                                                                <h4>Interest Rate</h4>
-                                                                <div class="interest-rate-range-slider"></div>
-                                                                <div class="range-input">
-                                                                    <div class="input">
-                                                                        <input type="text" class="interest-rate-range"
-                                                                            name="field-name" readonly="">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="right-box">
-                                                                <h5>8%</h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="emi-calculator-output-box clearfix">
-                                                <div class="left-box">
-                                                    <div class="top">
-                                                        <div class="icon">
-                                                            <span class="icon-loan-3"></span>
-                                                        </div>
-                                                        <div class="inner-title">
-                                                            <h3>Your Monthly EMI</h3>
-                                                            <h2><span>$</span>10,250</h2>
-                                                        </div>
-                                                    </div>
-                                                    <div class="btns-box">
-                                                        <a class="btn-one" href="#">
-                                                            <span class="txt">Apply Online</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="right-box">
-                                                    <ul>
-                                                        <li>
-                                                            <div class="inner">
-                                                                <div class="icon">
-                                                                    <span class="icon-right-arrow"></span>
-                                                                </div>
-                                                                <div class="text">
-                                                                    <a href="#">Interest Amount</a>
-                                                                    <p>$720,260</p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="inner">
-                                                                <div class="icon">
-                                                                    <span class="icon-right-arrow"></span>
-                                                                </div>
-                                                                <div class="text">
-                                                                    <a href="#">Total Amount Payble</a>
-                                                                    <p>$720,260</p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-
                                 </div>
                                 <!--End Tabs Content Box-->
                             </div>

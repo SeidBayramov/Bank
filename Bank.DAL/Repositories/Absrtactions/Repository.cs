@@ -36,8 +36,7 @@ namespace Bank.DAL.Repositories.Absrtactions
             await UpdateAsync(entity);
             return entity;
         }
-
-        public async Task<IQueryable<T>> GetAllAsync(
+        public async Task<List<T>> GetAllAsync(
             Expression<Func<T, bool>>? filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
             params Expression<Func<T, object>>[] includes)
@@ -59,8 +58,9 @@ namespace Bank.DAL.Repositories.Absrtactions
                 query = orderBy(query);
             }
 
-            return await Task.FromResult(query);
+            return await query.ToListAsync(); 
         }
+
 
         public async Task<T> GetByIdAsync(int id)
         {
