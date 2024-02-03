@@ -1,8 +1,9 @@
 ﻿@using Bank.Core.Entities.Models
+@model List<Slider>
 @{
     int count = 0;
 }
-@model List<Slider>
+
 <div class="container">
     <h2>Slider Table</h2>
     <a class="btn btn-primary" asp-action="Create" asp-controller="Slider">Create</a>
@@ -17,28 +18,35 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @if (Model != null)
             {
-                count++;
-                <tr>
-                    <th scope="row">@count</th>
-                    <td>@item.Title</td>
-                    <td>@item.Descriptions</td>
-                    <td>
-                        <div style="width:100%;">
-                            <img style="width:100px;height:100px;border-radius:50%;" src="~/Upload/SliderImages/@item.ImageUrl"></img>
-                        </div>
-                    </td>
-                    <td>
-                       
-                        <a asp-route-id="@item.Id" asp-action="Update" asp-controller="Slider" class="btn btn-warning mt-4 mb-4">Update</a>
-                        <a asp-route-id="@item.Id" asp-action="Recover" asp-controller="Slider" class="btn btn-success mt-4 mb-4">Recover</a>
-                        <a asp-route-id="@item.Id" asp-action="Remove" asp-controller="Slider" class="btn btn-danger mt-4 mb-4 item-delete ">Remove</a>
-                    </td>
-                </tr>
-
+                @foreach (var item in Model)
+                {
+                    count++;
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td>@item.Title</td>
+                        <td>@item.Descriptions</td>
+                        <td>
+                            <div style="width:100%;">
+                                <img style="width:100px;height:100px;border-radius:50%;" src="~/Upload/SliderImages/@item.ImageUrl" alt="Slider Image">
+                            </div>
+                        </td>
+                        <td>
+                            <a asp-route-id="@item.Id" asp-action="Update" asp-controller="Slider" class="btn btn-warning mt-4 mb-4">Update</a>
+                            @if (item.IsDeleted)
+                            {
+                                <a asp-route-id="@item.Id" asp-action="Recover" asp-controller="Slider" class="btn btn-success mt-4 mb-4">Recover</a>
+                            }
+                            else
+                            {
+                                <a asp-route-id="@item.Id" asp-action="Delete" asp-controller="Slider" class="btn btn-danger mt-4 mb-4">Delete</a>
+                                <a asp-route-id="@item.Id" asp-action="Remove" asp-controller="Slider" class="btn btn-danger mt-4 mb-4 item-delete">Remove</a>
+                            }
+                        </td>
+                    </tr>
+                }
             }
-
         </tbody>
     </table>
 </div>
