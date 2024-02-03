@@ -16,9 +16,8 @@ namespace Bank.MVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var sliders = (await _service.GetAllAsync()).Where(x => !x.IsDeleted).ToList();
-
-            return View(sliders);
+             
+            return View();
         }
 
         public async Task<IActionResult> AccessDeniedCustom()
