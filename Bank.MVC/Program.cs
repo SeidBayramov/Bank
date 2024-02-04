@@ -5,6 +5,7 @@ using Bank.Core.Entities.Account;
 using Bank.DAL.Context;
 using Bank.DAL.Repositories.Absrtactions;
 using Bank.DAL.Repositories.Interface;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,8 @@ namespace Bank.MVC
             builder.Services.AddScoped<ISliderRepository, SliderRepository>();
             builder.Services.AddScoped<ISliderService, SliderService>();
             builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IBankIconRepository, BankIconRepository>();
+            builder.Services.AddScoped<IBankIconService, BankIconService>();
             builder.Services.AddScoped<LayoutService>();
 
 

@@ -12,13 +12,7 @@ namespace Bank.Business.ViewModels.Account
         public string Surname { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
-        private DateTime _bornTime;
-        public DateTime BornTime
-        {
-            get => _bornTime;
-            set => _bornTime = value;
-        }
-        public string FormattedBornTime => _bornTime.ToString("dd/MM/yyyy");
+        public string FinCode { get; set; }
         public string PhoneNumber { get; set; }
         public string Password { get; set; }
         public string ConfirmdPassword { get; set; }
