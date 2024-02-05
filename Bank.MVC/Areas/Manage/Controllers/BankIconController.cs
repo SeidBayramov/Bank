@@ -1,32 +1,27 @@
-﻿using AutoMapper;
-using Bank.Business.Exceptions.Common;
+﻿using Bank.Business.Exceptions.Common;
 using Bank.Business.Services.Interface;
+using Bank.Business.ViewModels.BankIcon;
 using Bank.Business.ViewModels.Slider;
 using Bank.Core.Entities.Models;
-using Microsoft.AspNetCore.Authorization;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
-using System.Threading.Tasks;
 
 namespace Bank.MVC.Areas.Manage.Controllers
 {
     [Area("Manage")]
-    public class SliderController : Controller
+    public class BankIconController : Controller
     {
-        private readonly ISliderService _service;
-        private readonly IWebHostEnvironment _env;
+        private readonly IBankIconService _service;
 
-        public SliderController(ISliderService service,IWebHostEnvironment env)
+        public BankIconController(IBankIconService service)
         {
             _service = service;
-            _env = env;
         }
 
-        //[Authorize(Roles = "Admin, Moderator")]
         public async Task<IActionResult> Index()
         {
-            var sliders = await _service.GetAllAsync();  
-            return View(sliders);
+            var Icons = await _service.GetAllAsync();
+            return View(Icons);
         }
 
         public IActionResult Create()
@@ -34,12 +29,11 @@ namespace Bank.MVC.Areas.Manage.Controllers
             return View();
         }
         [HttpPost]
-        //[Authorize(Roles = "Admin, Moderator")]
-        public async Task<IActionResult> Create(CreateSliderVm vm)
+        public async Task<IActionResult> Create(CreateIconVm vm)
         {
             try
             {
-                CreateSliderValidator validationRules = new CreateSliderValidator();
+                IconValidator validationRules = new IconValidator();
                 var result = await validationRules.ValidateAsync(vm);
                 if (!result.IsValid)
                 {
@@ -51,7 +45,6 @@ namespace Bank.MVC.Areas.Manage.Controllers
                     return View(vm);
                 }
                 if (!ModelState.IsValid) { return View(vm); }
-                await _service.CreateAsync(vm, _env.WebRootPath);
                 return RedirectToAction("Index");
             }
             catch (ImageException ex)
@@ -64,13 +57,14 @@ namespace Bank.MVC.Areas.Manage.Controllers
         {
             try
             {
-                Slider portfolio = await _service.GetByIdAsync(id);
-                UpdateSliderVm vm = new UpdateSliderVm()
+                BankIcon BankIcon = await _service.GetByIdAsync(id);
+                UpdateIconVm vm = new UpdateIconVm()
                 {
-                    Descriptions = portfolio.Descriptions,
-                    ImageUrl = portfolio.ImageUrl,
-                    Id = portfolio.Id,
-                    Title = portfolio.Title
+                    Description = BankIcon.Description,
+                    Id = BankIcon.Id,
+                    TItle = BankIcon.Title,
+                    SubTitle = BankIcon.SubTitle,
+                    Icon = BankIcon.Icon
                 };
 
                 return View(vm);
@@ -88,11 +82,11 @@ namespace Bank.MVC.Areas.Manage.Controllers
         }
         [HttpPost]
         //[Authorize(Roles = "Admin, Moderator")]
-        public async Task<IActionResult> Update(UpdateSliderVm vm)
+        public async Task<IActionResult> Update(UpdateIconVm vm)
         {
             try
             {
-                UpdateSliderValidator validationRules = new UpdateSliderValidator();
+                UpdateValidator validationRules = new UpdateValidator();
                 var result = await validationRules.ValidateAsync(vm);
                 if (!result.IsValid)
                 {
@@ -104,7 +98,6 @@ namespace Bank.MVC.Areas.Manage.Controllers
                     return View(vm);
                 }
                 if (!ModelState.IsValid) { return View(vm); }
-                await _service.UpdateAsync(vm, _env.WebRootPath);
                 return RedirectToAction("Index");
             }
             catch (ImageException ex)
@@ -117,12 +110,13 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 ModelState.AddModelError(ex.ParamName, ex.Message);
                 return RedirectToAction("Update");
             }
-            catch (ObjectNullException  ex)
+            catch (ObjectNullException ex)
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
                 return RedirectToAction("Update");
             }
         }
+
         //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -187,7 +181,5 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 return RedirectToAction("Index");
             }
         }
-
-
     }
 }

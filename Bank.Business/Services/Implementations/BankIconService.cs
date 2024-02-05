@@ -1,8 +1,10 @@
 ﻿using Bank.Business.Exceptions.Common;
+using Bank.Business.Helpers;
 using Bank.Business.Services.Interface;
 using Bank.Business.ViewModels.BankIcon;
 using Bank.Core.Entities.Models;
 using Bank.DAL.Repositories.Interface;
+using Microsoft.AspNetCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,14 +33,58 @@ namespace Bank.Business.Services.Implementations
 
             return await _rep.GetByIdAsync(id);
         }
-        public Task CreateAsync(CreateIconVm vm)
+        public async Task CreateAsync(CreateIconVm vm)
         {
-            throw new NotImplementedException();
+            var exists = vm.TItle == null || vm.SubTitle == null || vm.Icon == null || vm.SubTitle == null;
+
+            if (exists) throw new ObjectParamsNullException("Object parameters is required!", nameof(vm.TItle));
+
+            BankIcon bankIcon = new()
+            {
+                Title = vm.TItle,
+                Description = vm.Description,
+                SubTitle=vm.SubTitle,
+                Icon=vm.Icon,
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now,
+            };
+            await _rep.CreateAsync(bankIcon);
+            await _rep.SaveChangesAsync();
         }
 
-        public Task UpdateAsync(UpdateIconVm vm)
+        public async Task UpdateAsync(UpdateIconVm vm)
         {
-            throw new NotImplementedException();
+            if (vm.Id <= 0) throw new IdNegativeOrZeroException("Id must be positive and over than zero!", nameof(vm.Id));
+
+            BankIcon OldBankICon = await _rep.GetByIdAsync(vm.Id);
+
+            if (OldBankICon is null) throw new ObjectNullException("There is no blog in data!", nameof(OldBankICon));
+
+            if (vm.TItle is null)
+            {
+                throw new ObjectNullException("Object is required!", nameof(vm.TItle));
+            }
+            if (vm.Description is null)
+            {
+                throw new ObjectNullException("Object is required!", nameof(vm.Description));
+            }
+            if (vm.SubTitle is null)
+            {
+                throw new ObjectNullException("Object is required!", nameof(vm.SubTitle));
+            }
+            if (vm.Icon is null)
+            {
+                throw new ObjectNullException("Object is required!", nameof(vm.Icon));
+            }
+
+            OldBankICon.Title = vm.TItle;
+            OldBankICon.Description = vm.Description;
+            OldBankICon.SubTitle = vm.SubTitle;
+            OldBankICon.Icon = vm.Icon;
+            OldBankICon.UpdatedDate = DateTime.Now;
+
+            await _rep.UpdateAsync(OldBankICon);
+            await _rep.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,4 +15,16 @@ namespace Bank.Business.ViewModels.BankIcon
         public string? Icon { get; set; }
         public string Description { get; set; }
     }
+    public class UpdateValidator : AbstractValidator<UpdateIconVm>
+    {
+        public UpdateValidator()
+        {
+            RuleFor(x => x.TItle).NotEmpty();
+            RuleFor(x => x.SubTitle).NotEmpty();
+            RuleFor(x => x.Description).NotEmpty();
+            RuleFor(x => x.Icon).NotEmpty();
+
+        }
+    }
+
 }

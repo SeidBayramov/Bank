@@ -1,0 +1,50 @@
+﻿@using Bank.Core.Entities.Models
+@model List<BankIcon>
+@{
+    int count = 0;
+}
+
+<div class="container">
+    <h2>BankIcon Table</h2>
+    <a class="btn btn-primary" asp-action="Create" asp-controller="BankIcon">Create</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">SubTitle</th>
+                <th scope="col">Descriptions</th>
+                <th scope="col">Icon</th>
+                <th scope="col">Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var item in Model)
+                {
+                    count++;
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td>@item.Title</td>
+                        <td>@item.SubTitle</td>
+                        <td>@item.Description</td>
+                        <td>@item.Icon</td>
+                        <td>
+                            <a asp-route-id="@item.Id" asp-action="Update" asp-controller="BankIcon" class="btn btn-warning mt-4 mb-4">Update</a>
+                            @if (item.IsDeleted)
+                            {
+                                <a asp-route-id="@item.Id" asp-action="Recover" asp-controller="BankIcon" class="btn btn-success mt-4 mb-4">Recover</a>
+                            }
+                            else
+                            {
+                                <a asp-route-id="@item.Id" asp-action="Delete" asp-controller="BankIcon" class="btn btn-danger mt-4 mb-4">Delete</a>
+                                <a asp-route-id="@item.Id" asp-action="Remove" asp-controller="BankIcon" class="btn btn-danger mt-4 mb-4 item-delete">Remove</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
