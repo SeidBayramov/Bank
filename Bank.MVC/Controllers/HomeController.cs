@@ -6,18 +6,17 @@ using System.Diagnostics;
 namespace Bank.MVC.Controllers
 {
     public class HomeController : Controller
-    {
-        private readonly ISliderService _service;
+    { private readonly IBankIconService _iconService;
 
-        public HomeController(ISliderService service)
+        public HomeController(IBankIconService iconService)
         {
-            _service = service;
+            _iconService = iconService;
         }
 
         public async Task<IActionResult> Index()
         {
-             
-            return View();
+            var icons = (await _iconService.GetAllAsync()).Where(x => !x.IsDeleted).ToList();
+            return View(icons);
         }
 
         public async Task<IActionResult> AccessDeniedCustom()

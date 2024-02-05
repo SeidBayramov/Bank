@@ -45,6 +45,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
                     return View(vm);
                 }
                 if (!ModelState.IsValid) { return View(vm); }
+                await _service.CreateAsync(vm);
                 return RedirectToAction("Index");
             }
             catch (ImageException ex)
@@ -98,6 +99,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
                     return View(vm);
                 }
                 if (!ModelState.IsValid) { return View(vm); }
+                await _service.UpdateAsync(vm);
                 return RedirectToAction("Index");
             }
             catch (ImageException ex)

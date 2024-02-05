@@ -13,9 +13,9 @@ namespace Bank.MVC.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var services = (await _service.GetAllAsync()).Where(x => !x.IsDeleted).ToList();
+            var Sliders = (await _service.GetAllAsync()).Where(x => !x.IsDeleted).ToList();
 
-            return View(services);
+            return View(Sliders);
         }
     }
 }

@@ -29,7 +29,9 @@
                         <td>@item.Title</td>
                         <td>@item.SubTitle</td>
                         <td>@item.Description</td>
-                        <td>@item.Icon</td>
+                        <td>
+                            @Html.Raw(item.Icon)
+                        </td>
                         <td>
                             <a asp-route-id="@item.Id" asp-action="Update" asp-controller="BankIcon" class="btn btn-warning mt-4 mb-4">Update</a>
                             @if (item.IsDeleted)
