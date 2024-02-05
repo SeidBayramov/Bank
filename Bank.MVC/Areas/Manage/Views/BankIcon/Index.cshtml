@@ -30,7 +30,11 @@
                         <td>@item.SubTitle</td>
                         <td>@item.Description</td>
                         <td>
-                            @Html.Raw(item.Icon)
+                            <div class="icon">
+                                @item.Icon
+                            </div>
+
+
                         </td>
                         <td>
                             <a asp-route-id="@item.Id" asp-action="Update" asp-controller="BankIcon" class="btn btn-warning mt-4 mb-4">Update</a>

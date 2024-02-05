@@ -9,31 +9,26 @@
 
         <div class="row">
             <div class="col-xl-12">
-                <div class="service-style1-title">
-                    <div class="sec-title">
-                        <h2>Banking For Your Needs</h2>
-                        <div class="sub-title">
-                            <p>The bank that builds better relationships.</p>
-                        </div>
-                    </div>
-                    <div class="get-assistant-box">
-                        <a href="#"><span class="icon-chatting"></span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xl-12">
                 <div class="service-style1-tab">
                     <!--Start Service Style1 Tab Button-->
                     <div class="service-style1-tab__button">
                         <ul class="tabs-button-box clearfix">
-                            <li data-tab="#individuals" class="tab-btn-item">
+                            <li data-tab="#individuals" class="tab-btn-item active-btn-item" ">
                                 <div class="inner">
                                     <div class="left">
                                         <h4>Banking for</h4>
                                         <h3>Individuals</h3>
+                                    </div>
+                                    <div class="right">
+                                        <span class="icon-down-arrow"></span>
+                                    </div>
+                                </div>
+                            </li>
+                           <li data-tab="#companies" class="tab-btn-item active-btn-item">
+                                <div class="inner">
+                                    <div class="left">
+                                        <h4>Banking for</h4>
+                                        <h3>Companies</h3>
                                     </div>
                                     <div class="right">
                                         <span class="icon-down-arrow"></span>
@@ -45,37 +40,64 @@
                     <!--End Service Style1 Tab Button-->
                     <!--Start Tabs Content Box-->
                     <div class="tabs-content-box">
+
                         <!--Tab-->
                         <div class="tab-content-box-item" id="individuals">
                             <div class="service-style1-tab-content-box-item">
                                 <div class="row">
-                                    <!--Start Single Service Box Style1-->
                                     @foreach (var item in Model)
                                     {
-                                        <div class="col-xl-4 col-lg-4">
-                                            <div class="single-service-box-style1">
-                                                <div class="icon">
-                                                    <span class=@Html.Raw(item.Icon)></span>
-                                                </div>
-                                                <h3><a href="#">@item.Title</a></h3>
-                                                <div class="border-box"></div>
-                                                <p>@item.Description</p>
-                                                <h6><span>*</span>@item.SubTitle</h6>
-                                                <div class="btn-box">
-                                                    <a href="#"><span class="icon-right-arrow"></span></a>
-                                                </div>
+                                        
+                                    <div class="col-xl-4 col-lg-4">
+                                        <div class="single-service-box-style1">
+                                            <div class="icon">
+                                                <span class=@Html.Raw(item.Icon)></span>
                                             </div>
+                                            <h3><a href="#">@item.Title</a></h3>
+                                            <div class="border-box"></div>
+                                            <p>
+                                                @item.Description
+                                            </p>
+                                            <h6><span>*</span> @item.SubTitle</h6>
                                         </div>
-                                    }
-                                    <!--End Single Service Box Style1-->
+                                    </div>
+                                       
+                                   }
+                                    
+                              
                                 </div>
                             </div>
                         </div>
-                    </div>
+
+                       <!--Tab-->
+                        <div class="tab-content-box-item tab-content-box-item-active" id="companies">
+                            <div class="service-style1-tab-content-box-item">
+                                <div class="row">
+                                    @foreach (var item in Model.OrderByDescending(x => x.Id))
+                                    {
+                                    <div class="col-xl-4 col-lg-4">
+                                        <div class="single-service-box-style1">
+                                            <div class="icon">
+                                                <span class="@Html.Raw(item.Icon)"></span>
+                                            </div>
+                                            <h3><a href="#">@item.Title</a></h3>
+                                            <div class="border-box"></div>
+                                            <p>
+                                                @item.Description
+                                            </p>
+                                            <h6><span>*</span> @item.SubTitle</h6>
+                                        </div>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
                     <!--End Tabs Content Box-->
+
                 </div>
             </div>
         </div>
+
     </div>
 </section>
-<!--End Service Style1 Area-->
