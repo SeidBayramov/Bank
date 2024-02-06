@@ -1,0 +1,32 @@
+﻿@using Bank.Business.ViewModels.Currency
+@model UpdateCurrencyVm
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <label asp-for="Title">Title</label>
+            <input class="form-control" asp-for="Title" type="text">
+            <span asp-validation-for="Title" style="color:red"></span>
+        </div>
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <label asp-for="SendMoney">SendMoney</label>
+            <input class="form-control" asp-for="SendMoney" type="text">
+            <span asp-validation-for="SendMoney" style="color:red"></span>
+        </div>
+           <div class="col-sm-6 mb-3 mb-sm-0">
+            <label asp-for="RecieveMoney">RecieveMoney</label>
+            <input class="form-control" asp-for="RecieveMoney" type="text">
+            <span asp-validation-for="RecieveMoney" style="color:red"></span>
+        </div>
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <div style="width:100%;">
+                <img style="width:100px;height:100px;border-radius:50%;" src="~/Upload/CurrencyImages/@Model.ImageUrl"></img>
+            </div>
+            <label asp-for="Image">Image</label>
+            <input class="form-control" asp-for="Image" />
+            <span asp-validation-for="Image" style="color:red"></span>
+        </div>
+        <div asp-validation-summary="All">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>

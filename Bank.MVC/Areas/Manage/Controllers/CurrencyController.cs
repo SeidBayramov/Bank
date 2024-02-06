@@ -1,46 +1,41 @@
-﻿using AutoMapper;
-using Bank.Business.Exceptions.Common;
+﻿using Bank.Business.Exceptions.Common;
 using Bank.Business.Services.Interface;
+using Bank.Business.ViewModels.Currency;
 using Bank.Business.ViewModels.Slider;
 using Bank.Core.Entities.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.Threading.Tasks;
 
 namespace Bank.MVC.Areas.Manage.Controllers
 {
     [Area("Manage")]
-    public class SliderController : Controller
+    public class CurrencyController : Controller
     {
-        private readonly ISliderService _service;
+        private ICurrencyService _service;
         private readonly IWebHostEnvironment _env;
-
-        public SliderController(ISliderService service,IWebHostEnvironment env)
+        public CurrencyController(ICurrencyService service, IWebHostEnvironment env = null)
         {
             _service = service;
             _env = env;
         }
 
-        //[Authorize(Roles = "Admin, Moderator")]
         public async Task<IActionResult> Index()
         {
-            var sliders = await _service.GetAllAsync();  
-            return View(sliders);
+            var currencies = await _service.GetAllAsync();
+            return View(currencies);
         }
-
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
         //[Authorize(Roles = "Admin, Moderator")]
-        public async Task<IActionResult> Create(CreateSliderVm vm)
+        public async Task<IActionResult> Create(CreateCurrencyVm vm)
         {
             try
             {
-                CreateSliderValidator validationRules = new CreateSliderValidator();
+                CurrencyValidator validationRules = new CurrencyValidator();
                 var result = await validationRules.ValidateAsync(vm);
                 if (!result.IsValid)
                 {
@@ -62,7 +57,8 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
             catch (ValidationException ex)
             {
-                ModelState.AddModelError("Descriptions", "Descriptions is not bigger than 2000 words. Please try again.");
+                ModelState.AddModelError("Title", "Title is not bigger than 10 words. Please try again.");
+
                 return View(vm);
             }
         }
@@ -70,13 +66,14 @@ namespace Bank.MVC.Areas.Manage.Controllers
         {
             try
             {
-                Slider portfolio = await _service.GetByIdAsync(id);
-                UpdateSliderVm vm = new UpdateSliderVm()
+                Currency currency = await _service.GetByIdAsync(id);
+                UpdateCurrencyVm vm = new UpdateCurrencyVm()
                 {
-                    Descriptions = portfolio.Descriptions,
-                    ImageUrl = portfolio.ImageUrl,
-                    Id = portfolio.Id,
-                    Title = portfolio.Title
+                    SendMoney = currency.SendMoney,
+                    RecieveMoney = currency.RecieveMoney,
+                    ImageUrl = currency.ImageUrl,
+                    Id = currency.Id,
+                    Title = currency.Title
                 };
 
                 return View(vm);
@@ -91,14 +88,15 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 ModelState.AddModelError(ex.ParamName, ex.Message);
                 return RedirectToAction("Index");
             }
+        
         }
         [HttpPost]
         //[Authorize(Roles = "Admin, Moderator")]
-        public async Task<IActionResult> Update(UpdateSliderVm vm)
+        public async Task<IActionResult> Update(UpdateCurrencyVm vm)
         {
             try
             {
-                UpdateSliderValidator validationRules = new UpdateSliderValidator();
+                UpdateCurrencyValidator validationRules = new UpdateCurrencyValidator();
                 var result = await validationRules.ValidateAsync(vm);
                 if (!result.IsValid)
                 {
@@ -123,11 +121,18 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 ModelState.AddModelError(ex.ParamName, ex.Message);
                 return RedirectToAction("Update");
             }
-            catch (ObjectNullException  ex)
+            catch (ObjectNullException ex)
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
                 return RedirectToAction("Update");
             }
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError("Title", "Title is not bigger than 10 words. Please try again.");
+
+                return View(vm);
+            }
+
         }
         //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
@@ -193,7 +198,5 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 return RedirectToAction("Index");
             }
         }
-
-
     }
 }

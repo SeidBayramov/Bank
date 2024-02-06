@@ -27,5 +27,6 @@ namespace Bank.DAL.Context
         public DbSet<Setting> Settings { get; set; } 
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<BankIcon> BankIcons {get; set; }
+        public DbSet<Currency> Currencies {get; set; }
     }
 }
