@@ -1,0 +1,65 @@
+﻿@using Bank.Core.Entities.Models
+@using Bank.MVC.PaginationHelper
+@model PaginatedList<Question>
+@{
+    int count = 0;
+}
+
+<div class="container">
+    <h2>Questions Table</h2>
+    <a class="btn btn-primary" asp-action="Create" asp-controller="Question">Create</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Descriptions</th>
+                <th scope="col">Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var item in Model)
+                {
+                    count++;
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td>@item.Title</td>
+                        <td>@(item.Description.Length > 50 ? item.Description.Substring(0, 50) + "..." : item.Description)</td>
+                        <td>
+                            <a asp-route-id="@item.Id" asp-action="Update" asp-controller="Question" class="btn btn-warning mt-4 mb-4">Update</a>
+                            @if (item.IsDeleted)
+                            {
+                                <a asp-route-id="@item.Id" asp-action="Recover" asp-controller="Question" class="btn btn-success mt-4 mb-4">Recover</a>
+                            }
+                            else
+                            {
+                                <a asp-route-id="@item.Id" asp-action="Delete" asp-controller="Question" class="btn btn-danger mt-4 mb-4">Delete</a>
+                                <a asp-route-id="@item.Id" asp-action="Remove" asp-controller="Question" class="btn btn-danger mt-4 mb-4 item-delete">Remove</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div class=" d-flex justify-content-center row">
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-item @(Model.HasPrev == true ? "" : "disabled")">
+                <a class="page-link" asp-action="index" asp-controller="Question" asp-route-page="@(Model.ActivePage -1) ">Previous</a>
+            </li>
+            @for (int i = 1; i <= Model.TotalPageCount; i++)
+            {
+                <li class="page-item @(Model.ActivePage == i ? "active" : "")"><a class="page-link" asp-action="index" asp-controller="Question" asp-route-page="@i">@i</a></li>
+            }
+
+            <li class="page-item @(Model.HasNext == true ? "" : "disabled")">
+                <a class="page-link" asp-action="index" asp-controller="Question" asp-route-page="@(Model.ActivePage +1)">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</div>

@@ -48,7 +48,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 await _service.CreateAsync(vm);
                 return RedirectToAction("Index");
             }
-            catch (ImageException ex)
+            catch (ObjectNullException ex)
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
                 return View(vm);
@@ -101,11 +101,6 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 if (!ModelState.IsValid) { return View(vm); }
                 await _service.UpdateAsync(vm);
                 return RedirectToAction("Index");
-            }
-            catch (ImageException ex)
-            {
-                ModelState.AddModelError(ex.ParamName, ex.Message);
-                return View(vm);
             }
             catch (IdNegativeOrZeroException ex)
             {

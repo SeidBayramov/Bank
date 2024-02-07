@@ -19,9 +19,9 @@ namespace Bank.Business.ViewModels.BankIcon
     {
         public UpdateValidator()
         {
-            RuleFor(x => x.TItle).NotEmpty();
-            RuleFor(x => x.SubTitle).NotEmpty();
-            RuleFor(x => x.Description).NotEmpty();
+            RuleFor(x => x.TItle).NotEmpty().MaximumLength(50);
+            RuleFor(x => x.SubTitle).NotEmpty().MaximumLength(50);
+            RuleFor(x => x.Description).NotEmpty().MaximumLength(2000);
             RuleFor(x => x.Icon).NotEmpty();
 
         }

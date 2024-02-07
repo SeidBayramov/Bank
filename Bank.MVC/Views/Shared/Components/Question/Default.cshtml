@@ -1,0 +1,77 @@
+﻿@using Bank.Core.Entities.Models
+@model List<Question>
+
+<!-- Start Faq Style1 Area -->
+<section class="faq-style1-area">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="faq-style1-title">
+                    <div class="sec-title">
+                        <h2>Questions & Answers</h2>
+                        <div class="sub-title">
+                            <p>Find answers to all your queries about our service.</p>
+                        </div>
+                    </div>
+                    <div class="faq-search-box">
+                        <h3>Help You to Find</h3>
+                        <div class="faq-search-box__inner">
+                            <form  class="search-form" action="#">
+                                <label  for="searchInput" class="visually-hidden">Search</label>
+                                <input id="searchInput" placeholder="Related Keyword..." type="text">
+                                <button type="submit">
+                                    <i class="icon-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="faq-style1__image">
+                    <div class="inner">
+                        <img src="~/assets/BankImages/Bank1.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-6">
+                <div class="faq-style1__content">
+                    <ul class="accordion-box">
+                        <li class="accordion block active-block">
+                            <div class="acc-btn active">
+                                <div class="icon-outer"><i class="icon-right-arrow"></i></div>
+                                <h3>What is the minimum balance?</h3>
+                            </div>
+                            <div class="acc-content current">
+                                <p>
+                                    Rationally encounter consequences that are extremely painful again there anyone who loves or pursues desire.
+                                </p>
+                            </div>
+                        </li>
+
+                        @foreach (var item in Model)
+                        {
+                            <li class="accordion block">
+                                <div class="acc-btn">
+                                    <div class="icon-outer"><i class="icon-right-arrow"></i></div>
+                                    <h3>@item.Title</h3>
+                                </div>
+                                <div class="acc-content">
+                                    <p>
+                                        @item.Description
+                                    </p>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Faq Style1 Area -->

@@ -2,7 +2,7 @@
 
 <div class="container">
     <form method="post" enctype="multipart/form-data">
-        @foreach (var item in Model.Where(k => k.Key != "Logo").ToList())
+        @foreach (var item in Model)
         {
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">@item.Key</label>
@@ -10,16 +10,16 @@
                    value="@item.Value" class="form-control">
             </div>
         }
-        <input name="__RequestVerificationToken" type="hidden" value="...">
+@*        <input name="__RequestVerificationToken" type="hidden" value="...">
         <div class="container mt-3 mb-3">
             <img src="~/Upload/Settings/@Model["Logo"]" />
         </div>
-
-        <div class="mb-3">
+*@
+  @*      <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Service Icon</label>
             <input type="file" class="form-control" name="logo" id="exampleInputEmail1" aria-describedby="emailHelp">
             <input type="hidden" class="form-control" asp-for="@Model["Logo"]">
-        </div>
+        </div>*@
 
         <div asp-validation-summary=All class="mt-4 mb-4"></div>
 

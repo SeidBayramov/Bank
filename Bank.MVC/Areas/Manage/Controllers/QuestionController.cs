@@ -1,47 +1,46 @@
-﻿using AutoMapper;
-using Bank.Business.Exceptions.Common;
+﻿using Bank.Business.Exceptions.Common;
 using Bank.Business.Services.Interface;
-using Bank.Business.ViewModels.Slider;
+using Bank.Business.ViewModels.BankIcon;
+using Bank.Business.ViewModels.Question;
 using Bank.Core.Entities.Models;
-using Microsoft.AspNetCore.Authorization;
+using Bank.DAL.Context;
+using Bank.MVC.PaginationHelper;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.Threading.Tasks;
 
 namespace Bank.MVC.Areas.Manage.Controllers
 {
     [Area("Manage")]
-    public class SliderController : Controller
+    public class QuestionController : Controller
     {
-        private readonly ISliderService _service;
-        private readonly IWebHostEnvironment _env;
+        private readonly IQuestionService _service;
+        private readonly AppDbContext _appDb;
 
-
-        public SliderController(ISliderService service,IWebHostEnvironment env)
+        public QuestionController(IQuestionService service, AppDbContext appDb)
         {
             _service = service;
-            _env = env;
+            _appDb = appDb;
         }
 
-        //[Authorize(Roles = "Admin, Moderator")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var sliders = await _service.GetAllAsync();  
-            return View(sliders);
+            var query = _appDb.Questions.AsQueryable();
+            PaginatedList<Question> paginatedList = new PaginatedList<Question>(query.Skip((page - 1) * 2).Take(2).ToList(), page, query.ToList().Count, 2);
+            if (page > paginatedList.TotalPageCount)
+            {
+                paginatedList = new PaginatedList<Question>(query.Skip((page - 1) * 2).Take(2).ToList(), page, query.ToList().Count, 2);
+            }
+            return View(paginatedList);
         }
-
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
-        //[Authorize(Roles = "Admin, Moderator")]
-        public async Task<IActionResult> Create(CreateSliderVm vm)
+        public async Task<IActionResult> Create(QuestionCreateVm vm)
         {
             try
             {
-                CreateSliderValidator validationRules = new CreateSliderValidator();
+                QuestionCreateValidator validationRules = new QuestionCreateValidator();
                 var result = await validationRules.ValidateAsync(vm);
                 if (!result.IsValid)
                 {
@@ -53,17 +52,12 @@ namespace Bank.MVC.Areas.Manage.Controllers
                     return View(vm);
                 }
                 if (!ModelState.IsValid) { return View(vm); }
-                await _service.CreateAsync(vm, _env.WebRootPath);
+                await _service.CreateAsync(vm);
                 return RedirectToAction("Index");
             }
-            catch (ImageException ex)
+            catch (ObjectNullException ex)
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
-                return View(vm);
-            }
-            catch (ValidationException ex)
-            {
-                ModelState.AddModelError("Descriptions", "Descriptions is not bigger than 2000 words. Please try again.");
                 return View(vm);
             }
         }
@@ -71,13 +65,12 @@ namespace Bank.MVC.Areas.Manage.Controllers
         {
             try
             {
-                Slider portfolio = await _service.GetByIdAsync(id);
-                UpdateSliderVm vm = new UpdateSliderVm()
+                Question question = await _service.GetByIdAsync(id);
+                QuestionUpdateVm vm = new QuestionUpdateVm()
                 {
-                    Descriptions = portfolio.Descriptions,
-                    ImageUrl = portfolio.ImageUrl,
-                    Id = portfolio.Id,
-                    Title = portfolio.Title
+                    Description = question.Description,
+                    Id = question.Id,
+                    Title = question.Title,
                 };
 
                 return View(vm);
@@ -95,11 +88,11 @@ namespace Bank.MVC.Areas.Manage.Controllers
         }
         [HttpPost]
         //[Authorize(Roles = "Admin, Moderator")]
-        public async Task<IActionResult> Update(UpdateSliderVm vm)
+        public async Task<IActionResult> Update(QuestionUpdateVm vm)
         {
             try
             {
-                UpdateSliderValidator validationRules = new UpdateSliderValidator();
+                QuestionUpdateValidator validationRules = new QuestionUpdateValidator();
                 var result = await validationRules.ValidateAsync(vm);
                 if (!result.IsValid)
                 {
@@ -111,25 +104,21 @@ namespace Bank.MVC.Areas.Manage.Controllers
                     return View(vm);
                 }
                 if (!ModelState.IsValid) { return View(vm); }
-                await _service.UpdateAsync(vm, _env.WebRootPath);
+                await _service.UpdateAsync(vm);
                 return RedirectToAction("Index");
-            }
-            catch (ImageException ex)
-            {
-                ModelState.AddModelError(ex.ParamName, ex.Message);
-                return View(vm);
             }
             catch (IdNegativeOrZeroException ex)
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
                 return RedirectToAction("Update");
             }
-            catch (ObjectNullException  ex)
+            catch (ObjectNullException ex)
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
                 return RedirectToAction("Update");
             }
         }
+
         //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -194,7 +183,5 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 return RedirectToAction("Index");
             }
         }
-
-
     }
 }

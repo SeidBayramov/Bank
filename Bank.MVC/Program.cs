@@ -24,6 +24,8 @@ namespace Bank.MVC
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IBankIconRepository, BankIconRepository>();
             builder.Services.AddScoped<ICurrecnyRepository, CurrencyRepository>();
+            builder.Services.AddScoped<IQuestionsRepository, QuestionRepository>();
+            builder.Services.AddScoped<IQuestionService,QuestionService>();
             builder.Services.AddScoped<ICurrencyService, CurrencyService>();
             builder.Services.AddScoped<IBankIconService, BankIconService>();
             builder.Services.AddScoped<LayoutService>();

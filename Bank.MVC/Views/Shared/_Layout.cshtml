@@ -48,6 +48,7 @@
     <link rel="stylesheet" href="assets/css/module-css/06-partner-section.css">
     <link rel="stylesheet" href="assets/css/module-css/07-footer-section.css">
     <link rel="stylesheet" href="assets/css/module-css/08-blog-section.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-c0ps2byF9jgrJZtPIdO3ePpkXR49pShT6a7tkwfpnApKsCAjMI8EE3IMCgKFP1AA" crossorigin="anonymous">
 
     <!-- Template styles -->
     <link rel="stylesheet" href="assets/css/style.css" />
@@ -126,8 +127,10 @@
                             <div class="header-menu-style1">
                                 <ul>
                                     <li><a href="#">Offers</a></li>
-                                    <li><a href="#">Calendar</a></li>
+                                    <li><a href="#"> @Html.Raw(settings["TeleIcon"]) @Html.Raw(settings["TelePhone"])</a></li>
+
                                 </ul>
+
                             </div>
                             <div class="box-search-style1">
                                 <a href="#" class="search-toggler">
@@ -135,6 +138,7 @@
                                     Search
                                 </a>
                             </div>
+
                         </div>
                         <!--End Main Header Style1 Top Right-->
 

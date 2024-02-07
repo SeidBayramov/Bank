@@ -148,125 +148,141 @@
 
 @await Component.InvokeAsync("Currency")
 
-        <!--Start Faq Style1 Area-->
-        <section class="faq-style1-area">
-            <div class="container">
+@await Component.InvokeAsync("Question")
 
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="faq-style1-title">
-                            <div class="sec-title">
-                                <h2>Questions & Answers</h2>
-                                <div class="sub-title">
-                                    <p>Find answers to all your queries about our service.</p>
+<!-- Centered Currency Converter Section -->
+<style>
+    .currency-converter-container {
+        background-color: #f8f9fa;
+        padding: 200px;
+        border-radius: 200px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center; /* Center the content */
+    }
+
+    .currency-input-label {
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Center the input and separator */
+    }
+
+    .separator-calc {
+        height: 30px;
+        border-left: 2px solid #ccc;
+        margin: 0 20px;
+    }
+
+    #buyOption {
+        display: none;
+    }
+
+    /* Adjusted styles for better visibility */
+    .fs-24 {
+        font-size: 24px !important; /* Increase font size for better visibility */
+    }
+
+    .border-e4e4e4 {
+        border-color: #e4e4e4 !important; /* Adjust border color for better visibility */
+    }
+
+    .color-666 {
+        color: #666 !important; /* Adjust text color for better visibility */
+    }
+
+    .w-100 {
+        width: 80% !important; /* Adjust input width for better visibility */
+    }
+</style>
+
+<div class="container mt-5 currency-converter-container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 pl-lg-3">
+            <div class="mb-4 ml-lg-5">
+                <h4 class="fw-500 fs-24 mt-0">Valyuta konvertoru</h4>
+                <div class="border border-e4e4e4 p-3 px-lg-4 radius-5 pos-relative mb-3">
+                    <!-- First currency converter content -->
+                    <div class="d-flex justify-content-between align-items-center no-gutters js-currency-calc">
+                        <label class="col-9 col-md-10 col-lg-9 currency-input-label">
+                            <input type="number" id="sellInput" name="sell" placeholder="Satıram" class="w-100 fs-18 fs-lg-20 color-666 border-0 outline-0 pr-3" oninput="convertCurrency('sell')">
+                            <span class="separator-calc"></span>
+                        </label>
+
+                        <span class="col-3 col-md-2 col-lg-3 d-flex justify-content-end">
+                            <div class="selectric-wrapper selectric-selectric-tooltip">
+                                <div class="selectric-hide-select">
+                                    <select name="" class="selectric-tooltip" id="js-selectric-currency-1" data-previous-value="USD" aria-label="Currency" tabindex="-1" onchange="convertCurrency('sell')">
+                                        <option value="USD">USD</option>
+                                        <option value="AZN">AZN</option>
+                                        <option value="RUB">RUB</option>
+                                        <option value="EUR">EUR</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="faq-search-box">
-                                <h3>Help You to Find</h3>
-                                <div class="faq-search-box__inner">
-                                    <form class="search-form" action="#">
-                                        <input placeholder="Related Keyword..." type="text">
-                                        <button type="submit">
-                                            <i class="icon-search"></i>
-                                        </button>
-                                    </form>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Updated style for the "Alıram" (buy) option -->
+                <div class="border border-e4e4e4 p-3 px-lg-4 radius-5 pos-relative" id="buyOption">
+                    <!-- Second currency converter content -->
+                    <div class="d-flex justify-content-between align-items-center no-gutters js-currency-calc">
+                        <label class="col-9 col-md-10 col-lg-9 currency-input-label">
+                            <input type="number" id="buyInput" name="buy" placeholder="Alıram" class="w-100 fs-18 fs-lg-20 color-666 border-0 outline-0 pr-3" oninput="convertCurrency('buy')">
+                            <span class="separator-calc mr-2 mr-lg-0"></span>
+                        </label>
+
+                        <span class="col-3 col-md-2 col-lg-3 d-flex justify-content-end">
+                            <div class="selectric-wrapper selectric-selectric-tooltip">
+                                <div class="selectric-hide-select">
+                                    <select name="" class="selectric-tooltip" id="js-selectric-currency-2" data-previous-value="AZN" aria-label="Currency" tabindex="-1" onchange="convertCurrency('buy')">
+                                        <option value="AZN">AZN</option>
+                                        <option value="USD">USD</option>
+                                        <option value="RUB">RUB</option>
+                                        <option value="EUR">EUR</option>
+                                    </select>
                                 </div>
                             </div>
-
-                        </div>
+                        </span>
                     </div>
                 </div>
-
-                <div class="row">
-
-                    <div class="col-xl-6">
-                        <div class="faq-style1__image">
-                            <div class="inner">
-                                <img src="~/assets/BankImages/Bank1.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-6">
-                        <div class="faq-style1__content">
-                            <ul class="accordion-box">
-
-                                <li class="accordion block active-block">
-                                    <div class="acc-btn active">
-                                        <div class="icon-outer"><i class="icon-right-arrow"></i></div>
-                                        <h3>What is the minimum balance?</h3>
-                                    </div>
-                                    <div class="acc-content current">
-                                        <p>Rationally encounter consequences that are extremely painful again
-                                            there anyone who loves or pursues desire.</p>
-                                    </div>
-                                </li>
-                                <li class="accordion block">
-                                    <div class="acc-btn">
-                                        <div class="icon-outer"><i class="icon-right-arrow"></i></div>
-                                        <h3>What is the rate of interest?</h3>
-                                    </div>
-                                    <div class="acc-content">
-                                        <p>Rationally encounter consequences that are extremely painful again
-                                            there anyone who loves or pursues desire.</p>
-                                    </div>
-                                </li>
-                                <li class="accordion block">
-                                    <div class="acc-btn">
-                                        <div class="icon-outer"><i class="icon-right-arrow"></i></div>
-                                        <h3>When will I receive my account statement?</h3>
-                                    </div>
-                                    <div class="acc-content">
-                                        <p>Rationally encounter consequences that are extremely painful again
-                                            there anyone who loves or pursues desire.</p>
-                                    </div>
-                                </li>
-                                <li class="accordion block">
-                                    <div class="acc-btn">
-                                        <div class="icon-outer"><i class="icon-right-arrow"></i></div>
-                                        <h3>Can I use any branch across India?</h3>
-                                    </div>
-                                    <div class="acc-content">
-                                        <p>Rationally encounter consequences that are extremely painful again
-                                            there anyone who loves or pursues desire.</p>
-                                    </div>
-                                </li>
-                                <li class="accordion block">
-                                    <div class="acc-btn">
-                                        <div class="icon-outer"><i class="icon-right-arrow"></i></div>
-                                        <h3>How safe/secure is our net banking a/c?</h3>
-                                    </div>
-                                    <div class="acc-content">
-                                        <p>Rationally encounter consequences that are extremely painful again
-                                            there anyone who loves or pursues desire.</p>
-                                    </div>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="faq-style1-bottom-box text-center">
-                            <p>Didn’t get, Click below button to more anwers or <a href="#">contact us.</a></p>
-                            <div class="btns-box">
-                                <a class="btn-one" href="#">
-                                    <span class="txt">Grab Your Deals</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-        </section>
+        </div>
+    </div>
+</div>
+<!-- End Centered Currency Converter Section -->
+<!-- Existing Code -->
+
+<script>
+    function convertCurrency(type) {
+        const sellInput = document.getElementById('sellInput');
+        const buyInput = document.getElementById('buyInput');
+        const buyOption = document.getElementById('buyOption');
+
+        const exchangeRates = {
+            USD: 1.0,
+            AZN: 1.7, // Replace with your actual exchange rates
+            RUB: 0.02,
+            EUR: 1.85
+        };
+
+        const selectedCurrency = document.getElementById(type === 'sell' ? 'js-selectric-currency-1' : 'js-selectric-currency-2');
+        const selectedCurrencyValue = selectedCurrency.options[selectedCurrency.selectedIndex].value;
+
+        if (type === 'sell') {
+            buyInput.value = (sellInput.value * exchangeRates[selectedCurrencyValue]).toFixed(2);
+            buyOption.style.display = 'block';  // Show the "Alıram" (buy) option
+        } else {
+            sellInput.value = (buyInput.value / exchangeRates[selectedCurrencyValue]).toFixed(2);
+        }
+    }
+
+    // Hiding the "Alıram" (buy) option initially
+    document.getElementById('buyOption').style.display = 'none';
+</script>
+<!-- Existing Code -->
 
 
-
-        <!--Start EMI Calculator Area-->
+<!--Start EMI Calculator Area-->
         <section class="emi-calculator-area">
             <div class="container">
                 <div class="sec-title text-center">

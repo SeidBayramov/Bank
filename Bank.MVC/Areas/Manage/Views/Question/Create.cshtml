@@ -1,0 +1,19 @@
+﻿@using Bank.Business.ViewModels.Question
+@model QuestionCreateVm
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <label asp-for="Title">Question</label>
+            <input class="form-control" asp-for="Title" type="text">
+            <span asp-validation-for="Title" style="color:red"></span>
+        </div>
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <label asp-for="Description">Question Answer</label>
+            <input class="form-control" asp-for="Description" type="text">
+            <span asp-validation-for="Description" style="color:red"></span>
+        </div>
+        <div asp-validation-summary="All">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>

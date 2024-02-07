@@ -19,9 +19,9 @@ namespace Bank.Business.ViewModels.BankIcon
         public IconValidator()
         {
             RuleFor(x => x.Icon).NotEmpty().WithMessage("Icon is not empty");
-            RuleFor(x => x.TItle).NotEmpty().WithMessage("Title is not empty");
-            RuleFor(x => x.SubTitle).NotEmpty().WithMessage("SubTitle is not empty");
-            RuleFor(x => x.Description).NotEmpty().WithMessage("Description is not empty");
+            RuleFor(x => x.TItle).NotEmpty().WithMessage("Title is not empty").MaximumLength(50).WithMessage("Title is not bigger than 50 words ");
+            RuleFor(x => x.SubTitle).NotEmpty().WithMessage("SubTitle is not empty").MaximumLength(50).WithMessage("SubTitle is not bigger than 50 words ");
+            RuleFor(x => x.Description).NotEmpty().WithMessage("Description is not empty").MaximumLength(2000);
         }
     }
 }

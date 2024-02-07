@@ -3,6 +3,8 @@ using Bank.Business.Services.Interface;
 using Bank.Business.ViewModels.Currency;
 using Bank.Business.ViewModels.Slider;
 using Bank.Core.Entities.Models;
+using Bank.DAL.Context;
+using Bank.MVC.PaginationHelper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
@@ -14,17 +16,25 @@ namespace Bank.MVC.Areas.Manage.Controllers
     {
         private ICurrencyService _service;
         private readonly IWebHostEnvironment _env;
-        public CurrencyController(ICurrencyService service, IWebHostEnvironment env = null)
+        private readonly AppDbContext _appDb;
+        public CurrencyController(ICurrencyService service, IWebHostEnvironment env = null, AppDbContext appDb = null)
         {
             _service = service;
             _env = env;
+            _appDb = appDb;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var currencies = await _service.GetAllAsync();
-            return View(currencies);
+            var query = _appDb.Currencies.AsQueryable();
+            PaginatedList<Currency> paginatedList = new PaginatedList<Currency>(query.Skip((page - 1) * 2).Take(2).ToList(), page, query.ToList().Count, 2);
+            if (page > paginatedList.TotalPageCount)
+            {
+                paginatedList = new PaginatedList<Currency>(query.Skip((page - 1) * 2).Take(2).ToList(), page, query.ToList().Count, 2);
+            }
+            return View(paginatedList);
         }
+
         public IActionResult Create()
         {
             return View();

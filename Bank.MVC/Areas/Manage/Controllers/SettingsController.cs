@@ -37,55 +37,56 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 .ToDictionaryAsync(k => k.Key, k => k.Value);
             return View(settings);
         }
-
         [HttpPost]
         //[Authorize(Roles = "Moderator, Admin")]
+        [ValidateAntiForgeryToken] // Ensure that the AntiForgeryToken is validated
         public async Task<IActionResult> Update(Dictionary<string, string> settings, IFormFile? logo)
         {
             foreach (var item in settings)
             {
-                if (item.Key != "Logo")
-                {
-                    if (item.Value is null)
-                    {
-                        ModelState.AddModelError("", "Object parameters is required!");
-
-                        return View(await _context.Settings
-                .Where(x => !x.IsDeleted)
-                .ToDictionaryAsync(k => k.Key, k => k.Value));
-                    }
-                }
-
-                if (item.Key == "__RequestVerificationToken") continue;
+                // Skip processing the __RequestVerificationToken
+                if (item.Key == "__RequestVerificationToken")
+                    continue;
 
                 if (item.Key != null)
                 {
-                    var newSetting = await _context.Settings.Where(x => x.Key == item.Key).FirstOrDefaultAsync();
+                    var newSetting = await _context.Settings
+                        .Where(x => x.Key == item.Key)
+                        .FirstOrDefaultAsync();
 
-                    if (newSetting.Key == "Logo")
+                    if (newSetting != null)
                     {
-                        if (logo is not null)
+                        // Check if the key is "Logo" and process accordingly
+                        if (newSetting.Key == "Logo")
                         {
-                            if (!logo.CheckImage())
+                            if (logo != null)
                             {
-                                ModelState.AddModelError("", "File must be image format and lower than 3MB!");
-
-                                return View(settings);
+                                if (!logo.CheckImage())
+                                {
+                                    ModelState.AddModelError("", "File must be in image format and lower than 3MB!");
+                                    return View(settings);
+                                }
+                                newSetting.Value = logo.Upload(_env.WebRootPath, @"/Upload/Settings/");
                             }
-                            newSetting.Value = logo.Upload(_env.WebRootPath, @"/Upload/Settings/");
+                        }
+                        else
+                        {
+                            // Update the value for other settings
+                            newSetting.Value = item.Value;
                         }
                     }
                     else
                     {
-                        newSetting.Value = item.Value;
+                        // Handle the case where the setting with the given key is not found
+                        ModelState.AddModelError("", $"Setting with key '{item.Key}' not found.");
+                        return View(settings);
                     }
                 }
-
             }
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Detail));
         }
     }
 }
