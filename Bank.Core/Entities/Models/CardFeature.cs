@@ -11,7 +11,7 @@ namespace Bank.Core.Entities.Models
     {
         public int CardId { get; set; }
         public int TagId { get; set; }
-        public Card Card { get; set; }
-        public Feature Tag { get; set; }
+        public Card? Card { get; set; }
+        public Feature? Tag { get; set; }
     }
 }

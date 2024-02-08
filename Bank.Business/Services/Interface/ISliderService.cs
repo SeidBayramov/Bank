@@ -10,7 +10,7 @@ namespace Bank.Business.Services.Interface
 {
     public interface ISliderService
     {
-        Task<List<Slider>> GetAllAsync();
+        Task<IQueryable<Slider>> GetAllAsync();
         Task<Slider> GetByIdAsync(int id);
         Task CreateAsync(CreateSliderVm vm, string env);
         Task UpdateAsync(UpdateSliderVm vm, string env);

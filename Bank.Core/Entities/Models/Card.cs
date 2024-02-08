@@ -12,18 +12,13 @@ namespace Bank.Core.Entities.Models
     public class Card:BaseAudiTable
     {
         public string Title {get;set;}
-        public string ImageUrl {get;set;}
         public string Description {get;set;}
+        public bool IsInStock { get; set; }
         public int CategoryId {get;set;}
+        public Category Category {get;set;}
         public List<CardFeature> CardFeatures {get;set;}
-        [NotMapped]
-        public List<int>? FeaturesIds { get; set; }
-        public List<CardImage>? CardImages {get; set; }
-        [NotMapped]
-        public List<int>? CardImageIds { get; set; }
-        [NotMapped]
+        public List<CardImage> CardImages {get; set; }
         public IFormFile? CardPoster { get; set; }
-        [NotMapped]
         public IFormFile? CardHower { get; set; }
     }
 }

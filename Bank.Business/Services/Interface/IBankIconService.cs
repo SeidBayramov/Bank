@@ -11,7 +11,7 @@ namespace Bank.Business.Services.Interface
 {
     public interface IBankIconService
     {
-        Task<List<BankIcon>> GetAllAsync();
+        Task<IQueryable<BankIcon>> GetAllAsync();
         Task<BankIcon> GetByIdAsync(int id);
         Task CreateAsync(CreateIconVm vm);
         Task UpdateAsync(UpdateIconVm vm);

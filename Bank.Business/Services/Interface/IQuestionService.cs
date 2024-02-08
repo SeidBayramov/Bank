@@ -11,7 +11,7 @@ namespace Bank.Business.Services.Interface
 {
     public interface IQuestionService
     {
-        Task<List<Question>> GetAllAsync();
+        Task<IQueryable<Question>> GetAllAsync();
         Task<Question> GetByIdAsync(int id);
         Task CreateAsync(QuestionCreateVm vm);
         Task UpdateAsync(QuestionUpdateVm vm);

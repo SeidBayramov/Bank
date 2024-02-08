@@ -15,12 +15,12 @@ namespace Bank.DAL.Repositories.Absrtactions
     public class Repository<T> : IRepository<T> where T : BaseAudiTable, new()
     {
         private readonly AppDbContext _context;
-        public  DbSet<T> Table=>_context.Set<T>();
+        public DbSet<T> Table => _context.Set<T>();
 
         public Repository(AppDbContext context)
         {
             _context = context;
-         
+
         }
 
         public async Task<T> CreateAsync(T entity)
@@ -36,10 +36,11 @@ namespace Bank.DAL.Repositories.Absrtactions
             await UpdateAsync(entity);
             return entity;
         }
-        public async Task<List<T>> GetAllAsync(
+        public async Task<IQueryable<T>> GetAllAsync(
             Expression<Func<T, bool>>? filter = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
-            params Expression<Func<T, object>>[] includes)
+            Expression<Func<T, object>>? expressionOrder = null,
+        bool isDescending = false,
+        params string[] includes)
         {
             IQueryable<T> query = Table;
 
@@ -53,18 +54,35 @@ namespace Bank.DAL.Repositories.Absrtactions
                 query = query.Include(include);
             }
 
-            if (orderBy != null)
+            if (expressionOrder is not null)
             {
-                query = orderBy(query);
+                query = isDescending ? query.OrderByDescending(expressionOrder) : query.OrderBy(expressionOrder);
             }
 
-            return await query.ToListAsync(); 
+            if (includes is not null)
+            {
+                for (int i = 0; i < includes.Length; i++)
+                {
+                    query = query.Include(includes[i]);
+                }
+            }
+
+            return query;
         }
 
-
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(int Id = 0, params string[] entityIncludes)
         {
-            return await Table.Where(x => x.Id == id).FirstOrDefaultAsync();
+            IQueryable<T> query = Table;
+
+            if (entityIncludes is not null)
+            {
+                for (int i = 0; i < entityIncludes.Length; i++)
+                {
+                    query = query.Include(entityIncludes[i]);
+                }
+            }
+
+            return await query.AsNoTracking().Where(x => x.Id == Id).FirstOrDefaultAsync();
         }
 
         public async Task<T> RecoverAsync(int id)

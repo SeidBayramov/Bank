@@ -25,7 +25,7 @@ namespace Bank.Business.Services.Implementations
             _rep = rep;
         }
 
-        public async Task<List<Slider>> GetAllAsync()
+        public async Task<IQueryable<Slider>> GetAllAsync()
         {
             return await _rep.GetAllAsync();
         }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,19 +14,12 @@ namespace Bank.Business.ViewModels.Card
     public class CreateCardVm
     {
         public string Title { get; set; }
-        public string ImageUrl { get; set; }
         public string Description { get; set; }
         public int CategoryId { get; set; }
-        public List<CardFeature> CardFeatures { get; set; }
-        [NotMapped]
+        public bool IsInStock { get; set; }
         public List<int>? FeaturesIds { get; set; }
-        public List<CardImage>? CardImages { get; set; }
-        [NotMapped]
         public List<int>? CardImageIds { get; set; }
-        [NotMapped]
-        public IFormFile? CardPoster { get; set; }
-        [NotMapped]
-        public IFormFile? CardHower { get; set; }
+        public ICollection<IFormFile>? ProductFiles { get; set; }
     }
     public class CreateCardValidator : AbstractValidator<CreateCardVm>
     {

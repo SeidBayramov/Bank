@@ -27,10 +27,27 @@ namespace Bank.Business.Services.Implementations
             _categoryRepository = categoryRepository;
             _featureRepository = featureRepository;
         }
+        private string[] includes = {
+            "Category",
+            "CardFeatures", "CardFeatures.Feature",
+            "CardImages",
+        };
+
+        public async Task<IQueryable<Card>> GetAllAsync()
+        {
+            IQueryable<Card> query = await _rep.GetAllAsync(includes: includes);
+            return query;
+        }
+
+        public async Task<Card> GetByIdAsync(int id)
+        {
+            var oldcard = await CheckProduct(id, includes);
+            return oldcard;
+        }
 
         public async Task CreateAsync(CreateCardVm vm, string env)
         {
-            var exists = vm.Title == null || vm.Description == null || vm.ImageUrl == null;
+            var exists = vm.Title == null || vm.Description == null;/* vm.ImageUrl == null;*/
 
           
             if (exists) throw new ObjectParamsNullException("Object parameters is required!", nameof(vm.Title));
@@ -40,31 +57,21 @@ namespace Bank.Business.Services.Implementations
                 Title = vm.Title,
                 Description = vm.Description,
                 CategoryId = vm.CategoryId,
-                FeaturesIds = vm.FeaturesIds,
                 CardImages = new List<CardImage>(),
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now,
             };
      
            
-            if (!vm.CardHower.CheckImage()) throw new ObjectParamsNullException("File format must be image and size must be lower than 3MB", nameof(vm.CardHower));
-            if (!vm.CardPoster.CheckImage()) throw new ObjectParamsNullException("File format must be image and size must be lower than 3MB", nameof(vm.CardPoster));
-
-            newCad.ImageUrl = vm.CardPoster.Upload(env, @"/Upload/CardImages/");
-            newCad.ImageUrl = vm.CardHower.Upload(env, @"/Upload/CardImages/");
+        
+            //newCad.ImageUrl = vm.CardPoster.Upload(env, @"/Upload/CardImages/");
+            //newCad.ImageUrl = vm.CardHower.Upload(env, @"/Upload/CardImages/");
 
             await _rep.CreateAsync(newCad);
             await _rep.SaveChangesAsync();
         }
 
-        public Task<List<Currency>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-        public Task<Currency> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+     
 
         public async Task DeleteAsync(int id)
         {
@@ -101,6 +108,14 @@ namespace Bank.Business.Services.Implementations
         public Task UpdateAsync(UpdateCardVm vm, string env)
         {
             throw new NotImplementedException();
+        }
+        public async Task<Card> CheckProduct(int id, params string[] includes)
+        {
+            if (id <= 0) throw new IdNegativeOrZeroException("Id must be over than and not equal to zero!", nameof(id));
+            var oldProduct = await _rep.GetByIdAsync(Id: id, entityIncludes: includes);
+            if (oldProduct is null) throw new ObjectNullException("There is no like that object in Data!", nameof(oldProduct));
+
+            return oldProduct;
         }
     }
 }

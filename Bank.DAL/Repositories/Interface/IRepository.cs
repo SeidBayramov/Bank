@@ -12,12 +12,14 @@ namespace Bank.DAL.Repositories.Interface
     public interface IRepository<T> where T : BaseAudiTable, new()
     {
     
-        Task<List<T>> GetAllAsync(
+        Task<IQueryable<T>> GetAllAsync(
            Expression<Func<T, bool>>? filter = null,
-           Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
-           params Expression<Func<T, object>>[] includes
+            Expression<Func<T, object>>? expressionOrder = null,
+           bool isDescending = false,
+             params string[] includes
        );
-        Task<T> GetByIdAsync (int id);
+      
+        Task<T> GetByIdAsync (int Id = 0, params string[] entityIncludes);
         Task<T> CreateAsync(T entity);
         Task<T> UpdateAsync(T entity);
         Task<T> DeleteAsync(int id);

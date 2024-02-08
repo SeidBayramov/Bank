@@ -21,7 +21,7 @@ namespace Bank.Business.Services.Implementations
             _rep = rep;
         }
 
-        public async Task<List<Feature>> GetAllAsync()
+        public async Task<IQueryable<Feature>> GetAllAsync()
         {
             return await _rep.GetAllAsync();
 

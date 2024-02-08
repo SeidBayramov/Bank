@@ -11,8 +11,8 @@ namespace Bank.Business.Services.Interface
 {
     public interface ICardService
     {
-        Task<List<Currency>> GetAllAsync();
-        Task<Currency> GetByIdAsync(int id);
+        Task<IQueryable<Card>> GetAllAsync();
+        Task<Card> GetByIdAsync(int id);
         Task CreateAsync(CreateCardVm vm, string env);
         Task UpdateAsync(UpdateCardVm vm, string env);
         Task DeleteAsync(int id);

@@ -14,19 +14,18 @@ namespace Bank.Business.ViewModels.Card
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string ImageUrl { get; set; }
         public string Description { get; set; }
         public int CategoryId { get; set; }
-        public List<CardFeature> CardFeatures { get; set; }
-        [NotMapped]
+        public bool IsInStock { get; set; }
         public List<int>? FeaturesIds { get; set; }
-        public List<CardImage>? CardImages { get; set; }
-        [NotMapped]
         public List<int>? CardImageIds { get; set; }
-        [NotMapped]
-        public IFormFile? CardPoster { get; set; }
-        [NotMapped]
-        public IFormFile? CardHower { get; set; }
+        public ICollection<IFormFile>? ProductFiles { get; set; }
+        public List<ClassImageVm>? CardImageVms { get; set; }
+    }
+    public class ClassImageVm
+    {
+        public int Id {get; set; }
+        public string ImageUrl { get; set; }
     }
     public class UpdatecardValidator : AbstractValidator<UpdateCardVm>
     {

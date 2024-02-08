@@ -20,7 +20,7 @@ namespace Bank.Business.Services.Implementations
         {
             _rep = rep;
         }
-        public async Task<List<Category>> GetAllAsync()
+        public async Task<IQueryable<Category>> GetAllAsync()
         {
             return await _rep.GetAllAsync();
 

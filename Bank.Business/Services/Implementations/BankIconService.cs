@@ -22,7 +22,7 @@ namespace Bank.Business.Services.Implementations
             _rep = rep;
         }
 
-        public async Task<List<BankIcon>> GetAllAsync()
+        public async Task<IQueryable<BankIcon>> GetAllAsync()
         {
             return await _rep.GetAllAsync();
         }

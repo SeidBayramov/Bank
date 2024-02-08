@@ -11,7 +11,7 @@ namespace Bank.Business.Services.Interface
 {
     public interface ICategoryService
     {
-        Task<List<Category>> GetAllAsync();
+        Task<IQueryable<Category>> GetAllAsync();
         Task<Category> GetByIdAsync(int id);
         Task CreateAsync(CategoryCreateVm vm);
         Task UpdateAsync(CategoryUpdateVm vm);

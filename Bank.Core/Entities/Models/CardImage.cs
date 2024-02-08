@@ -10,7 +10,6 @@ namespace Bank.Core.Entities.Models
     public class CardImage:BaseAudiTable
     {
         public string ImageUrl { get; set; }
-        public bool? isPoster { get; set; }
         public int CardId { get; set; }
         public Card? Book { get; set; }
     }

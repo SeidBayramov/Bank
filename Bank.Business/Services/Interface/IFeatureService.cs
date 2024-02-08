@@ -11,7 +11,7 @@ namespace Bank.Business.Services.Interface
 {
     public interface IFeatureService
     {
-        Task<List<Feature>> GetAllAsync();
+        Task<IQueryable<Feature>> GetAllAsync();
         Task<Feature> GetByIdAsync(int id);
         Task CreateAsync(CreateFeatureVm vm);
         Task UpdateAsync(UpdateFeatureVm vm);
