@@ -30,7 +30,7 @@
                                     <h3>You can show our all Cards</h3>
                                     <p>"Offering the best deals on business-size cards."</p>
                                     <div class="btn-box">
-                                        <a href="#">@* car page yolla*@
+                                        <a asp-action="Index" asp-controller="Card">
                                             Read More
                                             <i class="fas fa-plus"></i>
                                         </a>
@@ -58,7 +58,7 @@
                             <h3>Smart Business, Savvy Savings.</h3>
                                     <p>"Unleash the Power of Savings in Your Business Journey</p>
                                     <div class="btn-box">
-                                        <a href="#">@*saving page *@
+                                        <a asp-action="Index" asp-controller="Deposit">@*saving page *@
                                             Read More
                                             <i class="fas fa-plus"></i>
                                         </a>
@@ -203,7 +203,7 @@
                     <!-- First currency converter content -->
                     <div class="d-flex justify-content-between align-items-center no-gutters js-currency-calc">
                         <label class="col-9 col-md-10 col-lg-9 currency-input-label">
-                            <input type="number" id="sellInput" name="sell" placeholder="Satıram" class="w-100 fs-18 fs-lg-20 color-666 border-0 outline-0 pr-3" oninput="convertCurrency('sell')">
+                            <input type="number" id="sellInput" name="sell" placeholder="Selling" class="w-100 fs-18 fs-lg-20 color-666 border-0 outline-0 pr-3" oninput="convertCurrency('sell')">
                             <span class="separator-calc"></span>
                         </label>
 
@@ -227,7 +227,7 @@
                     <!-- Second currency converter content -->
                     <div class="d-flex justify-content-between align-items-center no-gutters js-currency-calc">
                         <label class="col-9 col-md-10 col-lg-9 currency-input-label">
-                            <input type="number" id="buyInput" name="buy" placeholder="Alıram" class="w-100 fs-18 fs-lg-20 color-666 border-0 outline-0 pr-3" oninput="convertCurrency('buy')">
+                            <input type="number" id="buyInput" name="buy" placeholder="Buying" class="w-100 fs-18 fs-lg-20 color-666 border-0 outline-0 pr-3" oninput="convertCurrency('buy')">
                             <span class="separator-calc mr-2 mr-lg-0"></span>
                         </label>
 

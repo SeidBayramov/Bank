@@ -27,6 +27,11 @@ namespace Bank.DAL.Context
         public DbSet<Setting> Settings { get; set; } 
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<BankIcon> BankIcons {get; set; }
+        public DbSet<Card> Cards { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<CardImage> CardImages { get; set; }
+        public DbSet<Feature> Features { get; set; }
+        public DbSet<CardFeature> CardFeatures { get; set; }
         public DbSet<Currency> Currencies {get; set; }
         public DbSet<Question> Questions { get; set; }
     }

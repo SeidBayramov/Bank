@@ -1,0 +1,45 @@
+﻿@using Bank.Core.Entities.Models
+@model List<Category>
+@{
+    int count = 0;
+}
+
+<div class="container">
+    <h2>Categiry Table</h2>
+    <a class="btn btn-primary" asp-action="Create" asp-controller="Category">Create</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var item in Model)
+                {
+                    count++;
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td>@item.Name</td>
+
+                        <td>
+                            <a asp-route-id="@item.Id" asp-action="Update" asp-controller="Category" class="btn btn-warning mt-4 mb-4">Update</a>
+                            @if (item.IsDeleted)
+                            {
+                                <a asp-route-id="@item.Id" asp-action="Recover" asp-controller="Category" class="btn btn-success mt-4 mb-4">Recover</a>
+                            }
+                            else
+                            {
+                                <a asp-route-id="@item.Id" asp-action="Delete" asp-controller="Category" class="btn btn-danger mt-4 mb-4">Delete</a>
+                                <a asp-route-id="@item.Id" asp-action="Remove" asp-controller="Category" class="btn btn-danger mt-4 mb-4 item-delete">Remove</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

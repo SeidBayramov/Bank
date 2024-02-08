@@ -1,4 +1,5 @@
 ﻿using Bank.Core.Entities.Commons;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Bank.DAL.Repositories.Interface
 {
     public interface IRepository<T> where T : BaseAudiTable, new()
     {
+    
         Task<List<T>> GetAllAsync(
            Expression<Func<T, bool>>? filter = null,
            Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,

@@ -15,17 +15,17 @@ namespace Bank.DAL.Repositories.Absrtactions
     public class Repository<T> : IRepository<T> where T : BaseAudiTable, new()
     {
         private readonly AppDbContext _context;
-        private readonly DbSet<T> _table;
+        public  DbSet<T> Table=>_context.Set<T>();
 
         public Repository(AppDbContext context)
         {
             _context = context;
-            _table = _context.Set<T>();
+         
         }
 
         public async Task<T> CreateAsync(T entity)
         {
-            await _table.AddAsync(entity);
+            await Table.AddAsync(entity);
             return entity;
         }
 
@@ -41,7 +41,7 @@ namespace Bank.DAL.Repositories.Absrtactions
             Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
             params Expression<Func<T, object>>[] includes)
         {
-            IQueryable<T> query = _context.Set<T>();
+            IQueryable<T> query = Table;
 
             if (filter != null)
             {
@@ -64,7 +64,7 @@ namespace Bank.DAL.Repositories.Absrtactions
 
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _table.Where(x => x.Id == id).FirstOrDefaultAsync();
+            return await Table.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<T> RecoverAsync(int id)
@@ -81,7 +81,7 @@ namespace Bank.DAL.Repositories.Absrtactions
         {
             var entity = await GetByIdAsync(id);
 
-            _table.Remove(entity);
+            Table.Remove(entity);
         }
 
         public async Task<int> SaveChangesAsync()
@@ -93,7 +93,7 @@ namespace Bank.DAL.Repositories.Absrtactions
 
         public async Task<T> UpdateAsync(T entity)
         {
-            _table.Update(entity);
+            Table.Update(entity);
             return entity;
         }
     }
