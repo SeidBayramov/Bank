@@ -20,7 +20,8 @@ namespace Bank.MVC.Areas.Manage.Controllers
         public async Task<IActionResult> Index()
         {
             var features = await _service.GetAllAsync();
-            return View(features);
+            var featureslist= features.ToList();
+            return View(featureslist);
         }
         public IActionResult Create()
         {

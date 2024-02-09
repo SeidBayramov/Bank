@@ -4,8 +4,11 @@ using Bank.Business.ViewModels.Card;
 using Bank.Business.ViewModels.Category;
 using Bank.Core.Entities.Models;
 using Bank.DAL.Context;
+using Bank.MVC.PaginationHelper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Data;
 
@@ -29,16 +32,50 @@ namespace Bank.MVC.Areas.Manage.Controllers
             _env = env;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page=1)
         {
-            var cards = await _cardservice.GetAllAsync();
-            var cardList = cards.ToList();
-            return View(cardList);
+            //var cards = await _cardservice.GetAllAsync();
+            //var cardList = cards.ToList();
+            //return View(cardList);
+
+            ViewBag.Categories = await _context.Categories.ToListAsync();
+            ViewBag.Features = await _context.Features.ToListAsync();
+            var query = _context.Cards.AsQueryable();
+            PaginatedList<Card> paginatedList = new PaginatedList<Card>(query.Skip((page - 1) * 2).Take(2).ToList(), page, query.ToList().Count, 2);
+            if (page > paginatedList.TotalPageCount)
+            {
+                paginatedList = new PaginatedList<Card>(query.Skip((page - 1) * 2).Take(2).ToList(), page, query.ToList().Count, 2);
+            }
+            return View(paginatedList);
         }
 
-        public IActionResult Create()
-        {
 
+        public async Task<IActionResult> Detail(int id)
+        {
+            try
+            {
+                Card oldcard = await _cardservice.GetByIdAsync(id);
+
+                return View(oldcard);
+            }
+            catch (IdNegativeOrZeroException ex)
+            {
+                ModelState.AddModelError(ex.ParamName, ex.Message);
+
+                return RedirectToAction(nameof(Table));
+            }
+            catch (ObjectNullException ex)
+            {
+                ModelState.AddModelError(ex.ParamName, ex.Message);
+
+                return RedirectToAction(nameof(Table));
+            }
+        }
+    
+        public async Task<IActionResult> Create()
+        {
+            ViewBag.Categories = await _context.Categories.ToListAsync();
+            ViewBag.Features = await _context.Features.ToListAsync();
             return View();
         }
         [HttpPost]
@@ -46,6 +83,8 @@ namespace Bank.MVC.Areas.Manage.Controllers
         {
             try
             {
+                ViewBag.Categories = await _context.Categories.ToListAsync();
+                ViewBag.Features = await _context.Features.ToListAsync();
                 await _cardservice.CreateAsync(vm, _env.WebRootPath);
 
                 return RedirectToAction(nameof(Index));

@@ -1,5 +1,52 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using Bank.Business.ViewModels.Card
+@using Bank.Core.Entities.Models
+@model CreateCardVm
+
+
+<div class="container">
+    <h4 class="mb-5">Category Create</h4>
+    <form method="post" enctype="multipart/form-data">
+        <div class="col-4">
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label">Product Title</label>
+                <input asp-for="Title" class="form-control">
+            </div>
+        </div>
+    
+        <div class="col-4">
+            <div class="mb-3">
+                <label asp-for="IsInStock" class="form-label">Product Is In Stock</label>
+                <input asp-for="IsInStock" class="form-control">
+            </div>
+        </div>
+        <div class="col-4">
+            <label asp-for="CategoryId" class="form-label">Car Category</label>
+            <select asp-for="CategoryId" asp-items="new SelectList(ViewBag.Categories, nameof(Category.Id), nameof(Category.Name))" class="form-select mx-3">
+                <option value="null">Choose Brand</option>
+            </select>
+        </div>
+        <div class="col-4">
+            <label asp-for="FeaturesIds" class="form-label">Product Colors</label>
+            <br />
+            <select asp-for="FeaturesIds" asp-items="new SelectList(ViewBag.Features, nameof(Feature.Id), nameof(Feature.Title))" class="form-select mx-3">
+            </select>
+        </div>
+        <div class="col-4">
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label">Product Description</label>
+                <input asp-for="Description" class="form-control">
+            </div>
+        </div>
+        <div class="col-4 mb-5">
+            <label asp-for="CardFiles" class="form-label">Card Images</label>
+            <input asp-for="CardFiles" class="form-control">
+        </div>
+
+        <div class="mt-4 mb-4" asp-validation-summary=All></div>
+
+        <a asp-action="Table" asp-controller="Product">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a asp-controller="Product" asp-action="Table" class="btn btn-secondary">Cancel</a>
+        </a>
+    </form>
+</div>

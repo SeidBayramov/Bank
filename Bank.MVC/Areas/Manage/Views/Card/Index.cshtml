@@ -1,5 +1,6 @@
 ﻿@using Bank.Core.Entities.Models
-@model List<Card>
+@using Bank.MVC.PaginationHelper
+@model PaginatedList<Card>
 @{
     int count = 0;
 }
@@ -13,9 +14,10 @@
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
                 <th scope="col">Descriptions</th>
-                <th scope="col">Image</th>
                 <th scope="col">Category</th>
                 <th scope="col">Features</th>
+                <th scope="col">Is in Stock</th>
+                <th scope="col">Image</th>
                 <th>Is in Stock</th>
                 <th scope="col">Operations</th>
             </tr>
@@ -30,16 +32,47 @@
                         <th scope="row">@count</th>
                         <td>@item.Title</td>
                         <td>@item.Description</td>
-                        <td>@item.Category.Name</td>
-                        <th>@(item.IsInStock ? "In Stock" : "Out of Stock")</th>
-                        
+                        <td>
+                            @if (item.Category != null)
+                            {
+                                @item.Category.Name
+                            }
+                            else
+                            {
+                                <!-- Handle the case where Category is null, for example: -->
+                                <span class="text-danger">No Category</span>
+                            }
+                        </td>
+                        <td>
+                            @{
+                                string concatenatedTitles = "";
+                                if (item.CardFeatures != null)
+                                {
+                                    concatenatedTitles = string.Join(", ", item.CardFeatures.Select(x => x.Feature.Title).ToList());
+                                    if (concatenatedTitles.Length > 50)
+                                    {
+                                        concatenatedTitles = concatenatedTitles.Substring(0, 50) + "...";
+                                    }
+                                }
+                            }
+                            @concatenatedTitles
+                        </td>
+                        <td>@(item.IsInStock ? "In Stock" : "Out of Stock")</td>
                         <td>
                             <div style="width:100%;">
-                                <img style="width:100px;height:100px;border-radius:50%;" src="~/Upload/CardImages/@item.CardImages.FirstOrDefault()?.ImageUrl" alt="Card Image">
+                                @if (item.CardImages != null && item.CardImages.Any())
+                                {
+                                    <img style="width:100px;height:100px;border-radius:50%;" src="~/Upload/CardImages/@item.CardImages.FirstOrDefault()?.ImageUrl" alt="Card Image">
+                                }
+                                else
+                                {
+                                    <!-- Handle the case where there are no CardImages, for example: -->
+                                    <span class="text-danger">No Image</span>
+                                }
                             </div>
                         </td>
                         <td>
-                            <a asp-route-id="@item.Id" asp-action="Update" asp-controller="Card" class="btn btn-warning">Update</a>
+                            <a asp-route-id="@item.Id" asp-action="Update" asp-controller="Card" class="btn btn-warning mt-4 mb-4">Update</a>
                             @if (item.IsDeleted)
                             {
                                 <a asp-route-id="@item.Id" asp-action="Recover" asp-controller="Card" class="btn btn-success mt-4 mb-4">Recover</a>
@@ -55,4 +88,21 @@
             }
         </tbody>
     </table>
+</div>
+
+<div class="d-flex justify-content-center row">
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-item @(Model.HasPrev == true ? "" : "disabled")">
+                <a class="page-link" asp-action="index" asp-controller="Card" asp-route-page="@(Model.ActivePage -1) ">Previous</a>
+            </li>
+            @for (int i = 1; i <= Model.TotalPageCount; i++)
+            {
+                <li class="page-item @(Model.ActivePage == i ? "active" : "")"><a class="page-link" asp-action="index" asp-controller="Card" asp-route-page="@i">@i</a></li>
+            }
+            <li class="page-item @(Model.HasNext == true ? "" : "disabled")">
+                <a class="page-link" asp-action="index" asp-controller="Card" asp-route-page="@(Model.ActivePage +1)">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>

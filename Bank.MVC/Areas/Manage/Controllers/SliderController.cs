@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Bank.Business.Exceptions.Common;
+using Bank.Business.Services.Implementations;
 using Bank.Business.Services.Interface;
 using Bank.Business.ViewModels.Slider;
 using Bank.Core.Entities.Models;
@@ -27,8 +28,10 @@ namespace Bank.MVC.Areas.Manage.Controllers
         //[Authorize(Roles = "Admin, Moderator")]
         public async Task<IActionResult> Index()
         {
-            var sliders = await _service.GetAllAsync();  
-            return View(sliders);
+            var sliders = await _service.GetAllAsync();
+            var sliderlist = sliders.ToList();
+            return View(sliderlist);
+
         }
 
         public IActionResult Create()

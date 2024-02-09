@@ -21,7 +21,8 @@ namespace Bank.MVC.Areas.Manage.Controllers
         public async Task<IActionResult> Index()
         {
             var features = await _service.GetAllAsync();
-            return View(features);
+            var categorylist=features.ToList();
+            return View(categorylist);
         }
         public IActionResult Create()
         {

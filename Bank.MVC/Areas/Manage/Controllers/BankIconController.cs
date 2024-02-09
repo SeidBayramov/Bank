@@ -21,7 +21,8 @@ namespace Bank.MVC.Areas.Manage.Controllers
         public async Task<IActionResult> Index()
         {
             var Icons = await _service.GetAllAsync();
-            return View(Icons);
+            var iconlis=Icons.ToList();
+            return View(iconlis);
         }
 
         public IActionResult Create()
