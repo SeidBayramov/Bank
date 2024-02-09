@@ -15,12 +15,12 @@ namespace Bank.DAL.Repositories.Absrtactions
     public class Repository<T> : IRepository<T> where T : BaseAudiTable, new()
     {
         private readonly AppDbContext _context;
-        public DbSet<T> Table => _context.Set<T>();
+        public DbSet<T> Table;
 
         public Repository(AppDbContext context)
         {
             _context = context;
-
+            Table = _context.Set<T>();
         }
 
         public async Task<T> CreateAsync(T entity)
@@ -37,16 +37,16 @@ namespace Bank.DAL.Repositories.Absrtactions
             return entity;
         }
         public async Task<IQueryable<T>> GetAllAsync(
-            Expression<Func<T, bool>>? filter = null,
+            Expression<Func<T, bool>>? expression = null,
             Expression<Func<T, object>>? expressionOrder = null,
         bool isDescending = false,
         params string[] includes)
         {
             IQueryable<T> query = Table;
 
-            if (filter != null)
+            if (expression != null)
             {
-                query = query.Where(filter);
+                query = query.Where(expression);
             }
 
             foreach (var include in includes)

@@ -33,6 +33,10 @@ namespace Bank.MVC
             builder.Services.AddScoped<ICurrencyService, CurrencyService>();
             builder.Services.AddScoped<IBankIconService, BankIconService>();
             builder.Services.AddScoped<LayoutService>();
+            builder.Services.AddScoped<ICardService, CardService>();
+            builder.Services.AddScoped<ICardRepository, CardRepository>();
+
+
 
 
             builder.Services.AddDbContext<AppDbContext>(opt =>

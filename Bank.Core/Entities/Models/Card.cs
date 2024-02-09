@@ -18,7 +18,5 @@ namespace Bank.Core.Entities.Models
         public Category Category {get;set;}
         public List<CardFeature> CardFeatures {get;set;}
         public List<CardImage> CardImages {get; set; }
-        public IFormFile? CardPoster { get; set; }
-        public IFormFile? CardHower { get; set; }
     }
 }

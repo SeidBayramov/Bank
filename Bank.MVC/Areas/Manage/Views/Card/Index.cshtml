@@ -1,0 +1,58 @@
+﻿@using Bank.Core.Entities.Models
+@model List<Card>
+@{
+    int count = 0;
+}
+
+<div class="container">
+    <h2>Card Table</h2>
+    <a class="btn btn-primary" asp-action="Create" asp-controller="Card">Create</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Descriptions</th>
+                <th scope="col">Image</th>
+                <th scope="col">Category</th>
+                <th scope="col">Features</th>
+                <th>Is in Stock</th>
+                <th scope="col">Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var item in Model)
+                {
+                    count++;
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td>@item.Title</td>
+                        <td>@item.Description</td>
+                        <td>@item.Category.Name</td>
+                        <th>@(item.IsInStock ? "In Stock" : "Out of Stock")</th>
+                        
+                        <td>
+                            <div style="width:100%;">
+                                <img style="width:100px;height:100px;border-radius:50%;" src="~/Upload/CardImages/@item.CardImages.FirstOrDefault()?.ImageUrl" alt="Card Image">
+                            </div>
+                        </td>
+                        <td>
+                            <a asp-route-id="@item.Id" asp-action="Update" asp-controller="Card" class="btn btn-warning">Update</a>
+                            @if (item.IsDeleted)
+                            {
+                                <a asp-route-id="@item.Id" asp-action="Recover" asp-controller="Card" class="btn btn-success mt-4 mb-4">Recover</a>
+                            }
+                            else
+                            {
+                                <a asp-route-id="@item.Id" asp-action="Delete" asp-controller="Card" class="btn btn-danger mt-4 mb-4">Delete</a>
+                                <a asp-route-id="@item.Id" asp-action="Remove" asp-controller="Card" class="btn btn-danger mt-4 mb-4 item-delete">Remove</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

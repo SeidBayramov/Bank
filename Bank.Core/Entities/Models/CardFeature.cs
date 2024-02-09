@@ -10,8 +10,8 @@ namespace Bank.Core.Entities.Models
     public class CardFeature:BaseAudiTable
     {
         public int CardId { get; set; }
-        public int TagId { get; set; }
+        public int FeatureId { get; set; }
         public Card? Card { get; set; }
-        public Feature? Tag { get; set; }
+        public Feature? Feature { get; set; }
     }
 }

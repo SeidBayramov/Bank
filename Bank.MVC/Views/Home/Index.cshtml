@@ -148,16 +148,15 @@
 
 @await Component.InvokeAsync("Currency")
 
-@await Component.InvokeAsync("Question")
 
 <!-- Centered Currency Converter Section -->
 <style>
     .currency-converter-container {
         background-color: #f8f9fa;
-        padding: 200px;
-        border-radius: 200px;
+        padding:200px;
+        border-radius: 500px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        text-align: center; /* Center the content */
+        text-align: justify; /* Center the content */
     }
 
     .currency-input-label {
@@ -282,154 +281,95 @@
 <!-- Existing Code -->
 
 
-<!--Start EMI Calculator Area-->
-        <section class="emi-calculator-area">
-            <div class="container">
-                <div class="sec-title text-center">
-                    <h2>Flexible EMI Calculator Online</h2>
-                    <div class="sub-title">
-                        <p>Easily calculate your equated monthly instalment online.</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="emi-calculator-tab">
 
-                    <div class="emi-calculator-tab__button">
-                        <div class="emi-calculator-tab__button--bg" style="background-image: url('assets/images/resources/emi-calculator.jpg');"></div>
-                        <ul class="tabs-button-box">
-                            <li data-tab="#home-loan" class="tab-btn-item active-btn-item">
-                                <div class="icon-box">
-                                    <span class="icon-loan-1"></span>
-                                    <div class="overlay-text">
-                                        <p>Personal Loan</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+<title>Monthly Payment Calculator</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4;
+        margin: 20px;
+        text-align: center;
+    }
+
+    h1 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: #555;
+    }
+
+    input {
+        width: 80%;
+        margin-bottom: 15px;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+        input[type="range"] {
+            width: 60%;
+        }
+
+    span {
+        display: inline-block;
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: #777;
+    }
+
+    #result {
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 18px;
+        color: #333;
+    }
+</style>
+
+<h1>Monthly Payment Calculator</h1>
+
+<label for="amount">Select the amount you want to control (max $50,000):</label>
+<input type="range" id="amount" min="0" max="50000" value="0">
+<span id="amountValue">0</span>
+
+<label for="months">Select the number of months you want to stay (max 36 months):</label>
+<input type="range" id="months" min="1" max="36" value="1">
+<span id="monthsValue">1 month</span>
+
+<label for="interest">Select the interest rate (5% to 20%):</label>
+<input type="range" id="interest" min="5" max="20" step="0.1" value="5">
+<span id="interestValue">5%</span>
+
+<div id="result"></div>
+
+<script>
+    function updateValues() {
+        const amount = parseFloat(document.getElementById('amount').value);
+        const months = parseInt(document.getElementById('months').value);
+        const interest = parseFloat(document.getElementById('interest').value);
+
+        document.getElementById('amountValue').innerText = `$${amount}`;
+        document.getElementById('monthsValue').innerText = `${months} months`;
+        document.getElementById('interestValue').innerText = `${interest}%`;
+
+        const monthlyInterestRate = interest / 100 / 12;
+        const monthlyPayment = (amount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -months));
+
+        document.getElementById('result').innerText = `Your monthly payment for ${months} months will be $${monthlyPayment.toFixed(2)}`;
+    }
+
+    document.getElementById('amount').addEventListener('input', updateValues);
+    document.getElementById('months').addEventListener('input', updateValues);
+    document.getElementById('interest').addEventListener('input', updateValues);
+
+    updateValues();
+</script>
 
 
-                            <div class="emi-calculator-tab-content-box-outer">
-                                <!--Start Tabs Content Box-->
-                                <div class="tabs-content-box">
-                                    <!--Tab-->
-                                    <div class="tab-content-box-item tab-content-box-item-active" id="home-loan">
-                                        <div class="emi-calculator-tab-content-box-item">
 
-                                            <div class="range-box">
-                                                <div class="row">
-                                                    <div class="col-lg-12 column">
-                                                        <div class="price-range-box">
-                                                            <div class="inner">
-                                                                <h4>Loan Amount</h4>
-                                                                <div class="price-range-slider"></div>
-                                                                <div class="range-input">
-                                                                    <div class="input">
-                                                                        <input type="text" class="property-amount"
-                                                                            name="field-name" readonly="">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="right-box">
-                                                                <h5>$1,000,000</h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-12 column">
-                                                        <div class="loan-term-range-box">
-                                                            <div class="inner">
-                                                                <h4>Loan Term <span>(Years)</span></h4>
-                                                                <div class="loan-term-range-slider"></div>
-                                                                <div class="range-input">
-                                                                    <div class="input">
-                                                                        <input type="text" class="loan-term-range"
-                                                                            name="field-name" readonly="">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="right-box">
-                                                                <h5>20Yrs</h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-12 column">
-                                                        <div class="interest-rate-range-box">
-                                                            <div class="inner">
-                                                                <h4>Interest Rate</h4>
-                                                                <div class="interest-rate-range-slider"></div>
-                                                                <div class="range-input">
-                                                                    <div class="input">
-                                                                        <input type="text" class="interest-rate-range"
-                                                                            name="field-name" readonly="">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="right-box">
-                                                                <h5>8%</h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="emi-calculator-output-box clearfix">
-                                                <div class="left-box">
-                                                    <div class="top">
-                                                        <div class="icon">
-                                                            <span class="icon-loan-3"></span>
-                                                        </div>
-                                                        <div class="inner-title">
-                                                            <h3>Your Monthly EMI</h3>
-                                                            <h2><span>$</span>10,250</h2>
-                                                        </div>
-                                                    </div>
-                                                    <div class="btns-box">
-                                                        <a class="btn-one" href="#">
-                                                            <span class="txt">Apply Online</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="right-box">
-                                                    <ul>
-                                                        <li>
-                                                            <div class="inner">
-                                                                <div class="icon">
-                                                                    <span class="icon-right-arrow"></span>
-                                                                </div>
-                                                                <div class="text">
-                                                                    <a href="#">Interest Amount</a>
-                                                                    <p>$720,260</p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="inner">
-                                                                <div class="icon">
-                                                                    <span class="icon-right-arrow"></span>
-                                                                </div>
-                                                                <div class="text">
-                                                                    <a href="#">Total Amount Payble</a>
-                                                                    <p>$720,260</p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--End Tabs Content Box-->
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!--End EMI Calculator Area-->
-
+@await Component.InvokeAsync("Question")

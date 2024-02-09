@@ -11,6 +11,6 @@ namespace Bank.Core.Entities.Models
     {
         public string ImageUrl { get; set; }
         public int CardId { get; set; }
-        public Card? Book { get; set; }
+        public Card? Card { get; set; }
     }
 }

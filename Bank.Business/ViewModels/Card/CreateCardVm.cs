@@ -18,8 +18,7 @@ namespace Bank.Business.ViewModels.Card
         public int CategoryId { get; set; }
         public bool IsInStock { get; set; }
         public List<int>? FeaturesIds { get; set; }
-        public List<int>? CardImageIds { get; set; }
-        public ICollection<IFormFile>? ProductFiles { get; set; }
+        public ICollection<IFormFile>? CardFiles { get; set; }
     }
     public class CreateCardValidator : AbstractValidator<CreateCardVm>
     {

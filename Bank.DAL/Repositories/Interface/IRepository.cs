@@ -13,7 +13,7 @@ namespace Bank.DAL.Repositories.Interface
     {
     
         Task<IQueryable<T>> GetAllAsync(
-           Expression<Func<T, bool>>? filter = null,
+           Expression<Func<T, bool>>? expression = null,
             Expression<Func<T, object>>? expressionOrder = null,
            bool isDescending = false,
              params string[] includes

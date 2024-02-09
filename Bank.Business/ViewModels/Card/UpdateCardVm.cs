@@ -19,10 +19,10 @@ namespace Bank.Business.ViewModels.Card
         public bool IsInStock { get; set; }
         public List<int>? FeaturesIds { get; set; }
         public List<int>? CardImageIds { get; set; }
-        public ICollection<IFormFile>? ProductFiles { get; set; }
-        public List<ClassImageVm>? CardImageVms { get; set; }
+        public ICollection<IFormFile>? CardFiles { get; set; }
+        public List<CardsmageVm>? CardImageVms { get; set; }
     }
-    public class ClassImageVm
+    public class CardsmageVm
     {
         public int Id {get; set; }
         public string ImageUrl { get; set; }

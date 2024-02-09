@@ -5,6 +5,7 @@ using Bank.Business.ViewModels.Card;
 using Bank.Core.Entities.Models;
 using Bank.DAL.Repositories.Interface;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,31 +48,144 @@ namespace Bank.Business.Services.Implementations
 
         public async Task CreateAsync(CreateCardVm vm, string env)
         {
-            var exists = vm.Title == null || vm.Description == null;/* vm.ImageUrl == null;*/
-
+            var exists = vm.Title == null || vm.Description == null || vm.CategoryId == null ||
+                vm.FeaturesIds == null || vm.CardFiles == null;
           
             if (exists) throw new ObjectParamsNullException("Object parameters is required!", nameof(vm.Title));
+
+            var existsSameCardTitle = await (await _rep.GetAllAsync(expression: x => x.Title == vm.Title))
+                .FirstOrDefaultAsync() is null;
+            var existsSameCardDes = await (await _rep.GetAllAsync(expression: x => x.Description == vm.Description))
+             .FirstOrDefaultAsync() is null;
+
+            if (!existsSameCardTitle) throw new ObjectSameParamsException("There is same title product in data!", nameof(vm.Title));
+            if (!existsSameCardDes) throw new ObjectSameParamsException("There is same title product in data!", nameof(vm.Description));
 
             Card newCad = new()
             {
                 Title = vm.Title,
                 Description = vm.Description,
+                IsInStock = vm.IsInStock,
                 CategoryId = vm.CategoryId,
                 CardImages = new List<CardImage>(),
+                CardFeatures = new List<CardFeature>(),
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now,
             };
+            if(vm.CardFiles is not null)
+            {
+                foreach (var item in vm.CardFiles)
+                {
+                    if(!item.CheckImage()) throw new ImageException("File must be image format and lower than 3MB!", nameof(item));
+
+                    CardImage cardImage = new()
+                    {
+                        Card = newCad,
+                        ImageUrl = item.Upload(env, @"/Upload/CardImages/")
+                    };
+                    newCad.CardImages.Add(cardImage);
+                }
+            }
+            else
+            {
+                throw new ObjectParamsNullException("Object parameters is required!", nameof(vm.CardFiles));
+            }
      
-           
-        
-            //newCad.ImageUrl = vm.CardPoster.Upload(env, @"/Upload/CardImages/");
-            //newCad.ImageUrl = vm.CardHower.Upload(env, @"/Upload/CardImages/");
+            if(vm.FeaturesIds is not null)
+            {
+                foreach (var item in vm.FeaturesIds)
+                {
+                    CardFeature cardFeature = new()
+                    {
+                        Card = newCad,
+                        FeatureId = item
+                    };
+                    newCad.CardFeatures.Add(cardFeature);
+                }
+            }
+            else
+            {
+                throw new ObjectParamsNullException("Object parameters is required!", nameof(vm.CardFiles));
+            }
 
             await _rep.CreateAsync(newCad);
             await _rep.SaveChangesAsync();
         }
+        public async Task UpdateAsync(UpdateCardVm vm, string env)
+        {
+            var oldcard = await CheckProduct(vm.Id, includes);
+            var exists = vm.Title == null || vm.Description == null || vm.CategoryId == null ||
+                 vm.FeaturesIds == null || vm.CardFiles == null;
 
-     
+            if (exists) throw new ObjectParamsNullException("Object parameters is required!", nameof(vm.Title));
+
+            var existsSameCardTitle = await (await _rep.GetAllAsync(expression: x => x.Title == vm.Title))
+                .FirstOrDefaultAsync() is null;
+            var existsSameCardDes = await (await _rep.GetAllAsync(expression: x => x.Description == vm.Description))
+             .FirstOrDefaultAsync() is null;
+
+            if (!existsSameCardTitle) throw new ObjectSameParamsException("There is same title product in data!", nameof(vm.Title));
+            if (!existsSameCardDes) throw new ObjectSameParamsException("There is same title product in data!", nameof(vm.Description));
+
+
+
+            oldcard.Title = vm.Title;
+            oldcard.Description = vm.Description;
+            oldcard.IsInStock = vm.IsInStock;
+            oldcard.UpdatedDate = DateTime.Now;
+            oldcard.Category= await _categoryRepository.GetByIdAsync(vm.CategoryId);
+
+            await _rep.UpdateAsync(oldcard);
+            oldcard.CardFeatures.Clear();
+
+            if (vm.FeaturesIds is not null)
+            {
+                foreach (var item in vm.FeaturesIds)
+                {
+                    CardFeature cardFeature = new()
+                    {
+                        Card = oldcard,
+                        FeatureId = item
+                    };
+                    oldcard.CardFeatures.Add(cardFeature);
+                }
+            }
+            if (vm.CardFiles == null)
+            {
+                oldcard.CardImages.Clear();
+            }
+            else
+            {
+                List<CardImage> remove = oldcard.CardImages.Where(x => !vm.CardImageIds.Contains(x.Id)).ToList();
+                if (remove.Count > 0)
+                {
+                    foreach (var item in remove)
+                    {
+
+                        oldcard.CardImages.Remove(item);
+                        FileManager.Delete(item.ImageUrl, env, @"/Upload/CardImages/");
+                    }
+                }
+
+            }
+
+
+            if(vm.CardFiles != null)
+            {
+                foreach (var item in vm.CardFiles)
+                {
+                    if (!item.CheckImage()) throw new ImageException("File must be image format and lower than 3MB!", nameof(item));
+
+                    CardImage cardImage = new()
+                    {
+                        Card = oldcard,
+                        ImageUrl = item.Upload(env, @"/Upload/CardImages/")
+                    };
+                    oldcard.CardImages.Add(cardImage);
+                }
+            }
+            await _rep.SaveChangesAsync();
+        }
 
         public async Task DeleteAsync(int id)
         {
@@ -105,10 +219,7 @@ namespace Bank.Business.Services.Implementations
             return oldIcon;
         }
 
-        public Task UpdateAsync(UpdateCardVm vm, string env)
-        {
-            throw new NotImplementedException();
-        }
+        
         public async Task<Card> CheckProduct(int id, params string[] includes)
         {
             if (id <= 0) throw new IdNegativeOrZeroException("Id must be over than and not equal to zero!", nameof(id));
