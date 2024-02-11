@@ -4,6 +4,7 @@ using Bank.Business.Helpers;
 using Bank.Business.Services.Interface;
 using Bank.Business.ViewModels.Account;
 using Bank.Core.Entities.Account;
+using Bank.DAL.Context;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -18,13 +19,47 @@ namespace Bank.Business.Services.Implementations
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly AppDbContext _context;
 
-        public AccountService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public AccountService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager, AppDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _context = context;
         }
+
+        //public async Task<List<string>> SendConfirmEmailAddress(AppUser user)
+        //{
+        //    Random random = new Random();
+        //    var data = new List<string>();
+
+
+        //    string token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        //    string pincode = $"{random.Next(1000, 10000)}";
+
+        //    SendMessageService.SendEmailMessage(toUser: user.Email, webUser: user.Name, pincode: pincode);
+
+        //    data.Add(token);
+        //    data.Add(pincode);
+        //    data.Add(user.Id);
+
+        //    return data;
+        //}
+        //public async Task<bool> ConfirmEmailAddress(ConfirmEmailVM vm, string userId, string token, string pincode)
+        //{
+        //    var postPincode = $"{vm.Number1}{vm.Number2}{vm.Number3}{vm.Number4}";
+
+        //    if (pincode == postPincode)
+        //    {
+        //        var user = await _userManager.FindByIdAsync(userId);
+        //        await _userManager.ConfirmEmailAsync(user, token);
+
+        //        return true;
+        //    }
+
+        //    return false;
+        //}
 
         public async Task CreateRoles()
         {

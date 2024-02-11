@@ -34,10 +34,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
 
         public async Task<IActionResult> Index(int page=1)
         {
-            //var cards = await _cardservice.GetAllAsync();
-            //var cardList = cards.ToList();
-            //return View(cardList);
-
+          
             ViewBag.Categories = await _context.Categories.ToListAsync();
             ViewBag.Features = await _context.Features.ToListAsync();
             var query = _context.Cards.AsQueryable();
