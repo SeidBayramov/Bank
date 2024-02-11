@@ -18,7 +18,6 @@
                 <th scope="col">Features</th>
                 <th scope="col">Is in Stock</th>
                 <th scope="col">Image</th>
-                <th>Is in Stock</th>
                 <th scope="col">Operations</th>
             </tr>
         </thead>
@@ -46,7 +45,7 @@
                         <td>
                             @{
                                 string concatenatedTitles = "";
-                                if (item.CardFeatures != null)
+                                if (item.CardFeatures != null && item.CardFeatures.Any())
                                 {
                                     concatenatedTitles = string.Join(", ", item.CardFeatures.Select(x => x.Feature.Title).ToList());
                                     if (concatenatedTitles.Length > 50)
@@ -54,23 +53,43 @@
                                         concatenatedTitles = concatenatedTitles.Substring(0, 50) + "...";
                                     }
                                 }
+                                else
+                                {
+                                    concatenatedTitles = "Features is showing detail page";
+                                }
                             }
                             @concatenatedTitles
                         </td>
+
+
                         <td>@(item.IsInStock ? "In Stock" : "Out of Stock")</td>
+
                         <td>
                             <div style="width:100%;">
                                 @if (item.CardImages != null && item.CardImages.Any())
                                 {
-                                    <img style="width:100px;height:100px;border-radius:50%;" src="~/Upload/CardImages/@item.CardImages.FirstOrDefault()?.ImageUrl" alt="Card Image">
+                                    var firstImageUrl = item.CardImages.FirstOrDefault(x => !string.IsNullOrEmpty(x.ImageUrl))?.ImageUrl;
+
+                                    @* Output the image URL for debugging *@
+                                    <span style="display: none;">@firstImageUrl</span>
+
+                                    <img style="width:100px; height:100px; border-radius:50%;" src="~/Upload/CardImages/@firstImageUrl" alt="Card Image">
                                 }
                                 else
                                 {
-                                    <!-- Handle the case where there are no CardImages, for example: -->
-                                    <span class="text-danger">No Image</span>
+                                    <!-- Handle the case where there are no valid ImageUrls, for example: -->
+                                    <span>Image is show in detail page</span>
                                 }
                             </div>
                         </td>
+
+
+                     @*   @foreach (var item in Model.CardImages.Select(x => x.ImageUrl).ToList())
+                        {
+                            <div class="col-2 mb-3 position-relative">
+                                <img style="width: 175px; border-radius: 5px;" src="~/Upload/CardImages/@item" />
+                            </div>
+                        }*@
                         <td>
                             <a asp-route-id="@item.Id" asp-action="Update" asp-controller="Card" class="btn btn-warning mt-4 mb-4">Update</a>
                             @if (item.IsDeleted)

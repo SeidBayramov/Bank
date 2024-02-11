@@ -1,4 +1,9 @@
-﻿      <!--Start Main Header Style1 Bottom-->
+﻿@using Bank.Core.Entities.Models
+  
+    
+@model List<Card>
+
+<!--Start Main Header Style1 Bottom-->
 <div class="main-header-style1-bottom">
     <div class="auto-container">
         <div class="outer-box">
@@ -24,40 +29,6 @@
         </header>
 
 
-@*<div class="stricky-header stricked-menu main-menu">
-    <div class="sticky-header__content"></div><!-- /.sticky-header__content -->
-</div><!-- /.stricky-header -->
-*@
-<!--Start Card Banner Area-->
-@*<section class="card-banner-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card-banner-content">
-                    <div class="card-banner-content-bg"
-                         style="background-image: url(assets/images/shapes/card-banner-area-bg.png);">
-                    </div>
-                    <div class="card-banner-content-img-box">
-                        <img src="assets/images/resources/card-banner-img-1.png" alt="">
-                    </div>
-                    <div class="inner-title">
-                        <h4>Corporate Credit Card</h4>
-                        <h2>Higher Efficiencies &<br> Savings</h2>
-                    </div>
-                    <div class="text">
-                        <p>Rationally encounter consequences that are <br> who loves or pursues desire.</p>
-                    </div>
-                    <div class="btns-box">
-                        <a class="btn-one" href="loan-home.html">
-                            <span class="txt">Apply Now</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>*@
-<!--End Card Banner Area-->
 <!--Start Cards Area-->
 <section class="cards-area">
     <div class="container">
@@ -89,7 +60,7 @@
                         <div class="left-box">
                             <h2>Best Cards for Your Needs</h2>
                         </div>
-                        <div class="right-box">
+                       @* <div class="right-box">
                             <div class="short-by">
                                 <div class="select-box">
                                     <select class="wide">
@@ -100,18 +71,20 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
-
+                    @foreach (var item in Model)
+                    {
+                        
                     <!--Start Single Card Box-->
                     <div class="single-card-box">
-                        <div class="category-box">Rewards</div>
+                        <div class="category-box">@item.Category.Name</div>
                         <div class="cards-img-box">
                             <div class="inner-title">
-                                <h3>Platinum Credit Card</h3>
+                                <h3>@item.Title</h3>
                             </div>
                             <div class="inner">
-                                <img src="assets/images/resources/card-1.jpg" alt="">
+                                <img src="~/Upload/CardImages/@item.CardImages.FirstOrDefault().ImageUrl" alt="">
                             </div>
                             <div class="btn-box">
                             @*    <a class="btn-one style2" href="contact.html">
@@ -124,20 +97,19 @@
                         </div>
                         <div class="cards-text-box">
                             <p>
-                                Explore a new world of rewards with the Platinum
-                                Credit Card.
+                                @item.Description
                             </p>
                             <h3>Features & Benefits</h3>
                             <ul>
-                                <li>Zero Joining and Annual Fees</li>
-                                <li>2% Fuel Surcharge waiver at HPCL Petrol Pumps</li>
-                                <li>Multi Rewards & Lifestyle Benefits</li>
-                                <li>5X TAT Miles on Travel</li>
+                                @foreach (var feature in item.CardFeatures)
+                                {
+                                <li>@feature.Feature.Title</li>
+                                }
                             </ul>
                         </div>
                     </div>
                     <!--End Single Card Box-->
-                    
+                    }
 
                 </div>
             </div>

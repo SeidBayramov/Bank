@@ -14,17 +14,13 @@
                             <p>Find answers to all your queries about our service.</p>
                         </div>
                     </div>
-                    <div class="faq-search-box">
-                        <h3>Help You to Find</h3>
-                        <div class="faq-search-box__inner">
-                            <form  class="search-form" action="#">
-                                <label  for="searchInput" class="visually-hidden">Search</label>
-                                <input id="searchInput" placeholder="Related Keyword..." type="text">
-                                <button type="submit">
-                                    <i class="icon-search"></i>
-                                </button>
-                            </form>
-                        </div>
+                    <div class="faq-search-box__inner">
+                        <form class="search-form" action="#" id="faqSearchForm">
+                            <input id="searchInput" class="search-input" placeholder="Search for questions..." type="text" oninput="filterQuestions()">
+                            <button type="submit" class="search-button">
+                                <i class="icon-search"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -75,3 +71,22 @@
     </div>
 </section>
 <!-- End Faq Style1 Area -->
+<script>
+    function filterQuestions() {
+        var input, filter, ul, li, h3, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        ul = document.querySelector(".accordion-box");
+        li = ul.getElementsByTagName("li");
+
+        for (i = 0; i < li.length; i++) {
+            h3 = li[i].getElementsByTagName("h3")[0];
+            txtValue = h3.textContent || h3.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+</script>

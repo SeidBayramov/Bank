@@ -1,5 +1,83 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using Bank.Business.ViewModels.Card
+@using Bank.Core.Entities.Models
+@model UpdateCardVm
+
+
+<div class="container">
+    <h4 class="mb-5">Card Update</h4>
+    <form method="post" enctype="multipart/form-data">
+        <div class="col-4">
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label">Product Title</label>
+                <input asp-for="Title" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-4">
+            <label asp-for="CategoryId" class="form-label">Card Category</label>
+            <br />
+            <select asp-for="CategoryId" asp-items="new SelectList(ViewBag.Categories, nameof(Category.Id), nameof(Category.Name))" class="form-select mx-3">
+            </select>
+        </div>
+        <div class="col-4">
+            <label asp-for="FeaturesIds" class="form-label">Card Features</label>
+            <br />
+            <select asp-for="FeaturesIds" asp-items="new SelectList(ViewBag.Features, nameof(Feature.Id), nameof(Feature.Title))" class="form-select mx-3">
+            </select>
+        </div>
+        <div class="col-4">
+            <div class="mb-3">
+
+                <label asp-for="Description" class="form-label">Product Description</label>
+                <input asp-for="Description" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-12 mt-3 mx-3">
+            <label asp-for="CardFiles" class="form-label">Card Images</label>
+            <div class="row align-items-start">
+                @if (Model.CardImageVms != null)
+                {
+                    @foreach (var item in Model.CardImageVms.ToList())
+                    {
+                        <div class="col-2 mb-3 position-relative">
+                            <button type="button" class="btn btn-danger del-img-btn position-absolute top-0 start-0">X</button>
+                            <img style="width: 100%; height: 200px; border-radius: 5px;" src="~/Upload/CardImages/@item.ImageUrl" />
+                            <input type="hidden" value="@item.Id" />
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+
+        <div class="col-4 mb-5">
+            <label asp-for="CardFiles" class="form-label">Card Images</label>
+            <input asp-for="CardFiles" class="form-control">
+        </div>
+        <div class="col-1">
+            <div class="mb-15">
+                <label asp-for="IsInStock" type="checkbox">Card Is In Stock</label>
+                <input asp-for="IsInStock" class="form-control">
+            </div>
+        </div>
+
+        <div class="mt-4 mb-4" asp-validation-summary=All></div>
+
+        <a asp-action="Index" asp-controller="Card">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a asp-controller="Card" asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </a>
+    </form>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let btn = document.querySelectorAll(".del-img-btn");
+
+        btn.forEach(b => {
+            b.addEventListener("click", function () {
+                b.parentElement.remove();
+            });
+        });
+    });
+</script>

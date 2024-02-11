@@ -25,7 +25,7 @@ namespace Bank.Business.ViewModels.Card
     public class CardsmageVm
     {
         public int Id {get; set; }
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
     }
     public class UpdatecardValidator : AbstractValidator<UpdateCardVm>
     {

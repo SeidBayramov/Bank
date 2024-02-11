@@ -128,7 +128,6 @@ namespace Bank.Business.Services.Implementations
             if (!existsSameCardDes) throw new ObjectSameParamsException("There is same title product in data!", nameof(vm.Description));
 
 
-
             oldcard.Title = vm.Title;
             oldcard.Description = vm.Description;
             oldcard.IsInStock = vm.IsInStock;
@@ -224,6 +223,7 @@ namespace Bank.Business.Services.Implementations
         {
             if (id <= 0) throw new IdNegativeOrZeroException("Id must be over than and not equal to zero!", nameof(id));
             var oldProduct = await _rep.GetByIdAsync(Id: id, entityIncludes: includes);
+
             if (oldProduct is null) throw new ObjectNullException("There is no like that object in Data!", nameof(oldProduct));
 
             return oldProduct;

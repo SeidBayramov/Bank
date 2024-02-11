@@ -108,6 +108,8 @@ namespace Bank.MVC.Areas.Manage.Controllers
         {
             try
             {
+                ViewBag.Categories = await _context.Categories.ToListAsync();
+                ViewBag.Features = await _context.Features.ToListAsync();
                 Card oldProduct = await _cardservice.GetByIdAsync(id);
 
                 UpdateCardVm vm = new()
@@ -149,11 +151,13 @@ namespace Bank.MVC.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(UpdateCardVm vm)
         {
             try
             {
+                ViewBag.Categories = await _context.Categories.ToListAsync();
+                ViewBag.Features = await _context.Features.ToListAsync();
                 await _cardservice.UpdateAsync(vm, _env.WebRootPath);
 
                 return RedirectToAction(nameof(Table));
