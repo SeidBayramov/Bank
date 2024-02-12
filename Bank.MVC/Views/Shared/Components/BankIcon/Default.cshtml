@@ -1,6 +1,9 @@
 ﻿@using Bank.Core.Entities.Models
 <!--Start Service Style1 Area-->
 @model List<BankIcon>
+@{
+    List<BankIcon> tm = Model.OrderByDescending(x => x.Id).ToList();
+}
 
 <section class="service-style1-area">
     <div class="service-style1-bg" style="background-image: url(assets/BankImages/Bank3.jpg);">
@@ -45,7 +48,7 @@
                         <div class="tab-content-box-item" id="individuals">
                             <div class="service-style1-tab-content-box-item">
                                 <div class="row">
-                                    @foreach (var item in Model)
+                                    @foreach (var item in tm)
                                     {
                                         
                                     <div class="col-xl-4 col-lg-4">
@@ -73,12 +76,12 @@
                         <div class="tab-content-box-item tab-content-box-item-active" id="companies">
                             <div class="service-style1-tab-content-box-item">
                                 <div class="row">
-                                    @foreach (var item in Model.OrderByDescending(x => x.Id))
+                                    @foreach (var item in Model)
                                     {
                                     <div class="col-xl-4 col-lg-4">
                                         <div class="single-service-box-style1">
                                             <div class="icon">
-                                                <span class="@Html.Raw(item.Icon)"></span>
+                                                <span class=@Html.Raw(item.Icon)></span>
                                             </div>
                                             <h3><a href="#">@item.Title</a></h3>
                                             <div class="border-box"></div>

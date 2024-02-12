@@ -32,9 +32,9 @@ namespace Bank.MVC.Areas.Manage.Controllers
             _env = env;
         }
 
-        public async Task<IActionResult> Index(int page=1)
+        public async Task<IActionResult> Index(int page = 1)
         {
-          
+
             ViewBag.Categories = await _context.Categories.ToListAsync();
             ViewBag.Features = await _context.Features.ToListAsync();
             var query = _context.Cards.AsQueryable();
@@ -68,13 +68,14 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 return RedirectToAction(nameof(Table));
             }
         }
-    
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             ViewBag.Categories = await _context.Categories.ToListAsync();
-            ViewBag.Features = await _context.Features.ToListAsync();
+            ViewBag.Features = await _featureservice.GetAllAsync();
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateCardVm vm)
         {

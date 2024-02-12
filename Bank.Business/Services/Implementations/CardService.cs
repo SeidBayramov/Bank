@@ -48,6 +48,7 @@ namespace Bank.Business.Services.Implementations
 
         public async Task CreateAsync(CreateCardVm vm, string env)
         {
+
             var exists = vm.Title == null || vm.Description == null || vm.CategoryId == null ||
                 vm.FeaturesIds == null || vm.CardFiles == null;
           
@@ -91,7 +92,7 @@ namespace Bank.Business.Services.Implementations
                 throw new ObjectParamsNullException("Object parameters is required!", nameof(vm.CardFiles));
             }
      
-            if(vm.FeaturesIds is not null)
+            if(vm.FeaturesIds is not null||vm.FeaturesIds.Any() )
             {
                 foreach (var item in vm.FeaturesIds)
                 {
@@ -128,6 +129,7 @@ namespace Bank.Business.Services.Implementations
             if (!existsSameCardDes) throw new ObjectSameParamsException("There is same title product in data!", nameof(vm.Description));
 
 
+
             oldcard.Title = vm.Title;
             oldcard.Description = vm.Description;
             oldcard.IsInStock = vm.IsInStock;
@@ -137,7 +139,7 @@ namespace Bank.Business.Services.Implementations
             await _rep.UpdateAsync(oldcard);
             oldcard.CardFeatures.Clear();
 
-            if (vm.FeaturesIds is not null)
+            if (vm.FeaturesIds is not null || vm.FeaturesIds.Any() )
             {
                 foreach (var item in vm.FeaturesIds)
                 {

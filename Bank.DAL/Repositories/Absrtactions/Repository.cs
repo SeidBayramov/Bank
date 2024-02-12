@@ -111,6 +111,7 @@ namespace Bank.DAL.Repositories.Absrtactions
 
         public async Task<T> UpdateAsync(T entity)
         {
+
             Table.Update(entity);
             return entity;
         }
