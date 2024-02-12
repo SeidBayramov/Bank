@@ -34,9 +34,8 @@ namespace Bank.MVC.Areas.Manage.Controllers
         [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Index(int page = 1)
         {
-
             ViewBag.Categories = await _context.Categories.ToListAsync();
-            ViewBag.Features = await _context.Features.ToListAsync();
+            ViewBag.Features = await _context.Features.AsNoTracking().ToListAsync();
             var query = _context.Cards.AsQueryable();
             PaginatedList<Card> paginatedList = new PaginatedList<Card>(query.Skip((page - 1) * 2).Take(2).ToList(), page, query.ToList().Count, 2);
             if (page > paginatedList.TotalPageCount)
@@ -59,19 +58,19 @@ namespace Bank.MVC.Areas.Manage.Controllers
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
 
-                return RedirectToAction(nameof(Table));
+                return RedirectToAction(nameof(Index));
             }
             catch (ObjectNullException ex)
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
 
-                return RedirectToAction(nameof(Table));
+                return RedirectToAction(nameof(Index));
             }
         }
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            ViewBag.Categories = await _context.Categories.ToListAsync();
+            ViewBag.Categories = await _categoryservice.GetAllAsync();
             ViewBag.Features = await _featureservice.GetAllAsync();
             return View();
         }
@@ -82,8 +81,9 @@ namespace Bank.MVC.Areas.Manage.Controllers
         {
             try
             {
+
                 ViewBag.Categories = await _context.Categories.ToListAsync();
-                ViewBag.Features = await _context.Features.ToListAsync();
+                ViewBag.Features = await _context.Features.AsNoTracking().ToListAsync();
                 await _cardservice.CreateAsync(vm, _env.WebRootPath);
 
                 return RedirectToAction(nameof(Index));
@@ -107,8 +107,8 @@ namespace Bank.MVC.Areas.Manage.Controllers
         {
             try
             {
-                ViewBag.Categories = await _context.Categories.ToListAsync();
-                ViewBag.Features = await _context.Features.ToListAsync();
+                ViewBag.Categories = await _context.Categories.AsNoTracking().ToListAsync();
+                ViewBag.Features = await _context.Features.AsNoTracking().ToListAsync();
                 Card oldProduct = await _cardservice.GetByIdAsync(id);
 
                 UpdateCardVm vm = new()
@@ -139,13 +139,13 @@ namespace Bank.MVC.Areas.Manage.Controllers
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
 
-                return RedirectToAction(nameof(Table));
+                return RedirectToAction(nameof(Index));
             }
             catch (ObjectNullException ex)
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
 
-                return RedirectToAction(nameof(Table));
+                return RedirectToAction(nameof(Index));
             }
         }
 
@@ -155,23 +155,23 @@ namespace Bank.MVC.Areas.Manage.Controllers
         {
             try
             {
-                ViewBag.Categories = await _context.Categories.ToListAsync();
-                ViewBag.Features = await _context.Features.ToListAsync();
+                ViewBag.Categories = await _context.Categories.AsNoTracking().ToListAsync();
+                ViewBag.Features = await _context.Features.AsNoTracking().ToListAsync();
                 await _cardservice.UpdateAsync(vm, _env.WebRootPath);
 
-                return RedirectToAction(nameof(Table));
+                return RedirectToAction(nameof(Index));
             }
             catch (IdNegativeOrZeroException ex)
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
 
-                return RedirectToAction(nameof(Table));
+                return RedirectToAction(nameof(Index));
             }
             catch (ObjectNullException ex)
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
 
-                return RedirectToAction(nameof(Table));
+                return RedirectToAction(nameof(Index));
             }
             catch (ObjectParamsNullException ex)
             {

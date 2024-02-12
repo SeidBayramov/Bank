@@ -67,7 +67,7 @@ namespace Bank.DAL.Repositories.Absrtactions
                 }
             }
 
-            return query;
+            return query.AsNoTracking();
         }
 
         public async Task<T> GetByIdAsync(int Id = 0, params string[] entityIncludes)
@@ -111,7 +111,6 @@ namespace Bank.DAL.Repositories.Absrtactions
 
         public async Task<T> UpdateAsync(T entity)
         {
-
             Table.Update(entity);
             return entity;
         }

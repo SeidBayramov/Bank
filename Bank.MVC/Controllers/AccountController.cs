@@ -129,7 +129,7 @@ namespace Bank.MVC.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 await _service.Logout();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             else
             {

@@ -120,23 +120,16 @@ namespace Bank.Business.Services.Implementations
 
             if (exists) throw new ObjectParamsNullException("Object parameters is required!", nameof(vm.Title));
 
-            var existsSameCardTitle = await (await _rep.GetAllAsync(expression: x => x.Title == vm.Title))
-                .FirstOrDefaultAsync() is null;
-            var existsSameCardDes = await (await _rep.GetAllAsync(expression: x => x.Description == vm.Description))
-             .FirstOrDefaultAsync() is null;
-
-            if (!existsSameCardTitle) throw new ObjectSameParamsException("There is same title product in data!", nameof(vm.Title));
-            if (!existsSameCardDes) throw new ObjectSameParamsException("There is same title product in data!", nameof(vm.Description));
-
-
 
             oldcard.Title = vm.Title;
             oldcard.Description = vm.Description;
             oldcard.IsInStock = vm.IsInStock;
             oldcard.UpdatedDate = DateTime.Now;
-            oldcard.Category= await _categoryRepository.GetByIdAsync(vm.CategoryId);
+            oldcard.CategoryId= vm.CategoryId;
 
-            await _rep.SaveChangesAsync();
+            oldcard.Category.Id = vm.CategoryId;
+
+            await _rep.UpdateAsync(oldcard);
             oldcard.CardFeatures.Clear();
 
             if (vm.FeaturesIds is not null || vm.FeaturesIds.Any() )
@@ -151,7 +144,7 @@ namespace Bank.Business.Services.Implementations
                     oldcard.CardFeatures.Add(cardFeature);
                 }
             }
-            if (vm.CardFiles == null)
+            if (vm.CardFiles != null)
             {
                 oldcard.CardImages.Clear();
             }
