@@ -19,7 +19,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             _context = context;
             _env = env;
         }
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Detail()
         {
             var settings = await _context.Settings
@@ -29,7 +29,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Moderator, Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update()
         {
             var settings = await _context.Settings
@@ -38,13 +38,12 @@ namespace Bank.MVC.Areas.Manage.Controllers
             return View(settings);
         }
         [HttpPost]
-        //[Authorize(Roles = "Moderator, Admin")]
-        [ValidateAntiForgeryToken] // Ensure that the AntiForgeryToken is validated
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken] 
         public async Task<IActionResult> Update(Dictionary<string, string> settings, IFormFile? logo)
         {
             foreach (var item in settings)
             {
-                // Skip processing the __RequestVerificationToken
                 if (item.Key == "__RequestVerificationToken")
                     continue;
 
@@ -56,7 +55,6 @@ namespace Bank.MVC.Areas.Manage.Controllers
 
                     if (newSetting != null)
                     {
-                        // Check if the key is "Logo" and process accordingly
                         if (newSetting.Key == "Logo")
                         {
                             if (logo != null)
@@ -71,13 +69,11 @@ namespace Bank.MVC.Areas.Manage.Controllers
                         }
                         else
                         {
-                            // Update the value for other settings
                             newSetting.Value = item.Value;
                         }
                     }
                     else
                     {
-                        // Handle the case where the setting with the given key is not found
                         ModelState.AddModelError("", $"Setting with key '{item.Key}' not found.");
                         return View(settings);
                     }

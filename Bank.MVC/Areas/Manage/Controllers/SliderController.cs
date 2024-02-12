@@ -19,13 +19,13 @@ namespace Bank.MVC.Areas.Manage.Controllers
         private readonly IWebHostEnvironment _env;
 
 
-        public SliderController(ISliderService service,IWebHostEnvironment env)
+        public SliderController(ISliderService service, IWebHostEnvironment env)
         {
             _service = service;
             _env = env;
         }
 
-        //[Authorize(Roles = "Admin, Moderator")]
+        [Authorize(Roles = "Admin, Moderator")]
         public async Task<IActionResult> Index()
         {
             var sliders = await _service.GetAllAsync();
@@ -39,7 +39,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             return View();
         }
         [HttpPost]
-        //[Authorize(Roles = "Admin, Moderator")]
+        [Authorize(Roles = "Admin, Moderator")]
         public async Task<IActionResult> Create(CreateSliderVm vm)
         {
             try
@@ -70,6 +70,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 return View(vm);
             }
         }
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Update(int id)
         {
             try
@@ -97,7 +98,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpPost]
-        //[Authorize(Roles = "Admin, Moderator")]
+        [Authorize(Roles = "Admin, Moderator")]
         public async Task<IActionResult> Update(UpdateSliderVm vm)
         {
             try
@@ -127,13 +128,13 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 ModelState.AddModelError(ex.ParamName, ex.Message);
                 return RedirectToAction("Update");
             }
-            catch (ObjectNullException  ex)
+            catch (ObjectNullException ex)
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
                 return RedirectToAction("Update");
             }
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             try
@@ -153,7 +154,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Recover(int id)
         {
             try
@@ -175,7 +176,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Remove(int id)
         {
             try

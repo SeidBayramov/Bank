@@ -5,6 +5,7 @@ using Bank.Business.ViewModels.Slider;
 using Bank.Core.Entities.Models;
 using Bank.DAL.Context;
 using Bank.MVC.PaginationHelper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
@@ -40,7 +41,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             return View();
         }
         [HttpPost]
-        //[Authorize(Roles = "Admin, Moderator")]
+        [Authorize(Roles = "Admin, Moderator")]
         public async Task<IActionResult> Create(CreateCurrencyVm vm)
         {
             try
@@ -98,10 +99,10 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 ModelState.AddModelError(ex.ParamName, ex.Message);
                 return RedirectToAction("Index");
             }
-        
+
         }
         [HttpPost]
-        //[Authorize(Roles = "Admin, Moderator")]
+        [Authorize(Roles = "Admin, Moderator")]
         public async Task<IActionResult> Update(UpdateCurrencyVm vm)
         {
             try
@@ -144,7 +145,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
 
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             try
@@ -164,7 +165,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Recover(int id)
         {
             try
@@ -186,7 +187,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Remove(int id)
         {
             try

@@ -64,10 +64,14 @@ namespace Bank.MVC
 
             }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
-            //builder.Services.ConfigureApplicationCookie(opt =>
-            //{
-            //    opt.AccessDeniedPath = "/Home/AccessDeniedCustom";
-            //});
+            builder.Services.ConfigureApplicationCookie(opt =>
+            {
+                opt.AccessDeniedPath = "/Home/AccessDeniedCustom";
+            });
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOrModerator", policy => policy.RequireRole("Admin", "Moderator"));
+            });
 
             builder.Services.AddAuthentication().AddCookie();
 

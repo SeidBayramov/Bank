@@ -31,7 +31,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             _featureservice = featureservice;
             _env = env;
         }
-
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Index(int page = 1)
         {
 
@@ -45,8 +45,8 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
             return View(paginatedList);
         }
-
-
+        [HttpGet]
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Detail(int id)
         {
             try
@@ -77,6 +77,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(CreateCardVm vm)
         {
             try
@@ -101,7 +102,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id)
         {
             try
@@ -149,7 +150,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(UpdateCardVm vm)
         {
             try
@@ -186,7 +187,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             try
@@ -206,7 +207,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Recover(int id)
         {
             try
@@ -228,7 +229,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Remove(int id)
         {
             try

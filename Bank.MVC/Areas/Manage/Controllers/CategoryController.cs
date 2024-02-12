@@ -3,7 +3,9 @@ using Bank.Business.Services.Interface;
 using Bank.Business.ViewModels.Category;
 using Bank.Business.ViewModels.Feature;
 using Bank.Core.Entities.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace Bank.MVC.Areas.Manage.Controllers
 {
@@ -17,11 +19,11 @@ namespace Bank.MVC.Areas.Manage.Controllers
             _service = service;
         }
 
-
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Index()
         {
             var features = await _service.GetAllAsync();
-            var categorylist=features.ToList();
+            var categorylist = features.ToList();
             return View(categorylist);
         }
         public IActionResult Create()
@@ -78,7 +80,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpPost]
-        //[Authorize(Roles = "Admin, Moderator")]
+        [Authorize(Roles = "Admin, Moderator")]
         public async Task<IActionResult> Update(CategoryUpdateVm vm)
         {
             try
@@ -109,7 +111,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 return RedirectToAction("Update");
             }
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             try
@@ -129,7 +131,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Recover(int id)
         {
             try
@@ -151,7 +153,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Remove(int id)
         {
             try

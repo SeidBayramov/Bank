@@ -4,7 +4,9 @@ using Bank.Business.ViewModels.BankIcon;
 using Bank.Business.ViewModels.Slider;
 using Bank.Core.Entities.Models;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace Bank.MVC.Areas.Manage.Controllers
 {
@@ -17,7 +19,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
         {
             _service = service;
         }
-
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Index()
         {
             var Icons = await _service.GetAllAsync();
@@ -30,6 +32,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(CreateIconVm vm)
         {
             try
@@ -55,6 +58,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 return View(vm);
             }
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id)
         {
             try
@@ -83,7 +87,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpPost]
-        //[Authorize(Roles = "Admin, Moderator")]
+        [Authorize(Roles = "Admin, Moderator")]
         public async Task<IActionResult> Update(UpdateIconVm vm)
         {
             try
@@ -115,7 +119,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             try
@@ -135,7 +139,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Recover(int id)
         {
             try
@@ -157,7 +161,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Remove(int id)
         {
             try

@@ -46,7 +46,7 @@ namespace Bank.Business.Services.Implementations
 
         //    return data;
         //}
-        //public async Task<bool> ConfirmEmailAddress(ConfirmEmailVM vm, string userId, string token, string pincode)
+        //public async Task<bool> ConfirmEmailAddress(ConfrimEmailVm vm, string userId, string token, string pincode)
         //{
         //    var postPincode = $"{vm.Number1}{vm.Number2}{vm.Number3}{vm.Number4}";
 

@@ -229,17 +229,16 @@
                                 <div class="header-btn-one">
                                     @if (User.Identity.IsAuthenticated)
                                     {
+                                        
+                                        <li class="active"><a asp-action="Index" asp-controller="Home" >@User.Identity.Name</a></li>
                                         <li><a asp-action="Logout" asp-controller="Account">Logout</a></li>
-                                      @*  if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
-                                        {
-                                            <li><a asp-area="Manage" asp-action="Index" asp-controller="Dashboard">Admin Panel</a></li>
-                                        }*@
+                                     
                                     }
                                     else
                                     {
                                         <div class="main-menu-style1-right">
                                             <div class="header-btn-one">
-                                                <a asp-action="Login" asp-controller="Account">
+                                                <a asp-action="Login" asp-controller="Account" asp-route-returnUrl="@Context.Request.Path" >
                                                     <span class="icon-home-button"></span>Login
                                                 </a>
                                                 <a class="style2" asp-action="Register" asp-controller="Account">

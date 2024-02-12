@@ -136,7 +136,7 @@ namespace Bank.Business.Services.Implementations
             oldcard.UpdatedDate = DateTime.Now;
             oldcard.Category= await _categoryRepository.GetByIdAsync(vm.CategoryId);
 
-            await _rep.UpdateAsync(oldcard);
+            await _rep.SaveChangesAsync();
             oldcard.CardFeatures.Clear();
 
             if (vm.FeaturesIds is not null || vm.FeaturesIds.Any() )

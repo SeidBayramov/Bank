@@ -5,7 +5,9 @@ using Bank.Business.ViewModels.Question;
 using Bank.Core.Entities.Models;
 using Bank.DAL.Context;
 using Bank.MVC.PaginationHelper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace Bank.MVC.Areas.Manage.Controllers
 {
@@ -20,7 +22,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             _service = service;
             _appDb = appDb;
         }
-
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Index(int page = 1)
         {
             var query = _appDb.Questions.AsQueryable();
@@ -36,6 +38,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Create(QuestionCreateVm vm)
         {
             try
@@ -61,6 +64,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 return View(vm);
             }
         }
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Update(int id)
         {
             try
@@ -87,7 +91,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpPost]
-        //[Authorize(Roles = "Admin, Moderator")]
+        [Authorize(Roles = "Admin, Moderator")]
         public async Task<IActionResult> Update(QuestionUpdateVm vm)
         {
             try
@@ -119,7 +123,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             try
@@ -139,7 +143,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Recover(int id)
         {
             try
@@ -161,7 +165,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Remove(int id)
         {
             try

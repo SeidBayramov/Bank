@@ -3,7 +3,9 @@ using Bank.Business.Services.Interface;
 using Bank.Business.ViewModels.BankIcon;
 using Bank.Business.ViewModels.Feature;
 using Bank.Core.Entities.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace Bank.MVC.Areas.Manage.Controllers
 {
@@ -16,11 +18,11 @@ namespace Bank.MVC.Areas.Manage.Controllers
         {
             _service = service;
         }
-
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Index()
         {
             var features = await _service.GetAllAsync();
-            var featureslist= features.ToList();
+            var featureslist = features.ToList();
             return View(featureslist);
         }
         public IActionResult Create()
@@ -28,6 +30,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(CreateFeatureVm vm)
         {
             try
@@ -53,6 +56,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 return View(vm);
             }
         }
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Update(int id)
         {
             try
@@ -77,7 +81,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpPost]
-        //[Authorize(Roles = "Admin, Moderator")]
+        [Authorize(Roles = "Admin, Moderator")]
         public async Task<IActionResult> Update(UpdateFeatureVm vm)
         {
             try
@@ -109,7 +113,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             try
@@ -129,7 +133,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Recover(int id)
         {
             try
@@ -151,7 +155,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
             }
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Remove(int id)
         {
             try

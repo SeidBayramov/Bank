@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Bank.MVC.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class AccountController : Controller
     {
         private readonly IAccountService _service;
@@ -33,8 +34,21 @@ namespace Bank.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterVm  vm)
         {
+
             try
             {
+                RegisterVmValidation validationRules = new RegisterVmValidation();
+                var result = validationRules.Validate(vm);
+                if (!result.IsValid)
+                {
+                    foreach (var eror in result.Errors)
+                    {
+                        ModelState.Clear();
+                        ModelState.AddModelError(eror.PropertyName, eror.ErrorMessage);
+                    }
+                    return View(vm);
+                }
+
                 await _service.Register(vm);
 
                 return RedirectToAction(nameof(Login));
@@ -78,6 +92,17 @@ namespace Bank.MVC.Controllers
         {
             try
             {
+                LoginVmValidation validationRules = new LoginVmValidation();
+                var result = validationRules.Validate(vm);
+                if (!result.IsValid)
+                {
+                    foreach (var eror in result.Errors)
+                    {
+                        ModelState.Clear();
+                        ModelState.AddModelError(eror.PropertyName, eror.ErrorMessage);
+                    }
+                    return View(vm);
+                }
                 await _service.Login(vm);
 
                 if (returnUrl is not null) return Redirect(returnUrl);
@@ -88,13 +113,13 @@ namespace Bank.MVC.Controllers
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
 
-                return View();
+                return View(vm);
             }
             catch (ObjectParamsNullException ex)
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
 
-                return View();
+                return View(vm);
             }
         }
 
@@ -104,7 +129,7 @@ namespace Bank.MVC.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 await _service.Logout();
-                return RedirectToAction(nameof(Login));
+                return RedirectToAction(nameof(Index));
             }
             else
             {
