@@ -1,4 +1,9 @@
-﻿ <!--Start Main Header Style1 Bottom-->
+﻿@using Bank.Core.Entities.Models
+ 
+
+@model List<Card>
+
+<!--Start Main Header Style1 Bottom-->
 <div class="main-header-style1-bottom">
     <div class="auto-container">
         <div class="outer-box">
@@ -93,12 +98,12 @@
                                     <ul>
                                         <li>
                                             <div class="single-img-box">
-                                                <img src="assets/images/resources/card-details-1.jpg" alt="">
+                                                <img src="assets/BankImages/card1.png" alt="">
                                             </div>
                                         </li>
                                         <li>
                                             <div class="single-img-box">
-                                                <img src="assets/images/resources/card-details-2.jpg" alt="">
+                                                <img src="assets/BankImages/card2.png" alt="">
                                             </div>
                                         </li>
                                     </ul>
@@ -245,7 +250,7 @@
                                             <li>Location is also another factor </li>
                                         </ul>
                                         <div class="btns-box">
-                                            <a class="btn-one" href="#">
+                                            <a class="btn-one" asp-action="Register" asp-controller="Account">
                                                 <span class="txt">Open an Account</span>
                                             </a>
                                         </div>
