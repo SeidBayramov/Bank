@@ -5,7 +5,9 @@ using Bank.Business.Services.Interface;
 using Bank.Business.ViewModels.Account;
 using Bank.Core.Entities.Account;
 using Bank.DAL.Context;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,13 +22,17 @@ namespace Bank.Business.Services.Implementations
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly AppDbContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly LinkGenerator _linkGenerator;
 
-        public AccountService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager, AppDbContext context)
+        public AccountService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager, AppDbContext context, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _context = context;
+            _linkGenerator = linkGenerator;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         //public async Task<List<string>> SendConfirmEmailAddress(AppUser user)
@@ -38,7 +44,7 @@ namespace Bank.Business.Services.Implementations
         //    string token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
         //    string pincode = $"{random.Next(1000, 10000)}";
 
-        //    SendMessageService.SendEmailMessage(toUser: user.Email, webUser: user.Name, pincode: pincode);
+        //    SendConfirmationService.SendMessage(to: user.Email, url: user.Name, pincode: pincode);
 
         //    data.Add(token);
         //    data.Add(pincode);
@@ -93,6 +99,11 @@ namespace Bank.Business.Services.Implementations
                 throw new UserNotFoundException("Username/Email or Password is not valid!", nameof(vm.Password));
             }
 
+            if(!await _userManager.IsEmailConfirmedAsync(user))
+            {
+                throw new UsedEmailException("Please confrim your email",nameof(vm.LoginName));
+            }
+
             await _signInManager.SignInAsync(user, true);
 
         }
@@ -131,6 +142,12 @@ namespace Bank.Business.Services.Implementations
                         throw new UserRegistrationException($"{item.Description}", nameof(item));
                     }
                 }
+                string token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
+                string url = _linkGenerator.GetUriByAction(_httpContextAccessor.HttpContext, action: "ConfirmEmail", controller: "Account", values: new { token, newUser.Id });
+                SendConfirmationService.SendMessage(to: newUser.Email, url: url);
+
+                // Replace "userEmailAddress" and "confirmationUrl" with the actual user's email and confirmation URL
+                SendConfirmationService.SendMessage("userEmailAddress", "confirmationUrl");
 
                 await _userManager.AddToRoleAsync(newUser, UserRole.Admin.ToString());
             }

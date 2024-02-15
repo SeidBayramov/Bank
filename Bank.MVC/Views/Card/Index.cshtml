@@ -1,120 +1,110 @@
 ﻿@using Bank.Core.Entities.Models
-  
-    
 @model List<Card>
 
-<!--Start Main Header Style1 Bottom-->
-<div class="main-header-style1-bottom">
-    <div class="auto-container">
-        <div class="outer-box">
-            <div class="update-box">
-                <div class="inner-title">
-                    <span class="icon-megaphone"></span>
-                    <h4>Updates:</h4>
-                </div>
-                <div class="text">
-                    <p>Get upto 4%* on our Savings Account Balances with Finbank.</p>
-                    <a href="#"><span class="icon-chevron"></span>More Details</a>
-                </div>
-            </div>
-            <div class="slogan-box">
-                <p>
-                    Dear Customer, We have launched Video KYC facility for New customer to open savings ac
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-<!--End Main Header Style1 Bottom-->
-        </header>
-
-
-<!--Start Cards Area-->
-<section class="cards-area">
-    <div class="container">
-        <div class="row">
-
-            <div class="col-xl-3">
-                <div class="sidebar-box-style1">
-                    <!--Start Single Sidebar Box Style1-->
-                    <div class="single-sidebar-box-style1 margintop">
-                        <div class="sidebar-title">
-                            <div class="dot-box"></div>
-                            <h3>Card Types</h3>
+            <!--Start Main Header Style1 Bottom-->
+            <div class="main-header-style1-bottom">
+                <div class="auto-container">
+                    <div class="outer-box">
+                        <div class="update-box">
+                            <div class="inner-title">
+                                <span class="icon-megaphone"></span>
+                                <h4>Updates:</h4>
+                            </div>
+                            <div class="text">
+                                <p>Get upto 4%* on our Savings Account Balances with Finbank.</p>
+                                <a href="#"><span class="icon-chevron"></span>More Details</a>
+                            </div>
                         </div>
-                        <div class="card-types-box">
-                            <ul>
-                                <li><a asp-action="Index" asp-controller="CardCash">Cashback</a></li>
-                                <li><a asp-action="Index" asp-controller="CardBusiness">Business</a></li>
-                            </ul>
+                        <div class="slogan-box">
+                            <p>Dear Customer, We have launched Video KYC facility for New customer to open savings ac
+                            </p>
                         </div>
                     </div>
-                    <!--End Single Sidebar Box Style1-->
                 </div>
             </div>
+            <!--End Main Header Style1 Bottom-->
 
+        </header>
+        <!--Start Cards Area-->
+        <section class="cards-area">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-xl-3">
+                        <div class="sidebar-box-style1">
+                            <!--Start Single Sidebar Box Style1-->
+                            <div class="single-sidebar-box-style1 margintop">
+                                <div class="sidebar-title">
+                                    <div class="dot-box"></div>
+                                    <h3>Card Types</h3>
+                                </div>
+                                <div class="card-types-box">
+                                    <ul>
+                                <li><a asp-action="Index" asp-controller="CardCash">Cashback</a></li>
+                                <li><a asp-action="Index" asp-controller="CardBusiness">Business</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--End Single Sidebar Box Style1-->
+                        </div>
+                    </div>
             <div class="col-xl-9">
                 <div class="cards-content-box">
-
                     <div class="cards-content-box-top">
                         <div class="left-box">
                             <h2>Best Cards for Your Needs</h2>
                         </div>
-                       @* <div class="right-box">
+                        <div class="right-box">
                             <div class="short-by">
                                 <div class="select-box">
-                                    <select class="wide">
-                                        <option data-display="Default Sorting">Default Sorting</option>
-                                        <option value="1">Popularity</option>
-                                        <option value="2">Popularity</option>
-                                        <option value="3">Popularity</option>
-                                    </select>
+                                    <form asp-action="Index" asp-controller="Card" method="get">
+                                        <select class="wide" name="sortby">
+                                            <option value="">Default Sorting</option>
+                                            <option value="1">Popularity</option>
+                                            <option value="2">Some Other Option</option>
+                                        </select>
+                                        <button type="submit">Apply Sorting</button>
+                                    </form>
                                 </div>
                             </div>
-                        </div>*@
+                        </div>
                     </div>
-                    @foreach (var item in Model)
+                    @foreach (var card in Model)
                     {
-                        
-                    <!--Start Single Card Box-->
-                    <div class="single-card-box">
-                        <div class="category-box">@item.Category.Name</div>
-                        <div class="cards-img-box">
-                            <div class="inner-title">
-                                <h3>@item.Title</h3>
+                        <!--Start Single Card Box-->
+                        <div class="single-card-box">
+                            <div class="category-box">@card.Category.Name</div>
+                            <div class="cards-img-box">
+                                <div class="inner-title">
+                                    <h3>@card.Title</h3>
+                                </div>
+                                <div class="inner">
+                                    <img src="~/Upload/CardImages/@card.CardImages.FirstOrDefault()?.ImageUrl" alt="">
+                                </div>
+                                <div class="btn-box">
+                                    <a class="btn-one" asp-action="Index" asp-controller="CardSingle" asp-route-id="@card.Id" >
+                                        <span class="txt">Read More</span>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="inner">
-                                <img src="~/Upload/CardImages/@item.CardImages.FirstOrDefault().ImageUrl" alt="">
-                            </div>
-                            <div class="btn-box">
-                            @*    <a class="btn-one style2" href="contact.html">
-                                    <span class="txt">Apply Now</span>
-                                </a>*@
-                               @* <a class="btn-one" href="#">
-                                    <span class="txt">Read More</span>
-                                </a>*@
+                            <div class="cards-text-box">
+                                <p>@card.Description</p>
+                                <h3>Features & Benefits</h3>
+                                <ul>
+                                    @foreach (var feature in card.CardFeatures)
+                                    {
+                                        <li>@feature.Feature.Title</li>
+                                    }
+                                </ul>
                             </div>
                         </div>
-                        <div class="cards-text-box">
-                            <p>
-                                @item.Description
-                            </p>
-                            <h3>Features & Benefits</h3>
-                            <ul>
-                                @foreach (var feature in item.CardFeatures)
-                                {
-                                <li>@feature.Feature.Title</li>
-                                }
-                            </ul>
-                        </div>
-                    </div>
-                    <!--End Single Card Box-->
+                        <!--End Single Card Box-->
                     }
-
                 </div>
             </div>
 
-        </div>
-    </div>
-</section>
-<!--End Cards Area-->
+                </div>
+            </div>
+        </section>
+        <!--End Cards Area-->
+

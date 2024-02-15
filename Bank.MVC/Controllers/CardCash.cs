@@ -2,7 +2,7 @@
 
 namespace Bank.MVC.Controllers
 {
-    public class CardCashController : Controller
+    public class CardCash : Controller
     {
         public IActionResult Index()
         {

@@ -53,15 +53,7 @@ namespace Bank.Business.Services.Implementations
                 vm.FeaturesIds == null || vm.CardFiles == null;
           
             if (exists) throw new ObjectParamsNullException("Object parameters is required!", nameof(vm.Title));
-
-            var existsSameCardTitle = await (await _rep.GetAllAsync(expression: x => x.Title == vm.Title))
-                .FirstOrDefaultAsync() is null;
-            var existsSameCardDes = await (await _rep.GetAllAsync(expression: x => x.Description == vm.Description))
-             .FirstOrDefaultAsync() is null;
-
-            if (!existsSameCardTitle) throw new ObjectSameParamsException("There is same title product in data!", nameof(vm.Title));
-            if (!existsSameCardDes) throw new ObjectSameParamsException("There is same title product in data!", nameof(vm.Description));
-
+        
             Card newCad = new()
             {
                 Title = vm.Title,

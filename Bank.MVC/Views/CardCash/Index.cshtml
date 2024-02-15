@@ -1,9 +1,4 @@
-﻿@using Bank.Core.Entities.Models
- 
-
-@model List<Card>
-
-<!--Start Main Header Style1 Bottom-->
+﻿   <!--Start Main Header Style1 Bottom-->
 <div class="main-header-style1-bottom">
     <div class="auto-container">
         <div class="outer-box">
@@ -27,6 +22,8 @@
 </div>
 <!--End Main Header Style1 Bottom-->
         </header>
+
+
 <!--End breadcrumb area-->
 <!--Start Cards Details Area-->
 <section class="cards-details-area">
@@ -35,6 +32,7 @@
 
             <div class="col-xl-4">
                 <div class="sidebar-box-style2">
+                    <!--Start Single Sidebar Box Style1-->
                     <div class="single-sidebar-box-style1">
                         <div class="sidebar-title">
                             <div class="dot-box"></div>
@@ -42,8 +40,9 @@
                         </div>
                         <div class="card-types-box">
                             <ul>
-                                <li class="active"><a asp-action="Index" asp-controller="CardCash">Cashback</a></li>
+                                <li><a asp-action="Index" asp-controller="CardCash">Cashback</a></li>
                                 <li><a asp-action="Index" asp-controller="CardBusiness">Business</a></li>
+                        
                             </ul>
                         </div>
                     </div>
@@ -57,7 +56,7 @@
                         <div class="bottom-box float-bob-x"></div>
                         <div class="logo-box">
                             <a href="index.html">
-                                <img src="assets/images/resources/banner-logo-1.png" alt="">
+                                <img src="~/assets/images/resources/banner-logo-1.png" alt="">
                             </a>
                         </div>
                         <h3>Apply for Credit<br> Card Online</h3>
@@ -65,6 +64,11 @@
                             <li><span class="icon-checkbox-mark"></span> The well master-builder</li>
                             <li><span class="icon-checkbox-mark"></span> On the other hand</li>
                         </ul>
+                        <div class="btns-box">
+                            <a class="btn-one" href="contact.html">
+                                <span class="txt">Apply Now</span>
+                            </a>
+                        </div>
                     </div>
                     <!--End Sidebar Banner Box-->
 
@@ -80,13 +84,15 @@
                         </div>
                         <div class="text">
                             <p>
-                                Cardholders receive a certain percentage of their purchases as cash rewards. 
-                                This can vary based on the specific card and the type of transaction (e.g., different rates for groceries, gas, dining, etc.).
+                                Fail in their duty through weakness of will which is the same as saying through
+                                shrinking from toil and pain cases are perfectly simple and easy to distinguish.
+                                In a free hour, when our power of choice the claims off duty or the obligations
+                                business it will frequently occur that pleasures.
                             </p>
                             <p>
-                               Many cashback cards provide introductory offers,
-                               such as higher cashback rates for the first few months or a bonus for reaching
-                               a specific spending threshold within a set period.
+                                Through weakness of will which is the same as saying through shrinking from toil
+                                and pain cases are per-
+                                fectly simple and easy to distinguish in a free hour.
                             </p>
                         </div>
                     </div>
@@ -98,12 +104,12 @@
                                     <ul>
                                         <li>
                                             <div class="single-img-box">
-                                                <img src="assets/BankImages/card1.png" alt="">
+                                                <img src="~/assets/BankImages/card1.png" alt="">
                                             </div>
                                         </li>
                                         <li>
                                             <div class="single-img-box">
-                                                <img src="assets/BankImages/card2.png" alt="">
+                                                <img src="~/assets/BankImages/card2.png" alt="">
                                             </div>
                                         </li>
                                     </ul>
@@ -229,7 +235,8 @@
                         </div>
                     </div>
 
-                
+             
+
                     <div class="card-deatils-accordion-box">
                         <ul class="accordion-box">
                             <li class="accordion block active-block">
@@ -250,14 +257,13 @@
                                             <li>Location is also another factor </li>
                                         </ul>
                                         <div class="btns-box">
-                                            <a class="btn-one" asp-action="Register" asp-controller="Account">
+                                            <a class="btn-one" asp-action="Register" asp-controller="Account" >
                                                 <span class="txt">Open an Account</span>
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-                   
                         </ul>
                     </div>
 
