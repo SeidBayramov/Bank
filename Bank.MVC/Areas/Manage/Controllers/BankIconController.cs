@@ -46,9 +46,9 @@ namespace Bank.MVC.Areas.Manage.Controllers
                         ModelState.Clear();
                         ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
                     }
-                    return View(vm);
+                    return View("Error");
                 }
-                if (!ModelState.IsValid) { return View(vm); }
+                if (!ModelState.IsValid) { return View("Error"); }
                 await _service.CreateAsync(vm);
                 return RedirectToAction("Index");
             }
@@ -130,12 +130,12 @@ namespace Bank.MVC.Areas.Manage.Controllers
             catch (IdNegativeOrZeroException ex)
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
-                return RedirectToAction("Index");
+                return RedirectToAction("Error");
             }
             catch (ObjectNullException ex)
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
-                return RedirectToAction("Index");
+                return RedirectToAction("Error");
             }
         }
         [HttpGet]
@@ -146,18 +146,18 @@ namespace Bank.MVC.Areas.Manage.Controllers
             {
                 await _service.RecoverAsync(id);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Error");
             }
             catch (IdNegativeOrZeroException ex)
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Error");
             }
             catch (ObjectNullException ex)
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
-                return RedirectToAction("Index");
+                return RedirectToAction("Error");
             }
         }
         [HttpGet]

@@ -19,10 +19,10 @@ namespace Bank.MVC.Controllers
 
             switch (sortby)
             {
-                case 1: // Sort by Popularity (example)
+                case 1: 
                     cards = cards.OrderByDescending(card => card.CardFeatures.Count()).ToList();
                     break;
-                case 2: // Add more cases for other sorting options
+                case 2: 
                     cards = cards.OrderBy(card => card.Id).ToList();
                     break;
                 default:
