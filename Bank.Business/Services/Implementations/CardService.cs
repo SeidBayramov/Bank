@@ -107,24 +107,24 @@ namespace Bank.Business.Services.Implementations
         public async Task UpdateAsync(UpdateCardVm vm, string env)
         {
             var oldcard = await CheckProduct(vm.Id, includes);
-            var exists = vm.Title == null || vm.Description == null || vm.CategoryId == null ||
-                 vm.FeaturesIds == null || vm.CardFiles == null;
+            var exists = vm.Title == null || vm.Description == null || vm.CategoryId == null || vm.FeaturesIds == null;
 
-            if (exists) throw new ObjectParamsNullException("Object parameters is required!", nameof(vm.Title));
-
+            if (exists)
+            {
+                throw new ObjectParamsNullException("Object parameters are required!", nameof(vm.Title));
+            }
 
             oldcard.Title = vm.Title;
             oldcard.Description = vm.Description;
             oldcard.IsInStock = vm.IsInStock;
             oldcard.UpdatedDate = DateTime.Now;
-            oldcard.CategoryId= vm.CategoryId;
-
+            oldcard.CategoryId = vm.CategoryId;
             oldcard.Category.Id = vm.CategoryId;
 
             await _rep.UpdateAsync(oldcard);
             oldcard.CardFeatures.Clear();
 
-            if (vm.FeaturesIds is not null || vm.FeaturesIds.Any() )
+            if (vm.FeaturesIds != null && vm.FeaturesIds.Any())
             {
                 foreach (var item in vm.FeaturesIds)
                 {
@@ -136,31 +136,18 @@ namespace Bank.Business.Services.Implementations
                     oldcard.CardFeatures.Add(cardFeature);
                 }
             }
-            if (vm.CardFiles != null)
+
+            // Check if new images are provided
+            if (vm.CardFiles != null && vm.CardFiles.Any())
             {
-                oldcard.CardImages.Clear();
-            }
-            else
-            {
-                List<CardImage> remove = oldcard.CardImages.Where(x => !vm.CardImageIds.Contains(x.Id)).ToList();
-                if (remove.Count > 0)
-                {
-                    foreach (var item in remove)
-                    {
+                oldcard.CardImages.Clear(); // Clear existing images
 
-                        oldcard.CardImages.Remove(item);
-                        FileManager.Delete(item.ImageUrl, env, @"/Upload/CardImages/");
-                    }
-                }
-
-            }
-
-
-            if(vm.CardFiles != null)
-            {
                 foreach (var item in vm.CardFiles)
                 {
-                    if (!item.CheckImage()) throw new ImageException("File must be image format and lower than 3MB!", nameof(item));
+                    if (!item.CheckImage())
+                    {
+                        throw new ImageException("File must be in image format and lower than 3MB!", nameof(item));
+                    }
 
                     CardImage cardImage = new()
                     {
@@ -170,8 +157,15 @@ namespace Bank.Business.Services.Implementations
                     oldcard.CardImages.Add(cardImage);
                 }
             }
+            else
+            {
+                // If no new images provided, keep existing images
+                oldcard.CardImages = oldcard.CardImages.ToList();
+            }
+
             await _rep.SaveChangesAsync();
         }
+
 
         public async Task DeleteAsync(int id)
         {
