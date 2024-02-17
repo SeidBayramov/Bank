@@ -35,37 +35,37 @@ namespace Bank.Business.Services.Implementations
             _httpContextAccessor = httpContextAccessor;
         }
 
-        //public async Task<List<string>> SendConfirmEmailAddress(AppUser user)
-        //{
-        //    Random random = new Random();
-        //    var data = new List<string>();
+        public async Task<List<string>> SendConfirmEmailAddress(AppUser user)
+        {
+            Random random = new Random();
+            var data = new List<string>();
 
 
-        //    string token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-        //    string pincode = $"{random.Next(1000, 10000)}";
+            string token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            string pincode = $"{random.Next(1000, 10000)}";
 
-        //    SendConfirmationService.SendMessage(to: user.Email, url: user.Name, pincode: pincode);
+            SendConfirmationService.SendEmailMessage(toUser: user.Email, webUser: user.Name, pincode: pincode);
 
-        //    data.Add(token);
-        //    data.Add(pincode);
-        //    data.Add(user.Id);
+            data.Add(token);
+            data.Add(pincode);
+            data.Add(user.Id);
 
-        //    return data;
-        //}
-        //public async Task<bool> ConfirmEmailAddress(ConfrimEmailVm vm, string userId, string token, string pincode)
-        //{
-        //    var postPincode = $"{vm.Number1}{vm.Number2}{vm.Number3}{vm.Number4}";
+            return data;
+        }
+        public async Task<bool> ConfirmEmailAddress(ConfrimEmailVm vm, string userId, string token, string pincode)
+        {
+            var postPincode = $"{vm.Number1}{vm.Number2}{vm.Number3}{vm.Number4}";
 
-        //    if (pincode == postPincode)
-        //    {
-        //        var user = await _userManager.FindByIdAsync(userId);
-        //        await _userManager.ConfirmEmailAsync(user, token);
+            if (pincode == postPincode)
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                await _userManager.ConfirmEmailAsync(user, token);
 
-        //        return true;
-        //    }
+                return true;
+            }
 
-        //    return false;
-        //}
+            return false;
+        }
 
         public async Task CreateRoles()
         {
@@ -99,11 +99,6 @@ namespace Bank.Business.Services.Implementations
                 throw new UserNotFoundException("Username/Email or Password is not valid!", nameof(vm.Password));
             }
 
-            if(!await _userManager.IsEmailConfirmedAsync(user))
-            {
-                throw new UsedEmailException("Please confrim your email",nameof(vm.LoginName));
-            }
-
             await _signInManager.SignInAsync(user, true);
 
         }
@@ -113,13 +108,14 @@ namespace Bank.Business.Services.Implementations
             await _signInManager.SignOutAsync();
         }
 
-        public async Task Register(RegisterVm vm)
+        public async Task<List<string>> Register(RegisterVm vm)
         {
 
-            var exists = vm.Name == null || vm.Password == null || vm.Surname == null
-                || vm.UserName == null || vm.Email == null || vm.ConfirmdPassword == null;
-
-            if (exists) throw new ObjectParamsNullException("Object parameters is required!", nameof(vm.Name));
+            if (vm.UserName is null || vm.Name is null || vm.Surname is null ||
+                vm.Email is null || vm.Password is null || vm.ConfirmdPassword is null)
+            {
+                throw new ObjectParamsNullException("Object parameters is required!", nameof(vm.UserName));
+            }
 
             var usedEmail = await _userManager.FindByEmailAsync(vm.Email);
 
@@ -142,19 +138,38 @@ namespace Bank.Business.Services.Implementations
                         throw new UserRegistrationException($"{item.Description}", nameof(item));
                     }
                 }
-                string token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
-                string url = _linkGenerator.GetUriByAction(_httpContextAccessor.HttpContext, action: "ConfirmEmail", controller: "Account", values: new { token, newUser.Id });
-                SendConfirmationService.SendMessage(to: newUser.Email, url: url);
+                await _userManager.AddToRoleAsync(newUser, UserRole.Moderator.ToString());
 
-                // Replace "userEmailAddress" and "confirmationUrl" with the actual user's email and confirmation URL
-                SendConfirmationService.SendMessage("userEmailAddress", "confirmationUrl");
+                return await SendConfirmEmailAddress(newUser);
 
-                await _userManager.AddToRoleAsync(newUser, UserRole.Admin.ToString());
             }
             else
             {
                 throw new UsedEmailException("This email address used before, try another!", nameof(vm.Email));
             }
         }
+
+        //public async Task Subscription(SubscribeVM vm)
+        //{
+        //    var existsEmail = await _context.Subscribes.FirstOrDefaultAsync(x => x.EmailAddress == vm.EmailAddress);
+
+        //    if (existsEmail is null)
+        //    {
+        //        Subscribe newSubscription = new()
+        //        {
+        //            EmailAddress = vm.EmailAddress,
+        //            CreatedDate = DateTime.Now,
+        //            UpdatedDate = DateTime.Now,
+        //        };
+
+        //        await _context.Subscribes.AddAsync(newSubscription);
+        //        await _context.SaveChangesAsync();
+        //        SendMessageService.SendEmailMessage(toUser: vm.EmailAddress, webUser: "Amado Team", pincode: "1000");
+        //    }
+        //    else
+        //    {
+        //        throw new UsedEmailException("This email address used before, try another!", nameof(vm.EmailAddress));
+        //    }
+        //}
     }
 }

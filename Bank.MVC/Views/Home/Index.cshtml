@@ -277,6 +277,7 @@
 <!-- End Centered Currency Converter Section -->
 <!-- Existing Code -->
 
+
 <script>
     function convertCurrency(type) {
         const sellInput = document.getElementById('sellInput');
@@ -318,7 +319,7 @@
     }
 
     h1 {
-        color: #2c3e50; /* Dark blue-gray heading color */
+        color: black; /* Dark blue-gray heading color */
         margin-bottom: 20px;
     }
 
@@ -326,35 +327,64 @@
         display: block;
         margin-bottom: 10px;
         font-size: 16px;
-        color: #555;
+        color: black;
     }
 
-    input {
+    input[type="range"] {
         width: 80%;
         margin-bottom: 15px;
-        padding: 10px;
-        font-size: 14px;
-        border: 1px solid #bdc3c7; /* Light gray border */
+        -webkit-appearance: none;
+        appearance: none;
+        height: 10px;
+        background: #fff; /* White background */
+        border: 1px solid darkred; /* Dark red border */
         border-radius: 5px;
+        outline: none;
+        padding: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
     }
 
-        input[type="range"] {
-            width: 60%;
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: darkred; /* Dark red thumb color */
+            border: 1px solid #fff; /* White border for the thumb */
+            border-radius: 50%;
+            cursor: pointer;
         }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: darkred; /* Dark red thumb color for Firefox */
+            border: 1px solid #fff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
 
     span {
         display: inline-block;
         margin-bottom: 10px;
-        font-size: 14px;
-        color: #777;
+        font-size: 25px; /* Increase the font size */
+        color: black; /* Darker color */
+        padding-bottom: 2px; /* Adjust padding to match the underline thickness */
     }
 
     #result {
         margin-top: 20px;
         font-weight: bold;
         font-size: 18px;
-        color: #333;
+        color: darkred; /* Change the text color to dark red */
+        border: 1px solid darkred; /* Add a dark red border */
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #fff; /* Set a white background color */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
     }
+
 </style>
 
 <h1>Monthly Payment Calculator</h1>
@@ -395,7 +425,6 @@
 
     updateValues();
 </script>
-
 
 
 @await Component.InvokeAsync("Question")

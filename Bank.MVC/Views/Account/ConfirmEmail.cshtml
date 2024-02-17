@@ -1,0 +1,42 @@
+﻿@using Bank.Business.ViewModels.Account
+@model ConfrimEmailVm
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5 mb-5">
+                <form method="post">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Confirmation Code</h5>
+                        <p class="card-text">Please enter the 4-digit code sent to your email.</p>
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <input asp-for="Number1" type="text" class="form-control text-center" style="width: 50px;margin: 5px;" maxlength="1" pattern="\d" required>
+                            </div>
+                            <div class="col-auto">
+                                <input asp-for="Number2" type="text" class="form-control text-center" style="width: 50px;margin: 5px;" maxlength="1" pattern="\d" required>
+                            </div>
+                            <div class="col-auto">
+                                <input asp-for="Number3" type="text" class="form-control text-center" style="width: 50px;margin: 5px;" maxlength="1" pattern="\d" required>
+                            </div>
+                            <div class="col-auto">
+                                <input asp-for="Number4" type="text" class="form-control text-center" style="width: 50px;margin: 5px;" maxlength="1" pattern="\d" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-4 mb-5 text-center">
+                        <button type="submit" class="btn btn-primary">
+                            Confirm
+                        </button>
+                    </div>
+                </form>
+                @if (ViewBag.IsSuccess == false)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        Code is not valid!
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

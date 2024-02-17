@@ -1,5 +1,6 @@
 ﻿using Bank.Business.Exceptions.Account;
 using Bank.Business.Exceptions.Common;
+using Bank.Business.Services.Implementations;
 using Bank.Business.Services.Interface;
 using Bank.Business.ViewModels.Account;
 using Bank.Core.Entities.Account;
@@ -13,10 +14,14 @@ namespace Bank.MVC.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountService _service;
+        private readonly LinkGenerator _linkGenerator;
+        private readonly IHttpContextAccessor _http;
 
-        public AccountController(IAccountService service)
+        public AccountController(IAccountService service, LinkGenerator linkGenerator, IHttpContextAccessor http)
         {
             _service = service;
+            _linkGenerator = linkGenerator;
+            _http = http;
         }
 
         [HttpGet]
@@ -49,9 +54,21 @@ namespace Bank.MVC.Controllers
                     return View(vm);
                 }
 
-                await _service.Register(vm);
+               var response= await _service.Register(vm);
+                var token = response[0];
+                var pincode = response[1];
+                var userId = response[2];
 
-                return RedirectToAction(nameof(Login));
+                string url = _linkGenerator.GetUriByAction(_http.HttpContext, action: "ConfirmEmail", controller: "Account",
+                 values: new
+                 {
+                     token,
+                     userId,
+                     pincode
+                 });
+
+                return Redirect(url);
+
             }
             catch (UsedEmailException ex)
             {
@@ -74,11 +91,10 @@ namespace Bank.MVC.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Login(string? returnUrl)
+        public async Task<IActionResult> Login()
         {
             if (!User.Identity.IsAuthenticated)
             {
-                if (returnUrl is not null) return Redirect(returnUrl);
 
                 return View();
             }
@@ -145,5 +161,49 @@ namespace Bank.MVC.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmail()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ConfirmEmail(ConfrimEmailVm vm, string userId, string token, string pincode)
+        {
+            ViewBag.Success = true;
+
+            if (await _service.ConfirmEmailAddress(vm: vm, userId: userId, token: token, pincode: pincode))
+            {
+                return RedirectToAction(nameof(Login));
+            }
+            else
+            {
+                ViewBag.Success = false;
+            }
+
+            return View(vm);
+        }
+
+        //    [HttpPost]
+        //    public async Task<IActionResult> Subscription(SubscribeVM vm, string? returnUrl)
+        //    {
+        //        try
+        //        {
+        //            await _accountService.Subscription(vm);
+
+        //            if (returnUrl is not null) return Redirect(returnUrl);
+
+        //            return RedirectToAction("Index", "Home");
+        //        }
+        //        catch (UsedEmailException ex)
+        //        {
+        //            ModelState.AddModelError(ex.ParamName, ex.Message);
+
+        //            if (returnUrl is not null) return Redirect(returnUrl);
+
+        //            return RedirectToAction("Index", "Home", vm);
+        //        }
+        //    }
+        //}
     }
 }
