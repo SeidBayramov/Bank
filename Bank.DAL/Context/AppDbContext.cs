@@ -34,5 +34,6 @@ namespace Bank.DAL.Context
         public DbSet<CardFeature> CardFeatures { get; set; }
         public DbSet<Currency> Currencies {get; set; }
         public DbSet<Question> Questions { get; set; }
+        public DbSet<CardRequest> CardRequests { get; set; }
     }
 }

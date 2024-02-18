@@ -5,6 +5,7 @@ using Bank.Business.ViewModels.Card;
 using Bank.Core.Entities.Models;
 using Bank.DAL.Repositories.Interface;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -51,9 +52,9 @@ namespace Bank.Business.Services.Implementations
 
             var exists = vm.Title == null || vm.Description == null || vm.CategoryId == null ||
                 vm.FeaturesIds == null || vm.CardFiles == null;
-          
+
             if (exists) throw new ObjectParamsNullException("Object parameters is required!", nameof(vm.Title));
-        
+
             Card newCad = new()
             {
                 Title = vm.Title,
@@ -65,11 +66,11 @@ namespace Bank.Business.Services.Implementations
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now,
             };
-            if(vm.CardFiles is not null)
+            if (vm.CardFiles is not null)
             {
                 foreach (var item in vm.CardFiles)
                 {
-                    if(!item.CheckImage()) throw new ImageException("File must be image format and lower than 3MB!", nameof(item));
+                    if (!item.CheckImage()) throw new ImageException("File must be image format and lower than 3MB!", nameof(item));
 
                     CardImage cardImage = new()
                     {
@@ -83,8 +84,8 @@ namespace Bank.Business.Services.Implementations
             {
                 throw new ObjectParamsNullException("Object parameters is required!", nameof(vm.CardFiles));
             }
-     
-            if(vm.FeaturesIds is not null||vm.FeaturesIds.Any() )
+
+            if (vm.FeaturesIds is not null || vm.FeaturesIds.Any())
             {
                 foreach (var item in vm.FeaturesIds)
                 {
@@ -137,10 +138,9 @@ namespace Bank.Business.Services.Implementations
                 }
             }
 
-            // Check if new images are provided
             if (vm.CardFiles != null && vm.CardFiles.Any())
             {
-                oldcard.CardImages.Clear(); // Clear existing images
+                oldcard.CardImages.Clear(); 
 
                 foreach (var item in vm.CardFiles)
                 {
@@ -159,7 +159,6 @@ namespace Bank.Business.Services.Implementations
             }
             else
             {
-                // If no new images provided, keep existing images
                 oldcard.CardImages = oldcard.CardImages.ToList();
             }
 
@@ -199,7 +198,7 @@ namespace Bank.Business.Services.Implementations
             return oldIcon;
         }
 
-        
+
         public async Task<Card> CheckProduct(int id, params string[] includes)
         {
             if (id <= 0) throw new IdNegativeOrZeroException("Id must be over than and not equal to zero!", nameof(id));
@@ -212,4 +211,4 @@ namespace Bank.Business.Services.Implementations
     }
 }
 
-   
+

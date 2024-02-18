@@ -1,70 +1,74 @@
-﻿
+﻿@using Bank.Core.Entities.Models
+
+@model CardRequest
+
 @await Component.InvokeAsync("Slider")
-        <!--Start Features Style1 Area-->
-        <section class="features-style1-area">
-            <div class="container">
-                <div class="sec-title text-center">
-                    <h2>Bank for a Better Tomorrow</h2>
-                    <div class="sub-title">
-                        <p>Committed to helping our customers succeed.</p>
+<!--Start Features Style1 Area-->
+<section class="features-style1-area">
+    <div class="container">
+        <div class="sec-title text-center">
+            <h2>Bank for a Better Tomorrow</h2>
+            <div class="sub-title">
+                <p>Committed to helping our customers succeed.</p>
+            </div>
+        </div>
+        <div class="features-style1-content">
+            <ul class="clearfix">
+                <!--Start Single Features Style1 Box-->
+                <li>
+                    <div class="single-features-style1-box">
+                        <div class="shape-left">
+                            <img src="~/assets/images/shapes/shape-1.png" alt="">
+                        </div>
+                        <div class="shape-bottom">
+                            <img src="~/assets/images/shapes/shape-2.png" alt="">
+                        </div>
+                        <div class="counting-box">
+                            <div class="counting-box-bg"
+                                 style="background-image: url(assets/images/shapes/counting-box-bg.png);"></div>
+                            <h3>01</h3>
+                        </div>
+                        <div class="text-box">
+                            <h4>Our All Cards</h4>
+                            <h3>You can show our all Cards</h3>
+                            <p>"Offering the best deals on business-size cards."</p>
+                            <div class="btn-box">
+                                <a asp-action="Index" asp-controller="Card">
+                                    Read More
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="features-style1-content">
-                    <ul class="clearfix">
-                        <!--Start Single Features Style1 Box-->
-                        <li>
-                            <div class="single-features-style1-box">
-                                <div class="shape-left">
-                                    <img src="~/assets/images/shapes/shape-1.png" alt="">
-                                </div>
-                                <div class="shape-bottom">
-                                    <img src="~/assets/images/shapes/shape-2.png" alt="">
-                                </div>
-                                <div class="counting-box">
-                                    <div class="counting-box-bg"
-                                        style="background-image: url(assets/images/shapes/counting-box-bg.png);"></div>
-                                    <h3>01</h3>
-                                </div>
-                                <div class="text-box">
-                                    <h4>Our All Cards</h4>
-                                    <h3>You can show our all Cards</h3>
-                                    <p>"Offering the best deals on business-size cards."</p>
-                                    <div class="btn-box">
-                                        <a asp-action="Index" asp-controller="Card">
-                                            Read More
-                                            <i class="fas fa-plus"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <!--End Single Features Style1 Box-->
-                        <!--Start Single Features Style1 Box-->
-                        <li>
-                            <div class="single-features-style1-box">
-                                <div class="shape-left">
-                                    <img src="~/assets/images/shapes/shape-1.png" alt="">
-                                </div>
-                                <div class="shape-bottom">
-                                    <img src="~/assets/images/shapes/shape-2.png" alt="">
-                                </div>
-                                <div class="counting-box">
-                                    <div class="counting-box-bg"
-                                        style="background-image: url(assets/images/shapes/counting-box-bg.png);"></div>
-                                    <h3>02</h3>
-                                </div>
-                                <div class="text-box">
-                                    <h4>Saving Account</h4>
+                </li>
+                <!--End Single Features Style1 Box-->
+                <!--Start Single Features Style1 Box-->
+                <li>
+                    <div class="single-features-style1-box">
+                        <div class="shape-left">
+                            <img src="~/assets/images/shapes/shape-1.png" alt="">
+                        </div>
+                        <div class="shape-bottom">
+                            <img src="~/assets/images/shapes/shape-2.png" alt="">
+                        </div>
+                        <div class="counting-box">
+                            <div class="counting-box-bg"
+                                 style="background-image: url(assets/images/shapes/counting-box-bg.png);"></div>
+                            <h3>02</h3>
+                        </div>
+                        <div class="text-box">
+                            <h4>Saving Account</h4>
                             <h3>Smart Business, Savvy Savings.</h3>
-                                    <p>"Unleash the Power of Savings in Your Business Journey</p>
-                                    <div class="btn-box">
-                                        <a asp-action="Index" asp-controller="Deposit">@*saving page *@
-                                            Read More
-                                            <i class="fas fa-plus"></i>
-                                        </a>
-                                    </div>
-                                </div>
+                            <p>"Unleash the Power of Savings in Your Business Journey</p>
+                            <div class="btn-box">
+                                <a asp-action="Index" asp-controller="Deposit">
+                                    @*saving page *@
+                                    Read More
+                                    <i class="fas fa-plus"></i>
+                                </a>
                             </div>
+                        </div>
+                    </div>
                 </li>
                 <li>
                     <div class="single-features-style1-box">
@@ -92,86 +96,101 @@
                         </div>
                     </div>
                 </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <!--End Features Style1 Area-->
+            </ul>
+        </div>
+    </div>
+</section>
+<!--End Features Style1 Area-->
 @await Component.InvokeAsync("BankIcon")
 
 
-        <!--Start Features Style3 Area-->
-        <section class="features-style3-area">
-            <div class="container">
-                <div class="row">
+<!--Start Features Style3 Area-->
+<section class="features-style3-area">
+    <div class="container">
+        <div class="row">
 
-                    <div class="col-xl-6">
-                        <div class="features-style3-img-box">
-                            <div class="inner-img">
-                                <img class="paroller" src="~/assets/BankImages/Loanimages.jpg" alt="">
-                            </div>
-                            <div class="icon-holder float-bob-y">
-                                <span class="icon-interest-rate"></span>
-                            </div>
-                            <div class="icon-holder two">
-                                <span class="icon-online-shop"></span>
-                            </div>
-                            <div class="icon-holder three">
-                                <span class="icon-theater"></span>
-                            </div>
-                        </div>
+            <div class="col-xl-6">
+                <div class="features-style3-img-box">
+                    <div class="inner-img">
+                        <img class="paroller" src="~/assets/BankImages/Loanimages.jpg" alt="">
                     </div>
-
-                    <div class="col-xl-6">
-                        <div class="features-style3-content">
-                            <div class="sec-title">
-                                <h2>Personalize Your<br> Card and Stand Out<br> From Crowd</h2>
-                                <div class="sub-title">
-                                    <p>Desire that they cannot foresee the pain & trouble that are bound too
-                                        ensue equal blame belongs through shrinking.</p>
-                                </div>
-                            </div>
-                            <div class="text-box">
-                                <ul>
-                                    <li>
-                                        <div class="icon">
-                                            <span class="icon-checkbox-mark"></span>
-                                        </div>
-                                        <p>Great explorer of the master-builder</p>
-                                    </li>
-                                    <li>
-                                        <div class="icon">
-                                            <span class="icon-checkbox-mark"></span>
-                                        </div>
-                                        <p>Great explorer of the master-builder</p>
-                                    </li>
-                                </ul>
-                                <div class="apply-credit-card">
-                                    <h3>Apply for Credit Card</h3>
-                                    <form  id="apply-credit-card" name="apply-credit-card" action="#" method="post">
-                                        <div class="input-box">
-                                            <input type="text" name="form_name" value="" placeholder="Name" required="">
-                                        </div>
-                                        <div class="input-box">
-                                            <input type="text" name="form_name" value="" placeholder="Name" required="">
-                                        </div>
-                                        <div class="button-box">
-                                            <button class="btn-one" type="submit" data-loading-text="Please wait...">
-                                                <span class="txt">Apply Now</span>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
+                    <div class="icon-holder float-bob-y">
+                        <span class="icon-interest-rate"></span>
                     </div>
-
+                    <div class="icon-holder two">
+                        <span class="icon-online-shop"></span>
+                    </div>
+                    <div class="icon-holder three">
+                        <span class="icon-theater"></span>
+                    </div>
                 </div>
             </div>
-        </section>
-        <!--End Features Style3 Area-->
 
+            <div class="col-xl-6">
+                <div class="features-style3-content">
+                    <div class="sec-title">
+                        <h2>Personalize Your Card</h2>
+                        <div class="sub-title">
+                            <p>
+                                Users interested in obtaining a financial card submit an application providing necessary information.
+                                Checks may include verification of identity, creditworthiness, and adherence to eligibility criteria set by the bank.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="text-box">
+                        <ul>
+                            <li>
+                                <div class="icon">
+                                    <span class="icon-checkbox-mark"></span>
+                                </div>
+                                <p>Great explorer chance our Card </p>
+                            </li>
+                        </ul>
+                        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                        {
+                            <div class="alert alert-danger">
+                                @ViewBag.ErrorMessage
+                            </div>
+                        }
+
+                        <!-- Rest of your view content -->
+
+                        <div class="apply-credit-card">
+                            <h3>Apply for Card</h3>
+                            <form id="apply-card" name="apply-card" asp-action="Apply" asp-controller="CardRequest" method="post">
+                                <div class="input-box">
+                                    <input asp-for="FinCode" type="text" value="" placeholder="FinCode" required="">
+                                    <span asp-validation-for="FinCode" style="color: red;"></span>
+                                </div>
+                                <div class="input-box">
+                                    <input asp-for="Email" type="email" value="" placeholder="Email" required="">
+                                    <span asp-validation-for="Email" style="color: red;"></span>
+                                </div>
+                                <div class="input-box">
+                                    <label class="checkbox-label">
+                                        <p>ASAN Finans/E-GOV sistemi vasitəsilə şəxsiyyəti təsdiq edən sənədin məlumatlarımın FInBanka-a təqdim edilməsinə razılıq verirəm</p>
+                                    </label>
+                                    <input asp-for="IsVerified" type="checkbox">
+                                    <span asp-validation-for="IsVerified" style="color: red;"></span>
+                                </div>
+
+                                <div class="button-box">
+                                    <button class="btn-one" type="submit" data-loading-text="Please wait...">
+                                        <span class="txt">Apply Now</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--End Features Style3 Area-->
 @await Component.InvokeAsync("Currency")
 
 

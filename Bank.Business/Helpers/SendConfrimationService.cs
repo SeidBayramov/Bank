@@ -82,6 +82,6 @@ namespace Bank.Business.Helpers
                     }
                     break;
             }
-        }
+        }      
     }
 }

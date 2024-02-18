@@ -7,8 +7,9 @@ namespace Bank.MVC.Controllers
 {
     public class HomeController : Controller
     { 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string errorMessage)
         {
+            ViewBag.ErrorMessage = errorMessage;
             return View();
         }
 

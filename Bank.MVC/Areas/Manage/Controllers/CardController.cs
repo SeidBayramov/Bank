@@ -251,5 +251,5 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 return RedirectToAction("Index");
             }
         }
-    }
+   }
 }

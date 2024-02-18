@@ -35,6 +35,7 @@ namespace Bank.MVC
             builder.Services.AddScoped<LayoutService>();
             builder.Services.AddScoped<ICardService, CardService>();
             builder.Services.AddScoped<ICardRepository, CardRepository>();
+            builder.Services.AddScoped<ICardRequestService, CardRequestService>();
 
 
 
