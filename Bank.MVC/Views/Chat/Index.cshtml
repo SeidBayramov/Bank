@@ -1,0 +1,74 @@
+﻿@using Bank.Core.Entities.Account
+@model List<AppUser>
+
+<div class="container">
+    <div class="row">
+        @if (User.IsInRole("Moderator"))
+        {
+            <div class="col-lg-6">
+                <div class="row p-1">
+                    <div class="col-1">User</div>
+                    <div class="col-5"><input type="text" id="userInput" /></div>
+                </div>
+                <div class="row p-1">
+                    <div class="col-1">Message</div>
+                    <div class="col-5"><input type="text" class="w-100" id="messageInput" /></div>
+                </div>
+                <div class="row p-1">
+                    <div class="col-6 text-end">
+                        <input type="button" id="sendButton" value="Send Message" />
+                    </div>
+                </div>
+                <div class="row p-1">
+                    <div class="col-6">
+                        <hr />
+                    </div>
+                </div>
+                <div class="row p-1">
+                    <div class="col-6">
+                        <ul id="messagesList"></ul>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="col-lg-6">
+            <ul class="list-group">
+                @foreach (var item in Model)
+                {
+                    @if (User.IsInRole("Moderator"))
+                    {
+                        <li class="list-group-item"><span id="@item.Id" class="badge rounded bg-@(item.CoonectionId != null ? "success" : "danger")" style="width:10px;height:10px;display:inline-block;"></span>@item.Name</li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section jsFiles{
+    <script>
+        document.getElementById("sendButton").addEventListener("click", function () {
+            const userValue = document.getElementById("userInput").value;
+            const messageValue = document.getElementById("messageInput").value;
+
+            connection.invoke("SendMessage", userValue, messageValue);
+        });
+
+        connection.on("ReceiveMessage", function (user, message) {
+            const li = document.createElement("li");
+            li.innerText = user + ": " + message;
+            document.getElementById("messagesList").append(li);
+        });
+
+        connection.on("OnConnect", function (userId) {
+            document.getElementById(userId).classList.remove("bg-danger");
+            document.getElementById(userId).classList.add("bg-success");
+        });
+
+        connection.on("DisConnect", function (userId) {
+            document.getElementById(userId).classList.remove("bg-success");
+            document.getElementById(userId).classList.add("bg-danger");
+        });
+    </script>
+}

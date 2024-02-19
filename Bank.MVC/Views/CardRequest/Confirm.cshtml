@@ -9,7 +9,9 @@
                 <div class="card-body text-center">
                     <h2 class="card-title">@ViewData["Title"]</h2>
                     <p class="card-text">@ViewBag.ConfirmationMessage</p>
-                    <a class="btn btn-dange" href="@Url.Action("Index", "Home")">Go to Home</a>
+                    <div>
+                    <a class="btn btn-danger" href="@Url.Action("Index", "Home")">Go to Home</a>
+                    </div>
                     <!-- Additional content or styling can be added here -->
                 </div>
             </div>

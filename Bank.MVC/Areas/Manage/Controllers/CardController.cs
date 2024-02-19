@@ -94,6 +94,11 @@ namespace Bank.MVC.Areas.Manage.Controllers
 
                 return View(vm);
             }
+            catch(ImageException ex)
+            {
+                ModelState.AddModelError(ex.ParamName, ex.Message);
+                return View(vm);
+            }
             catch (ObjectSameParamsException ex)
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);

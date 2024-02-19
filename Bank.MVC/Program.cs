@@ -1,3 +1,4 @@
+using Bank.Business.Hubs;
 using Bank.Business.Services;
 using Bank.Business.Services.Implementations;
 using Bank.Business.Services.Interface;
@@ -76,6 +77,8 @@ namespace Bank.MVC
 
             builder.Services.AddAuthentication().AddCookie();
 
+            builder.Services.AddSignalR();
+
             var app = builder.Build();
 
             if (!app.Environment.IsDevelopment())
@@ -99,6 +102,7 @@ namespace Bank.MVC
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
+            app.MapHub<ChatHub>("/chatUrl");
             app.Run();
         }
     }

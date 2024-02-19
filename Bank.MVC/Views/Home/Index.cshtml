@@ -236,8 +236,6 @@
         width: 80% !important;
     }
 </style>
-
-
 <div class="container mt-5 currency-converter-container">
     <div class="row justify-content-center">
         <div class="col-lg-6 pl-lg-3">
@@ -323,8 +321,12 @@
 
     // Hiding the "Alıram" (buy) option initially
     document.getElementById('buyOption').style.display = 'none';
+
+    // Initialize the conversion
+    convertCurrency('sell');
 </script>
 <!-- Existing Code -->
+
 
 
 
@@ -350,7 +352,7 @@
     }
 
     input[type="range"] {
-        width: 80%;
+        width: 60%; /* Smaller width for the range slider */
         margin-bottom: 15px;
         -webkit-appearance: none;
         appearance: none;
@@ -366,8 +368,8 @@
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 20px;
-            height: 20px;
+            width: 15px; /* Smaller width for the thumb */
+            height: 15px; /* Smaller height for the thumb */
             background: darkred; /* Dark red thumb color */
             border: 1px solid #fff; /* White border for the thumb */
             border-radius: 50%;
@@ -375,19 +377,18 @@
         }
 
         input[type="range"]::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
+            width: 15px; /* Smaller width for the thumb */
+            height: 15px; /* Smaller height for the thumb */
             background: darkred; /* Dark red thumb color for Firefox */
             border: 1px solid #fff;
             border-radius: 50%;
             cursor: pointer;
         }
 
-
     span {
         display: inline-block;
         margin-bottom: 10px;
-        font-size: 25px; /* Increase the font size */
+        font-size: 18px; /* Adjusted font size */
         color: black; /* Darker color */
         padding-bottom: 2px; /* Adjust padding to match the underline thickness */
     }
@@ -395,7 +396,7 @@
     #result {
         margin-top: 20px;
         font-weight: bold;
-        font-size: 18px;
+        font-size: 16px; /* Adjusted font size */
         color: darkred; /* Change the text color to dark red */
         border: 1px solid darkred; /* Add a dark red border */
         padding: 10px;
@@ -403,16 +404,13 @@
         background-color: #fff; /* Set a white background color */
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
     }
-
 </style>
 
-<h1>Monthly Payment Calculator</h1>
-
-<label for="amount">Select the amount you want to control (max $50,000):</label>
+<label for="amount">Enter the loan amount (max $50,000):</label>
 <input type="range" id="amount" min="0" max="50000" value="0">
-<span id="amountValue">0</span>
+<span id="amountValue">$0</span>
 
-<label for="months">Select the number of months you want to stay (max 36 months):</label>
+<label for="months">Select the number of months (max 36 months):</label>
 <input type="range" id="months" min="1" max="36" value="1">
 <span id="monthsValue">1 month</span>
 

@@ -11,5 +11,7 @@ namespace Bank.Core.Entities.Account
     {
         public string Name { get; set; }
         public string Surname { get; set; }
+        public string? CoonectionId { get; set; }
+        public bool IsOnline { get; set; }
     }
 }

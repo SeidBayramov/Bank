@@ -1,4 +1,7 @@
-﻿  <!--Start Main Header Style1 Bottom-->
+﻿@using Bank.Core.Entities.Models
+@model List<Loan>
+
+  <!--Start Main Header Style1 Bottom-->
 <div class="main-header-style1-bottom">
     <div class="auto-container">
         <div class="outer-box">
@@ -81,6 +84,7 @@
 <!--End Applying Process Area-->
 <!--Start Apply Form Area-->
 <section class="apply-form-area">
+
     <div class="container">
         <div class="row">
             <div class="col-xl-12">
@@ -95,7 +99,7 @@
                             </div>
                         </div>
 
-                        <form id="apply-form" name="apply_form" class="default-form2" action="index.html"
+                        <form id="apply-form" name="apply_form" class="default-form2" asp-action="" asp-controller="Loan"
                               method="post">
 
                             <div class="row">

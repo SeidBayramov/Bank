@@ -77,14 +77,15 @@
                         <div class="right-box">
                             <div class="short-by">
                                 <div class="select-box">
-                                    <form asp-action="Index" asp-controller="Card" method="get">
-                                        <select class="wide" name="sortby">
+                                    <form method="get" id="sortingForm">
+                                        <select class="wide" id="sortSelect" name="sortby">
                                             <option value="">LASTEST</option>
-                                            <option value="1">Popularity</option>
-                                            <option value="2">For Option</option>
+                                            <option value="2">Popularity</option>
+                                            <option value="1">For Features</option>
                                         </select>
-                                        <button type="submit">Apply Sorting</button>
+                                        <button asp-action="Index" asp-controller="Card" type="submit">Apply Sorting</button>
                                     </form>
+
                                 </div>
                             </div>
                         </div>
