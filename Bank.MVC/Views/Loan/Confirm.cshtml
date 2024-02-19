@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Confirm";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-body text-center">
+                    <h2 class="card-title">@ViewData["Title"]</h2>
+                    <p class="card-text">@ViewBag.ConfirmationMessage</p>
+                    <div>
+                        <a class="btn btn-danger" href="@Url.Action("Index", "Home")">Go to Home</a>
+                    </div>
+                    <!-- Additional content or styling can be added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

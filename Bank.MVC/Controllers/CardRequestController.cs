@@ -29,15 +29,15 @@ namespace Bank.MVC.Controllers
                 {
                     var validate = new RequestVMValidator();
                     var result = validate.Validate(vm);
+
                     if (!result.IsValid)
                     {
                         foreach (var error in result.Errors)
                         {
-                            ModelState.Clear();
                             ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                         }
 
-                        return RedirectToAction("Index", "Home", new { errorMessage = "Please check your FinCode length or email." });
+                        return RedirectToAction("Index", "Home", new { errorMessage = "Please check your FinCode or Email, and make sure you click the button" });
                     }
 
                     await _service.Apply(vm);
@@ -53,8 +53,10 @@ namespace Bank.MVC.Controllers
             {
                 return RedirectToAction("Index", "Home", new { errorMessage = "An error occurred: " + ex.Message });
             }
+            catch (ObjectSameParamsException ex)
+            {
+                return RedirectToAction("Index", "Home", new { errorMessage = "Please check your information: " + ex.Message });
+            }
         }
-
-
     }
 }

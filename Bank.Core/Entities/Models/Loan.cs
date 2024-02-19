@@ -14,5 +14,6 @@ namespace Bank.Core.Entities.Models
         public string Email { get; set; }
         public string Country { get; set; }
         public string FinCode { get; set; }
+        public string Phone { get; set; }
     }
 }

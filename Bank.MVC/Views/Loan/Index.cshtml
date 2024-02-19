@@ -1,7 +1,7 @@
-﻿@using Bank.Core.Entities.Models
-@model List<Loan>
+﻿@using Bank.Business.ViewModels.Loan
+@model LoanVm
 
-  <!--Start Main Header Style1 Bottom-->
+<!--Start Main Header Style1 Bottom-->
 <div class="main-header-style1-bottom">
     <div class="auto-container">
         <div class="outer-box">
@@ -93,21 +93,22 @@
                          style="background-image: url(assets/BankImages/Loanimages.jpg);"></div>
                     <div class="apply-form-box__content">
                         <div class="sec-title">
-                            <h2>Send Your Request &<br> Get Call Back</h2>
+                            <h2>Send Your Request <br> For Loan</h2>
                             <div class="sub-title">
-                                <p>Fill all the necessary details and Get call from experts.</p>
+                                <p>Fill all the necessary details and Get send message from mail.</p>
                             </div>
                         </div>
 
-                        <form id="apply-form" name="apply_form" class="default-form2" asp-action="" asp-controller="Loan"
+                        <form id="apply-form" name="apply_form" class="default-form2" asp-action="Apply" asp-controller="Loan"
                               method="post">
 
                             <div class="row">
                                 <div class="col-xl-6">
                                     <div class="form-group">
                                         <div class="input-box">
-                                            <input type="text" name="form_name" id="formName"
+                                            <input asp-for="Name" type="text" id="formName"
                                                    placeholder="Your Name" required="">
+                                                   <span asp-validation-for="Name"></span>
                                             <div class="icon">
                                                 <i class="fas fa-user"></i>
                                             </div>
@@ -117,85 +118,84 @@
                                 <div class="col-xl-6">
                                     <div class="form-group">
                                         <div class="input-box">
-                                            <input type="email" name="form_email" id="formEmail"
+                                            <input asp-for="Surname" type="text" id="formName"
+                                                   placeholder="Your Surname" required="">
+                                            <span asp-validation-for="Surname"></span>
+
+                                            <div class="icon">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="form-group">
+                                        <div class="input-box">
+                                            <input asp-for="Email" type="email" id="formEmail"
                                                    placeholder="Email" required="">
+                                            <span asp-validation-for="Email"></span>
+
                                             <div class="icon">
                                                 <i class="fas fa-envelope-open"></i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
+
                                 <div class="col-xl-6">
                                     <div class="form-group">
                                         <div class="input-box">
-                                            <input type="text" name="form_phone" value="" id="formPhone"
-                                                   placeholder="Phone">
+                                            <input asp-for="FinCode" type="text" 
+                                                   placeholder="FinCode" required="">
+                                            <span asp-validation-for="FinCode"></span>
+
                                             <div class="icon">
-                                                <i class="fas fa-phone-alt"></i>
+                                                <i class="fas fa-user"></i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-6">
-                                    <div class="form-group">
-                                        <div class="select-box clearfix">
-                                            <select class="wide">
-                                                <option data-display="State">
-                                                    State
-                                                </option>
-                                                <option value="1">Alaska</option>
-                                                <option value="2">Florida</option>
-                                                <option value="3">Georgia</option>
-                                                <option value="4">Indiana</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-xl-6">
-                                    <div class="form-group">
-                                        <div class="select-box clearfix">
-                                            <select class="wide">
-                                                <option data-display="City">
-                                                    City
-                                                </option>
-                                                <option value="1">Alaska</option>
-                                                <option value="2">Florida</option>
-                                                <option value="3">Georgia</option>
-                                                <option value="4">Indiana</option>
-                                            </select>
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="form-group">
+                                            <div class="input-box">
+                                                <input asp-for="Phone" type="text" id="formName" placeholder="Phone" required="">
+                                                <span asp-validation-for="Phone"></span>
+
+                                                <div class="icon">
+                                                    <i class="fas fa-user"></i>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="form-group">
-                                        <div class="input-box">
-                                            <input type="text" name="date" placeholder="Date" id="datepicker">
-                                            <div class="icon">
-                                                <i class="fas fa-calendar"></i>
+                                    </div> <!-- Closed the col-xl-6 div here -->
+
+                                    <div class="col-xl-6">
+                                        <div class="form-group">
+                                            <div class="input-box">
+                                                <input asp-for="Country" type="text" id="formName" placeholder="Country" required="">
+                                                <span asp-validation-for="Country"></span>
+
+                                                <div class="icon">
+                                                    <i class="fas fa-user"></i>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="button-box">
-                                        <button class="btn-one" type="submit">
-                                            <span class="txt">
-                                                Send Request
-                                            </span>
-                                        </button>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="button-box">
+                                            <button class="btn-one" type="submit">
+                                                <span class="txt">
+                                                    Send Request
+                                                </span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
                         </form>
 
                     </div>

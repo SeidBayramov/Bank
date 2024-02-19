@@ -11,16 +11,21 @@ using System.Threading.Tasks;
 using Bank.Core.Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Bank.Business.Exceptions.Common;
+using Microsoft.EntityFrameworkCore;
+using Bank.Core.Entities.Account;
+using Microsoft.AspNetCore.Identity;
 
 namespace Bank.Business.Services.Implementations
 {
     public class CardRequestService : ICardRequestService
     {
         private readonly AppDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public CardRequestService(AppDbContext context)
+        public CardRequestService(AppDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public async Task Apply(CardRequestVm vm)
@@ -33,6 +38,21 @@ namespace Bank.Business.Services.Implementations
                 throw new ObjectParamsNullException("Object parameters are required!", nameof(vm.FinCode));
             }
 
+            var existingRecordWithSameFinCode = await _context.CardRequests.FirstOrDefaultAsync(x => x.FinCode == vm.FinCode);
+            var existingRecordWithSameEmail = await _context.CardRequests.FirstOrDefaultAsync(x => x.Email == vm.Email);
+
+            if (existingRecordWithSameFinCode != null)
+            {
+                throw new ObjectSameParamsException("This FinCode is using before", nameof(vm.FinCode));
+            }
+
+            if (existingRecordWithSameEmail != null)
+            {
+                throw new ObjectSameParamsException("This Email is using before!", nameof(vm.Email));
+            }
+
+
+
             CardRequest cardRequest = new()
             {
                 FinCode = vm.FinCode,
@@ -44,13 +64,15 @@ namespace Bank.Business.Services.Implementations
 
             _context.CardRequests.Add(cardRequest);
 
-            SendEmail(vm.Email, "FinBank", vm.FinCode);
+            
+
+            SendEmail(vm.Email, vm.FinCode);
 
             await _context.SaveChangesAsync();
         }
 
 
-        private void SendEmail(string toUser, string webUser, string finCode)
+        private void SendEmail(string toUser, string finCode)
         {
             using (var client = new SmtpClient("smtp.gmail.com", 587))
             {
@@ -59,17 +81,22 @@ namespace Bank.Business.Services.Implementations
                 client.Credentials = new NetworkCredential("seidbayramli2004@gmail.com", "pkal bwah hhke dtzb");
                 client.EnableSsl = true;
 
-                // Get tomorrow's date and time
-                var tomorrowTime = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd HH:mm:ss");
+
+                var randomQuery = new Random().Next(1000, 9999).ToString();
+
+                var tomorrowTime = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
 
                 var mailMessage = new MailMessage()
                 {
                     From = new MailAddress("seidbayramli2004@gmail.com"),
                     Subject = "Welcome to FINBANK Website",
-                    Body = $"Hello, {webUser}!" +
+                    Body = $"Hello," +
                         $"<p>Welcome to FinBank! Your Card request has been accepted.</p>" +
                         $"<p>Your FinCode: {finCode}</p>" +
-                        $"<p>Please come to our office with your identity tomorrow at {tomorrowTime}.</p>",
+                        $"<p>Your Bank query: {randomQuery}</p>" +
+                        $"<p>Please come to our office with your identity</p>"+
+                        $"<p>Your query is aviable at {tomorrowTime}.</p>",
+
                     IsBodyHtml = true
                 };
 

@@ -11,6 +11,8 @@ using System.Net.Mail;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Bank.Core.Entities.Account;
 
 namespace Bank.Business.Services.Implementations
 {
@@ -25,12 +27,25 @@ namespace Bank.Business.Services.Implementations
 
         public async Task Send(LoanVm vm)
         {
-            var exists = vm.Name == null || vm.Email == null || vm.Surname == null || vm.Country == null;
+            var exists = vm.Name == null || vm.Email == null || vm.Surname == null || vm.Country == null || vm.FinCode==null;
 
             if (exists)
             {
                 throw new ObjectParamsNullException("Object parameters are required!", nameof(vm.Name));
             }
+            var existingRecordWithSameFinCode = await _context.Loans.FirstOrDefaultAsync(x => x.FinCode == vm.FinCode);
+            //var existingRecordWithSameEmail = await _context.Loans.FirstOrDefaultAsync(x => x.Email == vm.Email);
+
+            if (existingRecordWithSameFinCode != null)
+            {
+                throw new ObjectSameParamsException("This FinCode is using before", nameof(vm.FinCode));
+            }
+
+            //if (existingRecordWithSameEmail != null)
+            //{
+            //    throw new ObjectSameParamsException("This Email is using before!", nameof(vm.Email));
+            //}
+
             Loan loan = new()
             {
                 Country = vm.Country,
@@ -38,15 +53,18 @@ namespace Bank.Business.Services.Implementations
                 Name = vm.Name,
                 Surname = vm.Surname,
                 FinCode = vm.FinCode,
+                Phone = vm.Phone,
+                CreatedDate=DateTime.Now
             };
 
             _context.Loans.Add(loan);
 
-            SendEmail(vm.Email, "FinBank", vm.Name);
+
+            SendEmail(vm.Email, vm.FinCode);
             await _context.SaveChangesAsync();
 
         }
-        private void SendEmail(string toUser, string webUser, string finCode)
+        private void SendEmail(string toUser, string finCode)
         {
             using (var client = new SmtpClient("smtp.gmail.com", 587))
             {
@@ -55,21 +73,21 @@ namespace Bank.Business.Services.Implementations
                 client.Credentials = new NetworkCredential("seidbayramli2004@gmail.com", "pkal bwah hhke dtzb");
                 client.EnableSsl = true;
 
-                // Generate a random 4-digit number for the user's query
                 var randomQuery = new Random().Next(1000, 9999).ToString();
 
-                // Get tomorrow's date and time
-                var tomorrowTime = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd HH:mm:ss");
+                var tomorrowTime = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
 
                 var mailMessage = new MailMessage()
                 {
                     From = new MailAddress("seidbayramli2004@gmail.com"),
                     Subject = "Welcome to FINBANK Website",
-                    Body = $"Hello, {webUser}!" +
+                    Body = $"Hello!" +
                         $"<p>Welcome to FinBank! Your Loan request has been accepted.</p>" +
                         $"<p>Your FinCode: {finCode}</p>" +
-                        $"<p>Your random query: {randomQuery}</p>" +
-                        $"<p>Please come to our office with your identity tomorrow at {tomorrowTime}.</p>",
+                        $"<p>Your Bank query: {randomQuery}</p>" +
+                        $"<p>Please come to our office with your identity.</p>" +
+                        $"<p>Your query is aviable at {tomorrowTime}.</p>",
+
                     IsBodyHtml = true
                 };
 
