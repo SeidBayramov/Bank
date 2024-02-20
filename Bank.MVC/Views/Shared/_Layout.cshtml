@@ -50,7 +50,6 @@
     <link rel="stylesheet" href="~/assets/css/module-css/07-footer-section.css">
     <link rel="stylesheet" href="~/assets/css/module-css/08-blog-section.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-c0ps2byF9jgrJZtPIdO3ePpkXR49pShT6a7tkwfpnApKsCAjMI8EE3IMCgKFP1AA" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Template styles -->
     <link rel="stylesheet" href="~/assets/css/style.css" />
     <link rel="stylesheet" href="~/assets/css/responsive.css" />
@@ -178,7 +177,7 @@
                                             <a href="#">Services</a>
                                             <ul>
                                                 <li class="dropdown">
-                                                    <a href="#">Accounts</a>
+                                                    <a asp-action="Index" asp-controller="Deposit" >Accounts</a>
                                                     <ul>
                                                         <li><a asp-action="Index" asp-controller="Deposit">Savings Account</a></li>
                                                     </ul>
@@ -484,11 +483,7 @@
         <i class="icon-chevron"></i>
     </a>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="
-https://cdn.jsdelivr.net/npm/signals@1.0.0/dist/signals.min.js
-"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.9/signalr.min.js"></script>
+
 
     <script src="~/assets/vendors/jquery/jquery-3.6.0.min.js"></script>
     <script src="~/assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -513,42 +508,8 @@ https://cdn.jsdelivr.net/npm/signals@1.0.0/dist/signals.min.js
     <script src="~/assets/vendors/language-switcher/jquery.polyglot.language.switcher.js"></script>
     <script src="~/assets/js/custom.js"></script>
 
-     <script>
-        var connection = new signalR.HubConnectionBuilder().withUrl("/chatUrl").build();
-        connection.start().then(function () {
-            console.log("Connection started");
-        }).catch(function (err) {
-            return console.error(err.toString());
-        });
 
+    <script src="~/assets/js/delete.js"></script>
 
-        toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": false,
-            "positionClass": "toast-top-right",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
-
-        connection.on("OrderAccept" , function(){
-            toastr["success"]("Your order accepted")
-        })
-        connection.on("OrderReject", function (adminComment) {
-            toastr["error"](adminComment)
-        })
-
-    </script>
-
-    @RenderSection("jsFiles",required: false);
 </body>
 </html>
