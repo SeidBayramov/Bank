@@ -252,7 +252,9 @@
                         <span class="col-3 col-md-2 col-lg-3 d-flex justify-content-end">
                             <div class="selectric-wrapper selectric-selectric-tooltip">
                                 <div class="selectric-hide-select">
-                                    <select name="" class="selectric-tooltip" id="js-selectric-currency-1" data-previous-value="USD" aria-label="Currency" tabindex="-1" onchange="convertCurrency('sell')">
+                                    <select name="" class="selectric-tooltip" id="js-selectric-currency-1" data-previous-value="USD" aria-label="Currency" tabindex="-1" onchange={(e)=>{
+                                        
+                                        }>
                                         <option value="USD">USD</option>
                                         <option value="AZN">AZN</option>
                                         <option value="RUB">RUB</option>
@@ -293,7 +295,8 @@
 </div>
 <!-- End Centered Currency Converter Section -->
 <!-- Existing Code -->
-
+<!-- ... (Your HTML code remains unchanged) ... -->
+<!-- ... (Your HTML code remains unchanged) ... -->
 
 <script>
     function convertCurrency(type) {
@@ -303,19 +306,22 @@
 
         const exchangeRates = {
             USD: 1.0,
-            AZN: 1.7, // Replace with your actual exchange rates
+            AZN: 1.7,
             RUB: 0.02,
             EUR: 1.85
         };
 
-        const selectedCurrency = document.getElementById(type === 'sell' ? 'js-selectric-currency-1' : 'js-selectric-currency-2');
-        const selectedCurrencyValue = selectedCurrency.options[selectedCurrency.selectedIndex].value;
+        const selectedCurrency1 = document.getElementById('js-selectric-currency-1');
+        const selectedCurrency2 = document.getElementById('js-selectric-currency-2');
+
+        const selectedCurrencyValue1 = selectedCurrency1.options[selectedCurrency1.selectedIndex].value;
+        const selectedCurrencyValue2 = selectedCurrency2.options[selectedCurrency2.selectedIndex].value;
 
         if (type === 'sell') {
-            buyInput.value = (sellInput.value * exchangeRates[selectedCurrencyValue]).toFixed(2);
+            buyInput.value = (sellInput.value * exchangeRates[selectedCurrencyValue1] / exchangeRates[selectedCurrencyValue2] || 0).toFixed(2);
             buyOption.style.display = 'block';  // Show the "Alıram" (buy) option
         } else {
-            sellInput.value = (buyInput.value / exchangeRates[selectedCurrencyValue]).toFixed(2);
+            sellInput.value = (buyInput.value / exchangeRates[selectedCurrencyValue1] * exchangeRates[selectedCurrencyValue2] || 0).toFixed(2);
         }
     }
 
@@ -325,7 +331,8 @@
     // Initialize the conversion
     convertCurrency('sell');
 </script>
-<!-- Existing Code -->
+
+
 
 
 
