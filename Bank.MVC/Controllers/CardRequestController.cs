@@ -3,60 +3,63 @@ using Bank.Business.Services.Interface;
 using Bank.Business.ViewModels.Card;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Bank.MVC.Controllers
+public class CardRequestController : Controller
 {
-    public class CardRequestController : Controller
+    private readonly ICardRequestService _service;
+
+    public CardRequestController(ICardRequestService service)
     {
-        private readonly ICardRequestService _service;
+        _service = service;
+    }
 
-        public CardRequestController(ICardRequestService service)
+    public IActionResult Confirm()
+    {
+        if (TempData.ContainsKey("ConfirmationMessage"))
         {
-            _service = service;
+            ViewBag.ConfirmationMessage = TempData["ConfirmationMessage"].ToString();
         }
 
-        public IActionResult Confirm(string message)
-        {
-            ViewBag.ConfirmationMessage = message;
-            return View();
-        }
+        return View();
+    }
 
-
-        public async Task<IActionResult> Apply(CardRequestVm vm)
+    public async Task<IActionResult> Apply(CardRequestVm vm)
+    {
+        try
         {
-            try
+            if (User.Identity.IsAuthenticated)
             {
-                if (User.Identity.IsAuthenticated)
+                var validate = new RequestVMValidator();
+                var result = validate.Validate(vm);
+
+                if (!result.IsValid)
                 {
-                    var validate = new RequestVMValidator();
-                    var result = validate.Validate(vm);
-
-                    if (!result.IsValid)
+                    foreach (var error in result.Errors)
                     {
-                        foreach (var error in result.Errors)
-                        {
-                            ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-                        }
-
-                        return RedirectToAction("Index", "Home", new { errorMessage = "Please check your FinCode or Email, and make sure you click the button" });
+                        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                     }
 
-                    await _service.Apply(vm);
+                    return RedirectToAction("Index", "Home", new { errorMessage = "Please check your FinCode or Email, and make sure you click the button" });
+                }
 
-                    return RedirectToAction("Confirm", new { message = "Check your email for confirmation." });
-                }
-                else
-                {
-                    return RedirectToAction("Login", "Account");
-                }
+                await _service.Apply(vm);
+
+                // Set confirmation message in TempData to be displayed on the Confirm page
+                TempData["ConfirmationMessage"] = "Your request has been successfully submitted. Check your email for confirmation. An email will be sent shortly.";
+
+                return RedirectToAction("Confirm");
             }
-            catch (ObjectParamsNullException ex)
+            else
             {
-                return RedirectToAction("Index", "Home", new { errorMessage = "An error occurred: " + ex.Message });
+                return RedirectToAction("Login", "Account");
             }
-            catch (ObjectSameParamsException ex)
-            {
-                return RedirectToAction("Index", "Home", new { errorMessage = "Please check your information: " + ex.Message });
-            }
+        }
+        catch (ObjectParamsNullException ex)
+        {
+            return RedirectToAction("Index", "Home", new { errorMessage = "An error occurred: " + ex.Message });
+        }
+        catch (ObjectSameParamsException ex)
+        {
+            return RedirectToAction("Index", "Home", new { errorMessage = "Please check your information: " + ex.Message });
         }
     }
 }

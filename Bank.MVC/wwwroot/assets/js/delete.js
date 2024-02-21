@@ -4,13 +4,13 @@ deleteBtn.forEach(btn => btn.addEventListener("click", function (e) {
     e.preventDefault();
 
     Swal.fire({
-        title: "Silmek isteyirsen?",
-        text: "Bax silirem ha geri donusu olmaya biler?",
+        title: "Silmek isteyirsiniz?",
+        text: "Silirem geri donusu olmayacaq",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Sil !!!!!!!!!"
+        confirmButtonText: "Sil!!"
     }).then((result) => {
         if (result.isConfirmed) {
             let url = btn.getAttribute("href")

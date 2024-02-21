@@ -1,0 +1,65 @@
+﻿@using Bank.Business.ViewModels.Card
+@using Bank.Core.Entities.Models
+@model List<CardRequest>
+
+@{
+    ViewBag.Title = "Card Requests";
+}
+
+@{
+    int count = 0;
+}
+
+<h2>Card Requests</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+    <div class="alert alert-info">
+        @ViewBag.Message
+    </div>
+}
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">FinCode</th>
+                <th scope="col">Email</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var request in Model)
+                {
+                    count++;
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td>@request.FinCode</td>
+                        <td>@request.Email</td>
+                        @if (!request.IsVerified)
+                        {
+                            <td>
+                                <form asp-controller="CardRequest" asp-action="Accept" method="post" asp-area="Manage" style="display:inline;">
+                                    <input type="hidden" name="requestId" value="@request.Id" />
+                                    <button type="submit" class="btn btn-success mt-4 mb-4">Accept</button>
+                                </form>
+                                <form asp-controller="CardRequest" asp-action="Deny" method="post" asp-area="Manage" style="display:inline;">
+                                    <input type="hidden" name="requestId" value="@request.Id" />
+                                    <button type="submit" class="btn btn-danger mt-4 mb-4">Deny</button>
+                                </form>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <span>✅</span>
+                            </td>
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

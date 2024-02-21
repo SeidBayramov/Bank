@@ -112,7 +112,7 @@
             <div class="col-xl-6">
                 <div class="features-style3-img-box">
                     <div class="inner-img">
-                        <img class="paroller" src="~/assets/BankImages/Loanimages.jpg" alt="">
+                        <img class="paroller" src="~/assets/BankImages/bank12.jpg" alt="">
                     </div>
                     <div class="icon-holder float-bob-y">
                         <span class="icon-interest-rate"></span>
@@ -163,292 +163,317 @@
                                     <span asp-validation-for="FinCode" style="color: red;"></span>
                                 </div>
                                 <div class="input-box">
-                                    <input asp-for="Email" type="email" value="" placeholder="Email" required="">
+                                    <input asp-for="Email" id="emailInput" type="email" value="" placeholder="Email" required>
+                                    <span id="emailValidationIcon"></span>
                                     <span asp-validation-for="Email" style="color: red;"></span>
                                 </div>
-                                <div class="input-box">
-                                    <label class="checkbox-label">
-                                        <p>ASAN Finans/E-GOV sistemi vasitəsilə şəxsiyyəti təsdiq edən sənədin məlumatlarımın FInBanka-a təqdim edilməsinə razılıq verirəm</p>
-                                    </label>
-                                    <input asp-for="IsVerified" type="checkbox">
-                                    <span asp-validation-for="IsVerified" style="color: red;"></span>
-                                </div>
 
-                                <div class="button-box">
-                                    <button class="btn-one" type="submit" data-loading-text="Please wait...">
-                                        <span class="txt">Apply Now</span>
-                                    </button>
-                                </div>
-                            </form>
+                                @section scripts {
+                                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $("#emailInput").on("input", function () {
+                                                validateEmail();
+                                            });
+                                        });
+
+                                        function validateEmail() {
+                                            var emailInput = $("#emailInput").val();
+                                            var emailValidationIcon = $("#emailValidationIcon");
+
+                                            if (/^[^\s]+[^\s]+\.[^\s]+$/.test(emailInput)) {
+                                                // Valid email format
+                                                emailValidationIcon.html('<span style="color: green;">&#10004;</span>');
+                                            } else {
+                                                // Invalid email format
+                                                emailValidationIcon.html('<span style="color: red;">&#10008;</span>');
+                                            }
+                                        }
+                                    </script>
+                                }
+
+                                    <div class="input-box">
+                                        <label class="checkbox-label">
+                                            <p>ASAN Finans/E-GOV sistemi vasitəsilə şəxsiyyəti təsdiq edən sənədin məlumatlarımın FInBanka-a təqdim edilməsinə razılıq verirəm</p>
+                                        </label>
+                                        <input asp-for="IsVerified" type="checkbox">
+                                        <span asp-validation-for="IsVerified" style="color: red;"></span>
+                                    </div>
+
+                                    <div class="button-box">
+                                        <button class="btn-one" type="submit" data-loading-text="Please wait...">
+                                            <span class="txt">Apply Now</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+
                         </div>
-
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-<!--End Features Style3 Area-->
-@await Component.InvokeAsync("Currency")
-
-
-<!-- Centered Currency Converter Section -->
-<style>
-    .currency-converter-container {
-        background-color: #f8f9fa;
-        padding: 20px;
-        border-radius: 15px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        text-align: center;
-    }
-
-    .currency-input-label {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .separator-calc {
-        height: 30px;
-        border-left: 2px solid #ccc;
-        margin: 0 20px;
-    }
-
-    #buyOption {
-        display: none;
-    }
-
-    .fs-24 {
-        font-size: 24px !important;
-    }
-
-    .border-e4e4e4 {
-        border-color: #e4e4e4 !important;
-    }
-
-    .color-666 {
-        color: #666 !important;
-    }
-
-    .w-100 {
-        width: 80% !important;
-    }
-</style>
-<div class="container mt-5 currency-converter-container">
-    <div class="row justify-content-center">
-        <div class="col-lg-6 pl-lg-3">
-            <div class="mb-4 ml-lg-5">
-                <h4 class="fw-500 fs-24 mt-0">Valyuta konvertoru</h4>
-                <div class="border border-e4e4e4 p-3 px-lg-4 radius-5 pos-relative mb-3">
-                    <!-- First currency converter content -->
-                    <div class="d-flex justify-content-between align-items-center no-gutters js-currency-calc">
-                        <label class="col-9 col-md-10 col-lg-9 currency-input-label">
-                            <input type="number" id="sellInput" name="sell" placeholder="Selling" class="w-100 fs-18 fs-lg-20 color-666 border-0 outline-0 pr-3" oninput="convertCurrency('sell')">
-                            <span class="separator-calc"></span>
-                        </label>
-
-                        <span class="col-3 col-md-2 col-lg-3 d-flex justify-content-end">
-                            <div class="selectric-wrapper selectric-selectric-tooltip">
-                                <div class="selectric-hide-select">
-                                    <select name="" class="selectric-tooltip" id="js-selectric-currency-1" data-previous-value="USD" aria-label="Currency" tabindex="-1" onchange={(e)=>{
-                                        
-                                        }>
-                                        <option value="USD">USD</option>
-                                        <option value="AZN">AZN</option>
-                                        <option value="RUB">RUB</option>
-                                        <option value="EUR">EUR</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </span>
                     </div>
                 </div>
 
-                <!-- Updated style for the "Alıram" (buy) option -->
-                <div class="border border-e4e4e4 p-3 px-lg-4 radius-5 pos-relative" id="buyOption">
-                    <!-- Second currency converter content -->
-                    <div class="d-flex justify-content-between align-items-center no-gutters js-currency-calc">
-                        <label class="col-9 col-md-10 col-lg-9 currency-input-label">
-                            <input type="number" id="buyInput" name="buy" placeholder="Buying" class="w-100 fs-18 fs-lg-20 color-666 border-0 outline-0 pr-3" oninput="convertCurrency('buy')">
-                            <span class="separator-calc mr-2 mr-lg-0"></span>
-                        </label>
-
-                        <span class="col-3 col-md-2 col-lg-3 d-flex justify-content-end">
-                            <div class="selectric-wrapper selectric-selectric-tooltip">
-                                <div class="selectric-hide-select">
-                                    <select name="" class="selectric-tooltip" id="js-selectric-currency-2" data-previous-value="AZN" aria-label="Currency" tabindex="-1" onchange="convertCurrency('buy')">
-                                        <option value="AZN">AZN</option>
-                                        <option value="USD">USD</option>
-                                        <option value="RUB">RUB</option>
-                                        <option value="EUR">EUR</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </span>
-                    </div>
-                </div>
             </div>
         </div>
-    </div>
-</div>
-<!-- End Centered Currency Converter Section -->
-<!-- Existing Code -->
-<!-- ... (Your HTML code remains unchanged) ... -->
-<!-- ... (Your HTML code remains unchanged) ... -->
+    </section>
+    <!--End Features Style3 Area-->
+    @await Component.InvokeAsync("Currency")
 
-<script>
-    function convertCurrency(type) {
-        const sellInput = document.getElementById('sellInput');
-        const buyInput = document.getElementById('buyInput');
-        const buyOption = document.getElementById('buyOption');
 
-        const exchangeRates = {
-            USD: 1.0,
-            AZN: 1.7,
-            RUB: 0.02,
-            EUR: 1.85
-        };
-
-        const selectedCurrency1 = document.getElementById('js-selectric-currency-1');
-        const selectedCurrency2 = document.getElementById('js-selectric-currency-2');
-
-        const selectedCurrencyValue1 = selectedCurrency1.options[selectedCurrency1.selectedIndex].value;
-        const selectedCurrencyValue2 = selectedCurrency2.options[selectedCurrency2.selectedIndex].value;
-
-        if (type === 'sell') {
-            buyInput.value = (sellInput.value * exchangeRates[selectedCurrencyValue1] / exchangeRates[selectedCurrencyValue2] || 0).toFixed(2);
-            buyOption.style.display = 'block';  // Show the "Alıram" (buy) option
-        } else {
-            sellInput.value = (buyInput.value / exchangeRates[selectedCurrencyValue1] * exchangeRates[selectedCurrencyValue2] || 0).toFixed(2);
+    <!-- Centered Currency Converter Section -->
+    <style>
+        .currency-converter-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
-    }
 
-    // Hiding the "Alıram" (buy) option initially
-    document.getElementById('buyOption').style.display = 'none';
+        .currency-input-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    // Initialize the conversion
-    convertCurrency('sell');
-</script>
+        .separator-calc {
+            height: 30px;
+            border-left: 2px solid #ccc;
+            margin: 0 20px;
+        }
+
+        #buyOption {
+            display: none;
+        }
+
+        .fs-24 {
+            font-size: 24px !important;
+        }
+
+        .border-e4e4e4 {
+            border-color: #e4e4e4 !important;
+        }
+
+        .color-666 {
+            color: #666 !important;
+        }
+
+        .w-100 {
+            width: 80% !important;
+        }
+    </style>
+    <div class="container mt-5 currency-converter-container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 pl-lg-3">
+                <div class="mb-4 ml-lg-5">
+                    <h4 class="fw-500 fs-24 mt-0">Valyuta konvertoru</h4>
+                    <div class="border border-e4e4e4 p-3 px-lg-4 radius-5 pos-relative mb-3">
+                        <!-- First currency converter content -->
+                        <div class="d-flex justify-content-between align-items-center no-gutters js-currency-calc">
+                            <label class="col-9 col-md-10 col-lg-9 currency-input-label">
+                                <input type="number" id="sellInput" name="sell" placeholder="Selling" class="w-100 fs-18 fs-lg-20 color-666 border-0 outline-0 pr-3" oninput="convertCurrency('sell')">
+                                <span class="separator-calc"></span>
+                            </label>
+
+                            <span class="col-3 col-md-2 col-lg-3 d-flex justify-content-end">
+                                <div class="selectric-wrapper selectric-selectric-tooltip">
+                                    <div class="selectric-hide-select">
+                                        <select name="" class="selectric-tooltip" id="js-selectric-currency-1" data-previous-value="USD" aria-label="Currency" tabindex="-1" onchange={(e) =>
+                                            {
+
+                                            }>
+                                            <option value="USD">USD</option>
+                                            <option value="AZN">AZN</option>
+                                            <option value="RUB">RUB</option>
+                                            <option value="EUR">EUR</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Updated style for the "Alıram" (buy) option -->
+                    <div class="border border-e4e4e4 p-3 px-lg-4 radius-5 pos-relative" id="buyOption">
+                        <!-- Second currency converter content -->
+                        <div class="d-flex justify-content-between align-items-center no-gutters js-currency-calc">
+                            <label class="col-9 col-md-10 col-lg-9 currency-input-label">
+                                <input type="number" id="buyInput" name="buy" placeholder="Buying" class="w-100 fs-18 fs-lg-20 color-666 border-0 outline-0 pr-3" oninput="convertCurrency('buy')">
+                                <span class="separator-calc mr-2 mr-lg-0"></span>
+                            </label>
+
+                            <span class="col-3 col-md-2 col-lg-3 d-flex justify-content-end">
+                                <div class="selectric-wrapper selectric-selectric-tooltip">
+                                    <div class="selectric-hide-select">
+                                        <select name="" class="selectric-tooltip" id="js-selectric-currency-2" data-previous-value="AZN" aria-label="Currency" tabindex="-1" onchange="convertCurrency('buy')">
+                                            <option value="AZN">AZN</option>
+                                            <option value="USD">USD</option>
+                                            <option value="RUB">RUB</option>
+                                            <option value="EUR">EUR</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Centered Currency Converter Section -->
+    <!-- Existing Code -->
+
+    <script>
+        function convertCurrency(type) {
+            const sellInput = document.getElementById('sellInput');
+            const buyInput = document.getElementById('buyInput');
+            const buyOption = document.getElementById('buyOption');
+
+            const exchangeRates = {
+                USD: 1.0,
+                AZN: 1.7,
+                RUB: 0.02,
+                EUR: 1.85
+            };
+
+            const selectedCurrency1 = document.getElementById('js-selectric-currency-1');
+            const selectedCurrency2 = document.getElementById('js-selectric-currency-2');
+
+            const selectedCurrencyValue1 = selectedCurrency1.options[selectedCurrency1.selectedIndex].value;
+            const selectedCurrencyValue2 = selectedCurrency2.options[selectedCurrency2.selectedIndex].value;
+
+            if (type === 'sell') {
+                buyInput.value = (sellInput.value * exchangeRates[selectedCurrencyValue1] / exchangeRates[selectedCurrencyValue2] || 0).toFixed(2);
+                buyOption.style.display = 'block';  // Show the "Alıram" (buy) option
+            } else {
+                sellInput.value = (buyInput.value / exchangeRates[selectedCurrencyValue1] * exchangeRates[selectedCurrencyValue2] || 0).toFixed(2);
+            }
+        }
+
+        // Hiding the "Alıram" (buy) option initially
+        document.getElementById('buyOption').style.display = 'none';
+
+        // Initialize the conversion
+        convertCurrency('sell');
+    </script>
 
 
 
 
 
 
-<title>Monthly Payment Calculator</title>
-<style>
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #fafafa; /* Light gray background */
-        margin: 20px;
-        text-align: center;
-    }
+    <title>Monthly Payment Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fafafa; /* Light gray background */
+            margin: 20px;
+            text-align: center;
+        }
 
-    h1 {
-        color: black; /* Dark blue-gray heading color */
-        margin-bottom: 20px;
-    }
+        h1 {
+            color: black; /* Dark blue-gray heading color */
+            margin-bottom: 20px;
+        }
 
-    label {
-        display: block;
-        margin-bottom: 10px;
-        font-size: 16px;
-        color: black;
-    }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: black;
+        }
 
-    input[type="range"] {
-        width: 60%; /* Smaller width for the range slider */
-        margin-bottom: 15px;
-        -webkit-appearance: none;
-        appearance: none;
-        height: 10px;
-        background: #fff; /* White background */
-        border: 1px solid darkred; /* Dark red border */
-        border-radius: 5px;
-        outline: none;
-        padding: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
-    }
-
-        input[type="range"]::-webkit-slider-thumb {
+        input[type="range"] {
+            width: 60%; /* Smaller width for the range slider */
+            margin-bottom: 15px;
             -webkit-appearance: none;
             appearance: none;
-            width: 15px; /* Smaller width for the thumb */
-            height: 15px; /* Smaller height for the thumb */
-            background: darkred; /* Dark red thumb color */
-            border: 1px solid #fff; /* White border for the thumb */
-            border-radius: 50%;
-            cursor: pointer;
+            height: 10px;
+            background: #fff; /* White background */
+            border: 1px solid darkred; /* Dark red border */
+            border-radius: 5px;
+            outline: none;
+            padding: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
         }
 
-        input[type="range"]::-moz-range-thumb {
-            width: 15px; /* Smaller width for the thumb */
-            height: 15px; /* Smaller height for the thumb */
-            background: darkred; /* Dark red thumb color for Firefox */
-            border: 1px solid #fff;
-            border-radius: 50%;
-            cursor: pointer;
+            input[type="range"]::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 15px; /* Smaller width for the thumb */
+                height: 15px; /* Smaller height for the thumb */
+                background: darkred; /* Dark red thumb color */
+                border: 1px solid #fff; /* White border for the thumb */
+                border-radius: 50%;
+                cursor: pointer;
+            }
+
+            input[type="range"]::-moz-range-thumb {
+                width: 15px; /* Smaller width for the thumb */
+                height: 15px; /* Smaller height for the thumb */
+                background: darkred; /* Dark red thumb color for Firefox */
+                border: 1px solid #fff;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+
+        span {
+            display: inline-block;
+            margin-bottom: 10px;
+            font-size: 18px; /* Adjusted font size */
+            color: black; /* Darker color */
+            padding-bottom: 2px; /* Adjust padding to match the underline thickness */
         }
 
-    span {
-        display: inline-block;
-        margin-bottom: 10px;
-        font-size: 18px; /* Adjusted font size */
-        color: black; /* Darker color */
-        padding-bottom: 2px; /* Adjust padding to match the underline thickness */
-    }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 16px; /* Adjusted font size */
+            color: darkred; /* Change the text color to dark red */
+            border: 1px solid darkred; /* Add a dark red border */
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff; /* Set a white background color */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
+        }
+    </style>
 
-    #result {
-        margin-top: 20px;
-        font-weight: bold;
-        font-size: 16px; /* Adjusted font size */
-        color: darkred; /* Change the text color to dark red */
-        border: 1px solid darkred; /* Add a dark red border */
-        padding: 10px;
-        border-radius: 5px;
-        background-color: #fff; /* Set a white background color */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
-    }
-</style>
+    <label for="amount">Enter the loan amount (max $50,000):</label>
+    <input type="range" id="amount" min="0" max="50000" value="0">
+    <span id="amountValue">$0</span>
 
-<label for="amount">Enter the loan amount (max $50,000):</label>
-<input type="range" id="amount" min="0" max="50000" value="0">
-<span id="amountValue">$0</span>
+    <label for="months">Select the number of months (max 36 months):</label>
+    <input type="range" id="months" min="1" max="36" value="1">
+    <span id="monthsValue">1 month</span>
 
-<label for="months">Select the number of months (max 36 months):</label>
-<input type="range" id="months" min="1" max="36" value="1">
-<span id="monthsValue">1 month</span>
+    <label for="interest">Select the interest rate (5% to 20%):</label>
+    <input type="range" id="interest" min="5" max="20" step="0.1" value="5">
+    <span id="interestValue">5%</span>
 
-<label for="interest">Select the interest rate (5% to 20%):</label>
-<input type="range" id="interest" min="5" max="20" step="0.1" value="5">
-<span id="interestValue">5%</span>
+    <div id="result"></div>
 
-<div id="result"></div>
+    <script>
+        function updateValues() {
+            const amount = parseFloat(document.getElementById('amount').value);
+            const months = parseInt(document.getElementById('months').value);
+            const interest = parseFloat(document.getElementById('interest').value);
 
-<script>
-    function updateValues() {
-        const amount = parseFloat(document.getElementById('amount').value);
-        const months = parseInt(document.getElementById('months').value);
-        const interest = parseFloat(document.getElementById('interest').value);
+            document.getElementById('amountValue').innerText = `$${amount}`;
+            document.getElementById('monthsValue').innerText = `${months} months`;
+            document.getElementById('interestValue').innerText = `${interest}%`;
 
-        document.getElementById('amountValue').innerText = `$${amount}`;
-        document.getElementById('monthsValue').innerText = `${months} months`;
-        document.getElementById('interestValue').innerText = `${interest}%`;
+            const monthlyInterestRate = interest / 100 / 12;
+            const monthlyPayment = (amount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -months));
 
-        const monthlyInterestRate = interest / 100 / 12;
-        const monthlyPayment = (amount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -months));
+            document.getElementById('result').innerText = `Your monthly payment for ${months} months will be $${monthlyPayment.toFixed(2)}`;
+        }
 
-        document.getElementById('result').innerText = `Your monthly payment for ${months} months will be $${monthlyPayment.toFixed(2)}`;
-    }
+        document.getElementById('amount').addEventListener('input', updateValues);
+        document.getElementById('months').addEventListener('input', updateValues);
+        document.getElementById('interest').addEventListener('input', updateValues);
 
-    document.getElementById('amount').addEventListener('input', updateValues);
-    document.getElementById('months').addEventListener('input', updateValues);
-    document.getElementById('interest').addEventListener('input', updateValues);
-
-    updateValues();
-</script>
+        updateValues();
+    </script>
 
 
-@await Component.InvokeAsync("Question")
+    @await Component.InvokeAsync("Question")

@@ -38,18 +38,18 @@ namespace Bank.Business.Services.Implementations
                 throw new ObjectParamsNullException("Object parameters are required!", nameof(vm.FinCode));
             }
 
-            var existingRecordWithSameFinCode = await _context.CardRequests.FirstOrDefaultAsync(x => x.FinCode == vm.FinCode);
-            var existingRecordWithSameEmail = await _context.CardRequests.FirstOrDefaultAsync(x => x.Email == vm.Email);
+            //var existingRecordWithSameFinCode = await _context.CardRequests.FirstOrDefaultAsync(x => x.FinCode == vm.FinCode);
+            ////var existingRecordWithSameEmail = await _context.CardRequests.FirstOrDefaultAsync(x => x.Email == vm.Email);
 
-            if (existingRecordWithSameFinCode != null)
-            {
-                throw new ObjectSameParamsException("This FinCode is using before", nameof(vm.FinCode));
-            }
+            //if (existingRecordWithSameFinCode != null)
+            //{
+            //    throw new ObjectSameParamsException("This FinCode is using before", nameof(vm.FinCode));
+            //}
 
-            if (existingRecordWithSameEmail != null)
-            {
-                throw new ObjectSameParamsException("This Email is using before!", nameof(vm.Email));
-            }
+            //if (existingRecordWithSameEmail != null)
+            //{
+            //    throw new ObjectSameParamsException("This Email is using before!", nameof(vm.Email));
+            //}
 
 
 
@@ -63,47 +63,10 @@ namespace Bank.Business.Services.Implementations
 
 
             _context.CardRequests.Add(cardRequest);
-
-            
-
-            SendEmail(vm.Email, vm.FinCode);
-
             await _context.SaveChangesAsync();
         }
 
 
-        private void SendEmail(string toUser, string finCode)
-        {
-            using (var client = new SmtpClient("smtp.gmail.com", 587))
-            {
-                client.UseDefaultCredentials = false;
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.Credentials = new NetworkCredential("seidbayramli2004@gmail.com", "pkal bwah hhke dtzb");
-                client.EnableSsl = true;
 
-
-                var randomQuery = new Random().Next(1000, 9999).ToString();
-
-                var tomorrowTime = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
-
-                var mailMessage = new MailMessage()
-                {
-                    From = new MailAddress("seidbayramli2004@gmail.com"),
-                    Subject = "Welcome to FINBANK Website",
-                    Body = $"Hello," +
-                        $"<p>Welcome to FinBank! Your Card request has been accepted.</p>" +
-                        $"<p>Your FinCode: {finCode}</p>" +
-                        $"<p>Your Bank query: {randomQuery}</p>" +
-                        $"<p>Please come to our office with your identity</p>"+
-                        $"<p>Your query is aviable at {tomorrowTime}.</p>",
-
-                    IsBodyHtml = true
-                };
-
-                mailMessage.To.Add(toUser);
-
-                client.Send(mailMessage);
-            }
-        }
     }
 }

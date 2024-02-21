@@ -507,9 +507,17 @@
     <script src="~/assets/vendors/extra-scripts/jquery.paroller.min.js"></script>
     <script src="~/assets/vendors/language-switcher/jquery.polyglot.language.switcher.js"></script>
     <script src="~/assets/js/custom.js"></script>
+    <script>
+        var connection = new signalR.HubConnectionBuilder().withUrl("/chatUrl").build();
+        connection.start();
 
+        })
+
+    </script>
 
     <script src="~/assets/js/delete.js"></script>
-
+    @RenderSection("jsFiles",required: false);
+    @RenderSection("scripts", required: false)
+    @await RenderSectionAsync("DeleteFile",false)
 </body>
 </html>
