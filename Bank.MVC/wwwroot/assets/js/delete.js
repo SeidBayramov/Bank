@@ -1,16 +1,16 @@
 ﻿let deleteBtn = document.querySelectorAll(".item-delete")
 
-
 deleteBtn.forEach(btn => btn.addEventListener("click", function (e) {
     e.preventDefault();
+
     Swal.fire({
-        title: "Silmek istediyinize eminmisiniz?",
-        text: "Silinsin mi?",
+        title: "Silmek isteyirsen?",
+        text: "Bax silirem ha geri donusu olmaya biler?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Sil!
+        confirmButtonText: "Sil !!!!!!!!!"
     }).then((result) => {
         if (result.isConfirmed) {
             let url = btn.getAttribute("href")
@@ -27,7 +27,7 @@ deleteBtn.forEach(btn => btn.addEventListener("click", function (e) {
                     else {
                         Swal.fire({
                             title: "Deleted!",
-                            text: "Demisdimde silme!!!!",
+                            text: "Ozun bilersen !!!!",
                             icon: "error"
                         });
                     }

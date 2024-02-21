@@ -16,12 +16,15 @@ namespace Bank.MVC.Controllers
 
         public IActionResult Index()
         {
-           
+            ViewBag.ErrorMessage = TempData["ErrorMessage"] as string;
+
             return View();
         }
+
         public IActionResult Confirm(string message)
         {
             ViewBag.ConfirmationMessage = message;
+
             return View();
         }
 
@@ -40,14 +43,13 @@ namespace Bank.MVC.Controllers
                             ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                         }
 
+                        TempData["ErrorMessage"] = "An error occurred while processing your request.";
                         return RedirectToAction("Index");
                     }
 
                     await _service.Send(vm);
 
                     return RedirectToAction("Confirm", new { message = "Check your email for confirmation." });
-
-
                 }
                 else
                 {
@@ -57,13 +59,19 @@ namespace Bank.MVC.Controllers
             catch (ObjectParamsNullException ex)
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
-                return RedirectToAction("Index");
+                TempData["ErrorMessage"] = "Check your input and try again.";
             }
             catch (ObjectSameParamsException ex)
             {
                 ModelState.AddModelError(ex.ParamName, ex.Message);
-                return RedirectToAction("Index");
+                TempData["ErrorMessage"] = "The FinCode or Email has been used before.";
             }
+            catch (Exception)
+            {
+                TempData["ErrorMessage"] = "An error occurred while processing your request.";
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }
