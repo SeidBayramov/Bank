@@ -1,16 +1,16 @@
 ﻿@using Bank.Business.ViewModels.Card
 @using Bank.Core.Entities.Models
-@model List<CardRequest>
+@model List<Loan>
 
 @{
-    ViewBag.Title = "Card Requests";
+    ViewBag.Title = "Loan Requests";
 }
 
 @{
     int count = 0;
 }
 
-<h2>Card Requests</h2>
+<h2>Loan Requests</h2>
 
 @if (!string.IsNullOrEmpty(ViewBag.DenyMessage))
 {
@@ -34,6 +34,7 @@
                 <th scope="col">Actions</th>
                 <!-- Add a new column for Remove action -->
                 <th scope="col">Remove</th>
+                <th scope="col">Detail</th>
             </tr>
         </thead>
         <tbody>
@@ -47,18 +48,18 @@
                         <td>@request.FinCode</td>
                         <td>@request.Email</td>
                         <td>
-                            @if (!request.IsVerified && !request.IsDenied)
+                            @if (!request.IsVerified && !request.isDenied)
                             {
-                                <form asp-controller="CardRequest" asp-action="Accept" method="post" asp-area="Manage" style="display:inline;">
+                                <form asp-controller="Loan" asp-action="Accept" method="post" asp-area="Manage" style="display:inline;">
                                     <input type="hidden" name="requestId" value="@request.Id" />
                                     <button type="submit" class="btn btn-success mt-4 mb-4">Accept</button>
                                 </form>
-                                <form asp-controller="CardRequest" asp-action="Deny" method="post" asp-area="Manage" style="display:inline;">
+                                <form asp-controller="Loan" asp-action="Deny" method="post" asp-area="Manage" style="display:inline;">
                                     <input type="hidden" name="requestId" value="@request.Id" />
                                     <button type="submit" class="btn btn-danger mt-4 mb-4">Deny</button>
-                                    </form>
+                                </form>
                             }
-                            @if (request.IsDenied)
+                            @if (request.isDenied)
                             {
                                 <span>❌</span>
                             }
@@ -70,11 +71,18 @@
 
                         <!-- Add a new column for the Remove action -->
                         <td>
-                            <form asp-controller="CardRequest" asp-action="Remove" method="post" asp-area="Manage" style="display:inline;">
+                            <form asp-controller="Loan" asp-action="Remove" method="post" asp-area="Manage" style="display:inline;">
                                 <input type="hidden" name="requestId" value="@request.Id" />
                                 <button type="submit" class="btn btn-warning mt-4 mb-4">Remove</button>
                             </form>
                         </td>
+                        <td>
+                            <form asp-controller="Loan" asp-action="Detail" method="get" asp-area="Manage" style="display:inline;">
+                                <input type="hidden" name="id" value="@request.Id" />
+                                <button type="submit" class="btn btn-info mt-4 mb-4">Detail</button>
+                            </form>
+                        </td>
+
                     </tr>
                 }
             }

@@ -23,7 +23,10 @@ namespace Bank.MVC.Controllers
 
         public IActionResult Confirm(string message)
         {
-            ViewBag.ConfirmationMessage = message;
+            if (TempData.ContainsKey("ConfirmationMessage"))
+            {
+                ViewBag.ConfirmationMessage = TempData["ConfirmationMessage"].ToString();
+            }
 
             return View();
         }
@@ -49,7 +52,9 @@ namespace Bank.MVC.Controllers
 
                     await _service.Send(vm);
 
-                    return RedirectToAction("Confirm", new { message = "Check your email for confirmation." });
+                    TempData["ConfirmationMessage"] = "Your request has been successfully submitted. Check your email for confirmation. An email will be sent shortly.";
+
+                    return RedirectToAction("Confirm");
                 }
                 else
                 {

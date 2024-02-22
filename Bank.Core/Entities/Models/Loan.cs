@@ -15,5 +15,7 @@ namespace Bank.Core.Entities.Models
         public string Country { get; set; }
         public string FinCode { get; set; }
         public string Phone { get; set; }
+        public bool isDenied { get; set; }
+        public bool IsVerified { get; set; }
     }
 }

@@ -1,4 +1,3 @@
-using Bank.Business.Hubs;
 using Bank.Business.Services;
 using Bank.Business.Services.Implementations;
 using Bank.Business.Services.Interface;
@@ -9,6 +8,7 @@ using Bank.DAL.Repositories.Interface;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SignalRChat.Hubs;
 
 namespace Bank.MVC
 {
@@ -103,7 +103,7 @@ namespace Bank.MVC
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            app.MapHub<ChatHub>("/chatUrl");
+            app.MapHub<ChatHub>("/chatHub");
             app.Run();
         }
     }

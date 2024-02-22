@@ -1,0 +1,55 @@
+﻿@using Bank.Core.Entities.Models
+@model Loan
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h4 class="mb-1">User FinCode: </h4>
+            <h3>@Model.FinCode</h3>
+        </div>
+    </div>
+
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h4 class="mb-1">User Name: </h4>
+            <h3>@Model.Name</h3>
+        </div>
+    </div>
+
+
+     <div class="row mb-4">
+        <div class="col-md-6">
+         <h4 class="mb-1">User Surname: </h4>
+            <h3>@Model.Surname</h3>
+        </div>
+    </div>
+
+   
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h4>User Email: </h4>
+            <h3>@Model.Email</h3>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h4>User Country: </h4>
+            <h3>@Model.Country</h3>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h4>User Phone: </h4>
+            <h3>@Model.Phone</h3>
+        </div>
+    </div>
+
+
+
+    
+    <a asp-controller="Loan" asp-action="Index" asp-area="Manage" class="btn btn-secondary mt-5">Go Back</a>
+
+</div>

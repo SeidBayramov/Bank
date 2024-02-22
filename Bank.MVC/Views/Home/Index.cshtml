@@ -181,16 +181,15 @@
                                             var emailInput = $("#emailInput").val();
                                             var emailValidationIcon = $("#emailValidationIcon");
 
-                                            if (/^[^\s]+[^\s]+\.[^\s]+$/.test(emailInput)) {
-                                                // Valid email format
+                                            if (/^[^\s]+[^\s]+\.[^\s]+$/.test(emailInput) && emailInput.endsWith("@@gmail.com")) {
                                                 emailValidationIcon.html('<span style="color: green;">&#10004;</span>');
                                             } else {
-                                                // Invalid email format
                                                 emailValidationIcon.html('<span style="color: red;">&#10008;</span>');
                                             }
                                         }
                                     </script>
                                 }
+
 
                                     <div class="input-box">
                                         <label class="checkbox-label">
@@ -274,14 +273,10 @@
                                 <input type="number" id="sellInput" name="sell" placeholder="Selling" class="w-100 fs-18 fs-lg-20 color-666 border-0 outline-0 pr-3" oninput="convertCurrency('sell')">
                                 <span class="separator-calc"></span>
                             </label>
-
                             <span class="col-3 col-md-2 col-lg-3 d-flex justify-content-end">
                                 <div class="selectric-wrapper selectric-selectric-tooltip">
                                     <div class="selectric-hide-select">
-                                        <select name="" class="selectric-tooltip" id="js-selectric-currency-1" data-previous-value="USD" aria-label="Currency" tabindex="-1" onchange={(e) =>
-                                            {
-
-                                            }>
+                                        <select name="" class="selectric-tooltip" id="js-selectric-currency-1" data-previous-value="USD" aria-label="Currency" tabindex="-1" onchange="convertCurrency('sell')">
                                             <option value="USD">USD</option>
                                             <option value="AZN">AZN</option>
                                             <option value="RUB">RUB</option>
@@ -301,7 +296,6 @@
                                 <input type="number" id="buyInput" name="buy" placeholder="Buying" class="w-100 fs-18 fs-lg-20 color-666 border-0 outline-0 pr-3" oninput="convertCurrency('buy')">
                                 <span class="separator-calc mr-2 mr-lg-0"></span>
                             </label>
-
                             <span class="col-3 col-md-2 col-lg-3 d-flex justify-content-end">
                                 <div class="selectric-wrapper selectric-selectric-tooltip">
                                     <div class="selectric-hide-select">
@@ -320,6 +314,7 @@
             </div>
         </div>
     </div>
+
     <!-- End Centered Currency Converter Section -->
     <!-- Existing Code -->
 

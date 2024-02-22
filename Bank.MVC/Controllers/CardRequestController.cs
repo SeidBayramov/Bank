@@ -43,7 +43,6 @@ public class CardRequestController : Controller
 
                 await _service.Apply(vm);
 
-                // Set confirmation message in TempData to be displayed on the Confirm page
                 TempData["ConfirmationMessage"] = "Your request has been successfully submitted. Check your email for confirmation. An email will be sent shortly.";
 
                 return RedirectToAction("Confirm");

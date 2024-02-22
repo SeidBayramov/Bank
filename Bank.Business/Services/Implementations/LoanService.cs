@@ -29,17 +29,17 @@ namespace Bank.Business.Services.Implementations
         {
             var exists = vm.Name == null || vm.Email == null || vm.Surname == null || vm.Country == null || vm.FinCode==null;
 
-            if (exists)
-            {
-                throw new ObjectParamsNullException("Object parameters are required!", nameof(vm.Name));
-            }
-            var existingRecordWithSameFinCode = await _context.Loans.FirstOrDefaultAsync(x => x.FinCode == vm.FinCode);
+            //if (exists)
+            //{
+            //    throw new ObjectParamsNullException("Object parameters are required!", nameof(vm.Name));
+            //}
+            //var existingRecordWithSameFinCode = await _context.Loans.FirstOrDefaultAsync(x => x.FinCode == vm.FinCode);
             //var existingRecordWithSameEmail = await _context.Loans.FirstOrDefaultAsync(x => x.Email == vm.Email);
 
-            if (existingRecordWithSameFinCode != null)
-            {
-                throw new ObjectSameParamsException("This FinCode is using before", nameof(vm.FinCode));
-            }
+            //if (existingRecordWithSameFinCode != null)
+            //{
+            //    throw new ObjectSameParamsException("This FinCode is using before", nameof(vm.FinCode));
+            //}
 
             //if (existingRecordWithSameEmail != null)
             //{
@@ -54,46 +54,15 @@ namespace Bank.Business.Services.Implementations
                 Surname = vm.Surname,
                 FinCode = vm.FinCode,
                 Phone = vm.Phone,
+                IsVerified=false,
                 CreatedDate=DateTime.Now
             };
 
             _context.Loans.Add(loan);
 
 
-            SendEmail(vm.Email, vm.FinCode);
             await _context.SaveChangesAsync();
 
-        }
-        private void SendEmail(string toUser, string finCode)
-        {
-            using (var client = new SmtpClient("smtp.gmail.com", 587))
-            {
-                client.UseDefaultCredentials = false;
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.Credentials = new NetworkCredential("seidbayramli2004@gmail.com", "pkal bwah hhke dtzb");
-                client.EnableSsl = true;
-
-                var randomQuery = new Random().Next(1000, 9999).ToString();
-
-                var tomorrowTime = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
-
-                var mailMessage = new MailMessage()
-                {
-                    From = new MailAddress("seidbayramli2004@gmail.com"),
-                    Subject = "Welcome to FINBANK Website",
-                    Body = $"Hello!" +
-                        $"<p>Welcome to FinBank! Your Loan request has been accepted.</p>" +
-                        $"<p>Your FinCode: {finCode}</p>" +
-                        $"<p>Your Bank query: {randomQuery}</p>" +
-                        $"<p>Please come to our office with your identity.</p>" +
-                        $"<p>Your query is aviable at {tomorrowTime}.</p>",
-
-                    IsBodyHtml = true
-                };
-
-                mailMessage.To.Add(toUser);
-                client.Send(mailMessage);
-            }
         }
     }
 }

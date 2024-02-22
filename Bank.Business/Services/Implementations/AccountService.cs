@@ -138,7 +138,7 @@ namespace Bank.Business.Services.Implementations
                         throw new UserRegistrationException($"{item.Description}", nameof(item));
                     }
                 }
-                await _userManager.AddToRoleAsync(newUser, UserRole.Members.ToString());
+                await _userManager.AddToRoleAsync(newUser, UserRole.Moderator.ToString());
 
                 return await SendConfirmEmailAddress(newUser);
 

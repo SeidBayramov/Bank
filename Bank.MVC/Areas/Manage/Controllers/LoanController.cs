@@ -1,49 +1,56 @@
-﻿using Bank.Business.Services.Implementations;
+﻿using Bank.Business.Services.Interface;
 using Bank.DAL.Context;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Net.Mail;
 using System.Net;
-using System.Threading.Tasks;
-using Bank.Business.Services.Interface;
+using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol.Plugins;
+using Bank.Business.Exceptions.Common;
 
 namespace Bank.MVC.Areas.Manage.Controllers
 {
     [Area("Manage")]
-    public class CardRequestController : Controller
+
+    public class LoanController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly ICardRequestService _cardRequestService;
-
-        public CardRequestController(AppDbContext context, ICardRequestService cardRequestService)
+        private readonly ILoanService _loanService;
+        public LoanController(AppDbContext context, ILoanService loanService)
         {
             _context = context;
-            _cardRequestService = cardRequestService;
+            _loanService = loanService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var cardlist = await _context.CardRequests
+            var cardlist = await _context.Loans
                 .ToListAsync();
-
-
             return View(cardlist);
         }
 
+        public async Task<IActionResult> Detail(int id)
+        {
+            var loan = await _context.Loans.FirstOrDefaultAsync(l => l.Id == id);
 
+            if (loan == null)
+            {
+                return View();
+            }
+
+            return View(loan);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Accept(int requestId)
         {
-            var cardRequest = await _context.CardRequests.FindAsync(requestId);
+            var loanRequest = await _context.Loans.FindAsync(requestId);
 
-            if (cardRequest != null)
+            if (loanRequest != null)
             {
-                cardRequest.IsVerified = true;
+                loanRequest.IsVerified = true;
                 await _context.SaveChangesAsync();
 
-                SendEmail(cardRequest.Email, cardRequest.FinCode);
+                SendEmail(loanRequest.Email, loanRequest.FinCode);
                 ViewBag.AcceptMessage = "Request has been accepted.";
 
                 return RedirectToAction("Index");
@@ -55,16 +62,16 @@ namespace Bank.MVC.Areas.Manage.Controllers
         [HttpPost]
         public async Task<IActionResult> Deny(int requestId)
         {
-            var cardRequest = await _context.CardRequests.FindAsync(requestId);
+            var loanRequest = await _context.Loans.FindAsync(requestId);
 
-            if (cardRequest != null)
+            if (loanRequest != null)
             {
-                cardRequest.IsVerified = false;
-                cardRequest.IsDenied = true; // Set IsDenied to true
+                loanRequest.IsVerified = false;
+                loanRequest.isDenied = true; // Set IsDenied to true
                 await _context.SaveChangesAsync();
                 ViewBag.DenyMessage = "Request has been denied.";
 
-                SendDenialEmail(cardRequest.Email);
+                SendLoanDenialEmail(loanRequest.Email);
 
                 return RedirectToAction("Index");
             }
@@ -77,11 +84,11 @@ namespace Bank.MVC.Areas.Manage.Controllers
         [HttpPost]
         public async Task<IActionResult> Remove(int requestId)
         {
-            var cardRequest = await _context.CardRequests.FindAsync(requestId);
+            var loanRequest = await _context.Loans.FindAsync(requestId);
 
-            if (cardRequest != null)
+            if (loanRequest != null)
             {
-                _context.CardRequests.Remove(cardRequest);
+                _context.Loans.Remove(loanRequest);
                 await _context.SaveChangesAsync();
 
                 ViewBag.Message = "Request has been removed.";
@@ -94,7 +101,7 @@ namespace Bank.MVC.Areas.Manage.Controllers
 
 
 
-        private void SendDenialEmail(string toUser)
+        private void SendLoanDenialEmail(string toUser)
         {
             using (var client = new SmtpClient("smtp.gmail.com", 587))
             {
@@ -106,9 +113,9 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 var mailMessage = new MailMessage()
                 {
                     From = new MailAddress("seidbayramli2004@gmail.com"),
-                    Subject = "Card Request Denial Notification",
+                    Subject = "Loan Request Denial Notification",
                     Body = $"Hello," +
-                        $"<p>We regret to inform you that your Card request has been denied.</p>" +
+                        $"<p>We regret to inform you that your loan request has been denied.</p>" +
                         $"<p>Please contact our support team for further details.</p>",
 
                     IsBodyHtml = true
@@ -130,26 +137,27 @@ namespace Bank.MVC.Areas.Manage.Controllers
                 client.EnableSsl = true;
 
                 var randomQuery = new Random().Next(1000, 9999).ToString();
+
                 var tomorrowTime = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
 
                 var mailMessage = new MailMessage()
                 {
                     From = new MailAddress("seidbayramli2004@gmail.com"),
                     Subject = "Welcome to FINBANK Website",
-                    Body = $"Hello," +
-                        $"<p>Welcome to FinBank! Your Card request has been accepted.</p>" +
+                    Body = $"Hello!" +
+                        $"<p>Welcome to FinBank! Your Loan request has been accepted.</p>" +
                         $"<p>Your FinCode: {finCode}</p>" +
                         $"<p>Your Bank query: {randomQuery}</p>" +
-                        $"<p>Please come to our office with your identity</p>" +
-                        $"<p>Your query is available at {tomorrowTime}.</p>",
+                        $"<p>Please come to our office with your identity.</p>" +
+                        $"<p>Your query is aviable at {tomorrowTime}.</p>",
 
                     IsBodyHtml = true
                 };
 
                 mailMessage.To.Add(toUser);
-
                 client.Send(mailMessage);
             }
         }
     }
 }
+

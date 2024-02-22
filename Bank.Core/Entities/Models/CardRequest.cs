@@ -12,5 +12,6 @@ namespace Bank.Core.Entities.Models
         public string FinCode { get; set; }
         public string Email { get; set; }
         public bool IsVerified { get; set; }
+        public bool IsDenied { get; set; }
     }
 }

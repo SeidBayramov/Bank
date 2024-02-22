@@ -49,7 +49,6 @@
     <link rel="stylesheet" href="~/assets/css/module-css/06-partner-section.css">
     <link rel="stylesheet" href="~/assets/css/module-css/07-footer-section.css">
     <link rel="stylesheet" href="~/assets/css/module-css/08-blog-section.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-c0ps2byF9jgrJZtPIdO3ePpkXR49pShT6a7tkwfpnApKsCAjMI8EE3IMCgKFP1AA" crossorigin="anonymous">
     <!-- Template styles -->
     <link rel="stylesheet" href="~/assets/css/style.css" />
     <link rel="stylesheet" href="~/assets/css/responsive.css" />
@@ -507,15 +506,10 @@
     <script src="~/assets/vendors/extra-scripts/jquery.paroller.min.js"></script>
     <script src="~/assets/vendors/language-switcher/jquery.polyglot.language.switcher.js"></script>
     <script src="~/assets/js/custom.js"></script>
-    <script>
-        var connection = new signalR.HubConnectionBuilder().withUrl("/chatUrl").build();
-        connection.start();
-
-        })
-
-    </script>
-
+   
     <script src="~/assets/js/delete.js"></script>
+
+
     @RenderSection("jsFiles",required: false);
     @RenderSection("scripts", required: false)
     @await RenderSectionAsync("DeleteFile",false)

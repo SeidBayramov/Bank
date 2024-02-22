@@ -31,7 +31,7 @@ namespace Bank.Business.Services.Implementations
         public async Task Apply(CardRequestVm vm)
         {
 
-            var exists = vm.FinCode == null || vm.Email == null || vm.IsVerified == null;
+            var exists = vm.FinCode == null || vm.Email == null ;
 
             if (exists)
             {
@@ -57,7 +57,7 @@ namespace Bank.Business.Services.Implementations
             {
                 FinCode = vm.FinCode,
                 Email = vm.Email,
-                IsVerified = vm.IsVerified,
+                IsVerified = false,
                 CreatedDate = DateTime.Now
             };
 
